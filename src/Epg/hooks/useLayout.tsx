@@ -62,30 +62,25 @@ export function useLayout({ height, width, startDate }: useLayoutProps) {
     }
   }, [isToday, startDate, width]);
 
-  const handleOnScrollRight = React.useCallback(
-    (num: number = HOUR_WIDTH) => {
-      if (scrollBoxRef?.current && isToday) {
-        const right = scrollBoxRef.current.scrollLeft + num;
-        if (right < DAY_WIDTH) {
-          console.log("right", right);
-          scrollBoxRef.current.scrollLeft = right;
-        }
-      }
-    },
-    [isToday]
-  );
+  const handleOnScrollTo = React.useCallback((num: number = HOUR_WIDTH) => {
+    if (scrollBoxRef?.current) {
+      scrollBoxRef.current.scrollLeft = num;
+    }
+  }, []);
 
-  const handleOnScrollLeft = React.useCallback(
-    (num: number = HOUR_WIDTH) => {
-      if (scrollBoxRef?.current && isToday) {
-        const left = scrollBoxRef.current.scrollLeft - num;
-        if (left >= 0) {
-          scrollBoxRef.current.scrollLeft = left;
-        }
-      }
-    },
-    [isToday]
-  );
+  const handleOnScrollRight = React.useCallback((num: number = HOUR_WIDTH) => {
+    if (scrollBoxRef?.current) {
+      const right = scrollBoxRef.current.scrollLeft + num;
+      scrollBoxRef.current.scrollLeft = right;
+    }
+  }, []);
+
+  const handleOnScrollLeft = React.useCallback((num: number = HOUR_WIDTH) => {
+    if (scrollBoxRef?.current) {
+      const left = scrollBoxRef.current.scrollLeft - num;
+      scrollBoxRef.current.scrollLeft = left;
+    }
+  }, []);
 
   // -------- Efffects --------
   React.useLayoutEffect(() => {
@@ -115,6 +110,7 @@ export function useLayout({ height, width, startDate }: useLayoutProps) {
     layoutHeight,
     onScroll: handleOnScroll,
     onScrollToNow: handleOnScrollToNow,
+    onScrollTo: handleOnScrollTo,
     onScrollLeft: handleOnScrollLeft,
     onScrollRight: handleOnScrollRight,
   };

@@ -1,12 +1,12 @@
-import * as React from 'react';
+import * as React from "react";
 // Import interfaces
-import { ChannelWithPosiiton } from '../helpers/types';
+import { ChannelWithPosiiton } from "../helpers/types";
 
 // Import styles
-import { ChannelsStyled } from '../styles';
+import { ChannelsStyled } from "../styles";
 
 // Import Components
-import { Channel } from '../components';
+import { Channel } from "../components";
 
 interface ChannelsProps {
   channels: ChannelWithPosiiton[];

@@ -47,6 +47,8 @@ export function useEpg({
   isLine = true,
   theme: customTheme,
   sidebarWidth = SIDEBAR_WIDTH,
+  width,
+  height,
   ...rest
 }: useEpgProps) {
   const { containerRef, scrollBoxRef, ...layoutProps } = useLayout({
@@ -54,7 +56,8 @@ export function useEpg({
     ...rest,
   });
   const { scrollX, scrollY, layoutWidth, layoutHeight } = layoutProps;
-  const { onScrollToNow, onScrollLeft, onScrollRight, onScroll } = layoutProps;
+  const { onScroll, onScrollToNow, onScrollTo, onScrollLeft, onScrollRight } =
+    layoutProps;
 
   //-------- Variables --------
   const channels = React.useMemo(
@@ -82,8 +85,8 @@ export function useEpg({
   );
 
   const getEpgProps = () => ({
-    width: layoutWidth,
-    height: layoutHeight,
+    width,
+    height,
     isSidebar,
     isLine,
     isTimeline,
@@ -111,6 +114,7 @@ export function useEpg({
     getEpgProps,
     getLayoutProps,
     onScrollToNow,
+    onScrollTo,
     onScrollLeft,
     onScrollRight,
     scrollY,

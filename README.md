@@ -75,7 +75,7 @@ const {
 } = useEpg({
   epg,
   channels,
-  startDate: '2022/02/1',
+  startDate: '2022/02/01',
 });
 
 return (
@@ -101,7 +101,7 @@ const {
 } = useEpg({
   epg,
   channels,
-  startDate: '2022/02/02',
+  startDate: '2022/02/01',
   width: 1200,
   height: 600
 });

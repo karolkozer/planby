@@ -219,4 +219,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Karol Kozer - [@kozerkarol_twitter](https://twitter.com/kozerkarol)
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/karolkozer)
+Project Link: [https://github.com/karolkozer/planby](https://github.com/karolkozer/planby)

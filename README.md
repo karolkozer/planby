@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://www.npmjs.com/package/planby">
-    <img src="images/planby-banner.png" width="500" alt="planby" />
+    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-logo.png" width="500" alt="planby" />
   </a>
 </div>
 

@@ -15,7 +15,7 @@
 
 ## Description
 
-Planby is solution to fast implementation of Epg, schedules, music events timeline and many more ideas. It uses custom virtual view which allows you to operate on really big number of data. Component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customized to the needs of the application.
+Planby is a solution for a quick implementation of Epg, schedules, music events timelines and many more ideas. It uses custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customized to the needs of the application design.
 
 ## Getting Started
 

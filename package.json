@@ -3,6 +3,10 @@
   "author": "Karol Kozer",
   "version": "0.1.20",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karolkozer/planby"
+  },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [

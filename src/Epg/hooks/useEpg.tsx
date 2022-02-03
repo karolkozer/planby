@@ -56,18 +56,24 @@ export function useEpg({
     ...rest,
   });
   const { scrollX, scrollY, layoutWidth, layoutHeight } = layoutProps;
-  const { onScroll, onScrollToNow, onScrollTo, onScrollLeft, onScrollRight } =
-    layoutProps;
+  const {
+    onScroll,
+    onScrollToNow,
+    onScrollTo,
+    onScrollLeft,
+    onScrollRight,
+  } = layoutProps;
 
   //-------- Variables --------
-  const channels = React.useMemo(
-    () => getConvertedChannels(channelsEpg),
-    [channelsEpg]
-  );
+  const channels = React.useMemo(() => getConvertedChannels(channelsEpg), [
+    channelsEpg,
+  ]);
 
+  const startDateTime = formatTime(startDate);
   const programs = React.useMemo(
-    () => getConvertedPrograms({ data: epg, channels, startDate }),
-    [epg, channels, startDate]
+    () =>
+      getConvertedPrograms({ data: epg, channels, startDate: startDateTime }),
+    [epg, channels, startDateTime]
   );
 
   const theme: Theme = customTheme || defaultTheme;

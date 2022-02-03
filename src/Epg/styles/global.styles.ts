@@ -1,6 +1,8 @@
 import { css } from "@emotion/react";
 
 export const globalStyles = css`
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Work+Sans:ital,wght@0,200;0,400;0,500;0,600;1,300&display=swap");
+
   /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 
   /*
@@ -43,7 +45,7 @@ Sections
 
   body {
     margin: 0; /* 1 */
-    font-family: system-ui, -apple-system,
+    font-family: "Inter", system-ui, -apple-system,
       /* Firefox supports this but not yet system-ui */ "Segoe UI", Roboto,
       Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"; /* 2 */
   }

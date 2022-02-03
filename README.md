@@ -1,10 +1,10 @@
-<div align="center">
+<div align="center" style="margin-bottom: 10px">
   <a href="https://www.npmjs.com/package/planby">
-    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-logo.png" width="500" alt="planby" />
+    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-logo.png" alt="planby" />
   </a>
 </div>
 
-<div align="center">
+<div align="center" style="margin-bottom: 20px">
   <a href="https://www.npmjs.com/package/planby">
     <img alt="npm" src="https://img.shields.io/npm/v/planby" />
   </a>
@@ -57,9 +57,9 @@ const epg = React.useMemo(
         'Ut anim nisi consequat minim deserunt...',
       id: 'b67ccaa3-3dd2-4121-8256-33dbddc7f0e6',
       image: 'https://via.placeholder.com',
-      since: '2022/02/01 00:00:00',
-      till: '2022/02/01 00:44:59',
-      title: 'Title',
+      since: "2022-02-02T00:55:00",
+      till: "2022-02-02T02:35:00",
+      title: 'News',
       ...
     },
   ],
@@ -75,7 +75,7 @@ const {
 } = useEpg({
   epg,
   channels,
-  startDate: '2022/02/01',
+  startDate: '2022-02-1', // or 2022-02-02T00:00:00
 });
 
 return (
@@ -101,7 +101,7 @@ const {
 } = useEpg({
   epg,
   channels,
-  startDate: '2022/02/01',
+ startDate: '2022-02-1', // or 2022-02-02T00:00:00
   width: 1200,
   height: 600
 });
@@ -125,18 +125,18 @@ return (
 
 Available options in useEpg
 
-| Property       | Type              | Status   |
-| -------------- | ----------------- | -------- |
-| `channels`     | `array`           | required |
-| `epg`          | `array`           | required |
-| `width`        | `number`          | optional |
-| `height`       | `number`          | optional |
-| `sidebarWidth` | `number`          | optional |
-| `startDate`    | `string` / `Date` | optional |
-| `isSidebar`    | `boolean`         | optional |
-| `isTimeline`   | `boolean`         | optional |
-| `isLine`       | `boolean`         | optional |
-| `theme`        | `object`          | optional |
+| Property       | Type              | Status   | Description                                       |
+| -------------- | ----------------- | -------- | ------------------------------------------------- |
+| `channels`     | `array`           | required | Array with channels data                          |
+| `epg`          | `array`           | required | Array with epg data                               |
+| `width`        | `number`          | optional | Epg width                                         |
+| `height`       | `number`          | optional | Epg height                                        |
+| `sidebarWidth` | `number`          | optional | Width of the sidebar with channels                |
+| `startDate`    | `string` / `Date` | optional | Date format `2022/02/02` or `2022-02-02T00:00:00` |
+| `isSidebar`    | `boolean`         | optional | Show/hide sidebar                                 |
+| `isTimeline`   | `boolean`         | optional | Show/hide timeline                                |
+| `isLine`       | `boolean`         | optional | Show/hide line                                    |
+| `theme`        | `object`          | optional | Object with theme schema                          |
 
 #### Note about width and height props
 
@@ -153,6 +153,24 @@ Properties returned from useEpg
 | `onScrollLeft`  | `function(value: number)` | Default value is 300                 |
 | `onScrollRight` | `function(value: number)` | Default value is 300                 |
 | `onScrollToNow` | `function()`              | Scroll to current time/live programs |
+
+### Channel schema
+
+| Property | Type     | Status   |
+| -------- | -------- | -------- |
+| `logo`   | `string` | required |
+| `uuid`   | `string` | required |
+
+### Epg schema
+
+| Property      | Type     | Status   |
+| ------------- | -------- | -------- |
+| `channelUuid` | `string` | required |
+| `id`          | `string` | required |
+| `image`       | `string` | required |
+| `since`       | `string` | required |
+| `till`        | `string` | required |
+| `title`       | `string` | required |
 
 ### Layout
 

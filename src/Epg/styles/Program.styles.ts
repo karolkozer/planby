@@ -1,5 +1,5 @@
-import styled from '@emotion/styled/macro';
-import { Theme } from '../helpers';
+import styled from "@emotion/styled/macro";
+import { Theme } from "../helpers";
 
 export const Wrapper = styled.div<{ width: number }>`
   position: absolute;
@@ -7,13 +7,17 @@ export const Wrapper = styled.div<{ width: number }>`
   overflow: hidden;
 `;
 
-export const Content = styled.div<{ isLive: boolean; theme?: Theme }>`
+export const Content = styled.div<{
+  isLive: boolean;
+  width: number;
+  theme?: Theme;
+}>`
   position: relative;
   display: flex;
   font-size: 11px;
   height: 100%;
   border-radius: 8px;
-  padding: 10px 20px;
+  padding: 10px ${({ width }) => (width < 30 ? 4 : 20)}px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.4s ease-in-out;
@@ -43,12 +47,13 @@ const Elipsis = `
 `;
 
 export const Title = styled.p<{ theme?: Theme }>`
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 400;
   text-align: left;
   margin-top: 0;
   margin-bottom: 5px;
-  color: ${({ theme }) => theme.white};
+  font-weight: 500;
+  color: ${({ theme }) => theme.grey[300]};
   ${Elipsis}
 `;
 

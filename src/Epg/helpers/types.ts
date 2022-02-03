@@ -23,4 +23,4 @@ export type ChannelWithPosiiton = Channel & {
   position: Pick<Position, "top">;
 };
 
-export type DateTime = string | number | Date;
+export type DateTime = string | Date;

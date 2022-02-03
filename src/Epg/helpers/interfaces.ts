@@ -18,6 +18,7 @@ export interface Theme {
     600: string;
     900: string;
   };
+  grey: { 300: string };
   white: string;
   green: { 300: string };
   scrollbar: {

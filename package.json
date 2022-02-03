@@ -1,5 +1,7 @@
 {
-  "version": "0.1.11",
+  "name": "planby",
+  "author": "Karol Kozer",
+  "version": "0.1.20",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -33,8 +35,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "planby",
-  "author": "Karol Kozer",
   "module": "dist/planby.esm.js",
   "size-limit": [
     {
@@ -62,5 +62,15 @@
     "tslib": "^2.3.1",
     "typescript": "^4.5.5",
     "use-debounce": "^7.0.1"
-  }
+  },
+  "keywords": [
+    "epg",
+    "schedule",
+    "harmongram",
+    "react",
+    "hooks",
+    "electronic",
+    "program",
+    "guide"
+  ]
 }

@@ -15,9 +15,16 @@ import {
 } from "./variables";
 
 // Import time heleprs
-import { formatTime, roundToMinutes } from "./time";
+import {
+  formatTime,
+  roundToMinutes,
+  isYesterday as isYesterdayTime,
+} from "./time";
 
 // -------- Program width --------
+const getItemDiffWidth = (diff: number) =>
+  (diff * HOUR_WIDTH) / HOUR_IN_MINUTES;
+
 export const getPositionX = (
   since: DateTime,
   till: DateTime,
@@ -26,20 +33,30 @@ export const getPositionX = (
   const tomorrowDate = startOfDay(addDays(new Date(startDate), 1));
   const dateNow = startOfDay(new Date(till));
   const isTomorrow = isEqual(dateNow, tomorrowDate);
+  const isYesterday = isYesterdayTime(since, startDate);
+
+  if (isYesterday) {
+    const diffTime = differenceInMinutes(
+      roundToMinutes(till),
+      startOfDay(new Date(startDate))
+    );
+    return getItemDiffWidth(diffTime);
+  }
 
   if (isTomorrow) {
     const diffTime = differenceInMinutes(
       startOfDay(new Date(till)),
       roundToMinutes(since)
     );
-    return (diffTime * HOUR_WIDTH) / HOUR_IN_MINUTES;
+    return getItemDiffWidth(diffTime);
   }
 
   const diffTime = differenceInMinutes(
-    roundToMinutes(till),
-    roundToMinutes(since)
+    roundToMinutes(new Date(till)),
+    roundToMinutes(new Date(since))
   );
-  return (diffTime * HOUR_WIDTH) / HOUR_IN_MINUTES;
+
+  return getItemDiffWidth(diffTime);
 };
 
 // -------- Channel position in the Epg --------
@@ -61,11 +78,14 @@ export const getProgramPosition = (
     since: formatTime(program.since),
     till: formatTime(program.till),
   };
+  const isYesterday = isYesterdayTime(item.since, startDate);
 
   const width = getPositionX(item.since, item.till, startDate);
   const top = SIDEBAR_ITEM_HEIGHT * channelIndex;
-  const left = getPositionX(startDate, item.since, startDate);
+  let left = getPositionX(startDate, item.since, startDate);
   const edgeEnd = getPositionX(startDate, item.till, startDate);
+
+  if (isYesterday) left = 0;
 
   const position = {
     width,

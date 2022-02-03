@@ -34,11 +34,16 @@ export function Program<T extends ProgramData>({
     format(new Date(date), TIME_FORMAT.HOURS_MIN);
 
   const isLive = getLiveStatus(since, till);
-  const isMinWidth = width > 200;
+  const isMinWidth = width > 400;
 
   return (
     <Wrapper width={width} style={position}>
-      <Content onClick={() => onClick?.(data)} {...rest} isLive={isLive}>
+      <Content
+        width={width}
+        isLive={isLive}
+        onClick={() => onClick?.(data)}
+        {...rest}
+      >
         <Box>
           {isLive && isMinWidth && <Image src={image} alt="Preview" />}
           <div

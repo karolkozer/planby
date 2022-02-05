@@ -6,7 +6,7 @@ export const theme = {
   grey: { 300: "#d1d1d1" },
   white: "#fff",
   green: {
-    300: "#2c7a7b",
+    300: "#2C7A7B",
   },
   scrollbar: {
     border: "#ffffff",

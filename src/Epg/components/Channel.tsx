@@ -13,7 +13,7 @@ interface ChannelProps<T> {
   onClick?: (v: ChannelType) => void;
 }
 
-const { Box, Logo } = ChannelStyled;
+const { ChannelBox, ChannelLogo } = ChannelStyled;
 
 export function Channel<T extends ChannelWithPosiiton>({
   channel,
@@ -25,8 +25,8 @@ export function Channel<T extends ChannelWithPosiiton>({
     logo,
   } = channel;
   return (
-    <Box onClick={() => onClick?.(channel)} {...rest} top={top}>
-      <Logo src={logo} alt="Logo" />
-    </Box>
+    <ChannelBox onClick={() => onClick?.(channel)} {...rest} top={top}>
+      <ChannelLogo src={logo} alt="Logo" />
+    </ChannelBox>
   );
 }

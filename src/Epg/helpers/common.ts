@@ -1,3 +1,8 @@
+import { useEffect, useLayoutEffect } from "react";
+
+export const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 type OmitObjectType = { [key: string]: any };
 export const omit = (obj: OmitObjectType, ...props: string[]) => {
   const result = { ...obj };

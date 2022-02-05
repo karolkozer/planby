@@ -1,13 +1,13 @@
 import styled from "@emotion/styled/macro";
 import { Theme } from "../helpers";
 
-export const Wrapper = styled.div<{ width: number }>`
+export const ProgramBox = styled.div<{ width: number }>`
   position: absolute;
   padding: ${({ width }) => (width === 0 ? 0 : 4)}px;
   overflow: hidden;
 `;
 
-export const Content = styled.div<{
+export const ProgramContent = styled.div<{
   isLive: boolean;
   width: number;
   theme?: Theme;
@@ -34,7 +34,7 @@ export const Content = styled.div<{
     `background: linear-gradient(to right, ${gradient.blue[900]}, ${gradient.blue[600]},${gradient.blue[300]})`}
 `;
 
-export const Box = styled.div`
+export const ProgramFlex = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -46,7 +46,7 @@ const Elipsis = `
   text-overflow: ellipsis;
 `;
 
-export const Title = styled.p<{ theme?: Theme }>`
+export const ProgramTitle = styled.p<{ theme?: Theme }>`
   font-size: 14px;
   font-weight: 400;
   text-align: left;
@@ -57,17 +57,21 @@ export const Title = styled.p<{ theme?: Theme }>`
   ${Elipsis}
 `;
 
-export const Time = styled.span<{ theme?: Theme }>`
+export const ProgramText = styled.span<{ theme?: Theme }>`
   display: block;
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 400;
   color: ${({ theme }) => theme.text.grey[500]};
   text-align: left;
   ${Elipsis}
 `;
 
-export const Image = styled.img`
+export const ProgramImage = styled.img`
   margin-right: 15px;
   border-radius: 6px;
   width: 100px;
+`;
+
+export const ProgramStack = styled.div`
+  overflow: hidden;
 `;

@@ -1,10 +1,10 @@
-import styled from '@emotion/styled/macro';
-import { Theme } from '../helpers';
+import styled from "@emotion/styled/macro";
+import { Theme } from "../helpers";
 
 // Import heleprs
-import { SIDEBAR_ITEM_HEIGHT } from '../helpers';
+import { SIDEBAR_ITEM_HEIGHT } from "../helpers";
 
-export const Box = styled.div<{ top: number; theme?: Theme }>`
+export const ChannelBox = styled.div<{ top: number; theme?: Theme }>`
   position: absolute;
   top: ${({ top }) => top}px;
   height: ${SIDEBAR_ITEM_HEIGHT}px;
@@ -15,7 +15,7 @@ export const Box = styled.div<{ top: number; theme?: Theme }>`
   background-color: ${({ theme }) => theme.primary[900]};
 `;
 
-export const Logo = styled.img`
+export const ChannelLogo = styled.img`
   max-height: 60px;
   max-width: 60px;
   position: relative;

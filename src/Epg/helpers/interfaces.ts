@@ -6,11 +6,13 @@ export interface Program {
   since: string | number | Date;
   till: string | number | Date;
   image: string;
+  [key: string]: any;
 }
 
 export interface Channel {
   uuid: string;
   logo: string;
+  [key: string]: any;
 }
 
 export interface Theme {

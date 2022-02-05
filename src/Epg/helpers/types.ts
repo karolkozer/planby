@@ -14,7 +14,7 @@ export type ProgramWithPosition = {
   data: Program;
 };
 
-export type ProgramData = {
+export type ProgramItem = {
   position: Omit<Position, "edgeEnd">;
   data: Program;
 };

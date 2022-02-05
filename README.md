@@ -35,7 +35,7 @@ npm install planby
 
 ## Usage
 
-```jsx
+```tsx
 import { useEpg, Epg, Layout } from 'planby';
 
 const channels = React.useMemo(
@@ -57,9 +57,9 @@ const epg = React.useMemo(
         'Ut anim nisi consequat minim deserunt...',
       id: 'b67ccaa3-3dd2-4121-8256-33dbddc7f0e6',
       image: 'https://via.placeholder.com',
-      since: "2022-02-02T00:55:00",
-      till: "2022-02-02T02:35:00",
-      title: 'News',
+      since: "2022-02-02T23:50:00",
+      till: "2022-02-02T00:55:00",
+      title: 'Title',
       ...
     },
   ],
@@ -75,7 +75,7 @@ const {
 } = useEpg({
   epg,
   channels,
-  startDate: '2022-02-1', // or 2022-02-02T00:00:00
+  startDate: '2022/02/02', // or 2022-02-02T00:00:00
 });
 
 return (
@@ -93,7 +93,7 @@ return (
 
 or
 
-```jsx
+```tsx
 const {
   getEpgProps,
   getLayoutProps,
@@ -101,7 +101,7 @@ const {
 } = useEpg({
   epg,
   channels,
- startDate: '2022-02-1', // or 2022-02-02T00:00:00
+ startDate: '2022/02/02', // or 2022-02-02T00:00:00
   width: 1200,
   height: 600
 });
@@ -153,6 +153,7 @@ Properties returned from useEpg
 | `onScrollLeft`  | `function(value: number)` | Default value is 300                 |
 | `onScrollRight` | `function(value: number)` | Default value is 300                 |
 | `onScrollToNow` | `function()`              | Scroll to current time/live programs |
+| `onScrollTo`    | `function(value: number)` | Scroll to value                      |
 
 ### Channel schema
 
@@ -178,10 +179,125 @@ Properties returned from useEpg
 
 Available props in Layout
 
-| Property        | Type                                                     | Description                                                                                                     | Status   |
-| --------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- |
-| `renderProgram` | `function({ program: { data: object, position: object})` | `data` object contains all properties related to the program, `position` object includes all position styles    | optional |
-| `renderChannel` | `function({ channel: { ..., position: object})`          | `channel` object contains all properties related to the channel, `position` object includes all position styles | optional |
+| Property         | Type                                                     | Description                                                                                                     | Status   |
+| ---------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- |
+| `renderProgram`  | `function({ program: { data: object, position: object})` | `data` object contains all properties related to the program, `position` object includes all position styles    | optional |
+| `renderChannel`  | `function({ channel: { ..., position: object})`          | `channel` object contains all properties related to the channel, `position` object includes all position styles | optional |
+| `renderTimeline` | `function({sidebarWidth: number})`                       | `sidebarWidth` value of the channel's sidebar width                                                             | optional |
+
+# Rednder functions
+
+You can use Plaby's style components to develop main features. Moreover, you can integrate with third party UI library eg. Chakra UI, Material UI etc or make custom styles.
+
+## renderProgram
+
+Below is an example that allows you to render your custom Program component using Plaby's style components.
+
+```tsx
+import {
+  useEpg,
+  Epg,
+  Layout,
+  ProgramBox,
+  ProgramContent,
+  ProgramFlex,
+  ProgramStack,
+  ProgramTitle,
+  ProgramText,
+  ProgramImage,
+  useProgram,
+  Program,
+} from "planby";
+
+interface ItemProps {
+  program: Program
+}
+
+const Item = ({ program }: ItemProps) => {
+  const { styles, formatTime, isLive, isMinWidth } = useProgram({ program });
+
+  const { data } = program;
+  const { image, title, since, till } = data;
+
+  return (
+    <ProgramBox width={styles.width} style={styles.position}>
+      <ProgramContent
+        width={styles.width}
+        isLive={isLive}
+      >
+        <ProgramFlex>
+          {isLive && isMinWidth && <ProgramImage src={image} alt="Preview" />}
+          <ProgramStack>
+            <ProgramTitle>{title}</ProgramTitle>
+            <ProgramText>
+              {formatTime(since)} - {formatTime(till)}
+            </ProgramText>
+          </ProgramStack>
+        </ProgramFlex>
+      </ProgramContent>
+    </ProgramBox>
+  );
+};
+
+function App() {
+
+  ...
+
+ const {
+  getEpgProps,
+  getLayoutProps,
+} = useEpg({
+  epg,
+  channels,
+  startDate: '2022/02/02', // or 2022-02-02T00:00:00
+});
+
+return (
+  <div>
+    <div style={{ height: '600px', width: '1200px' }}>
+      <Epg {...getEpgProps()}>
+        <Layout
+            {...getLayoutProps()}
+            renderProgram={({ program }) => (
+              <Item key={program.data.id} program={program} />
+            )}
+          />
+      </Epg>
+    </div>
+  </div>
+);
+}
+
+export default App;
+```
+
+## renderChannel
+
+Below is an example that allows you to render your custom Channel component using Plaby's style components.
+
+```tsx
+import { useEpg, Epg, Layout, ChannelBox, ChannelLogo, Channel } from 'planby';
+
+interface ChannelItemProps {
+  channel: Channel;
+}
+
+const ChannelItem = ({ channel }: ChannelItemProps) => {
+  const {
+    position: { top },
+    logo,
+  } = channel;
+  return (
+    <ChannelBox top={top}>
+      <ChannelLogo
+        onClick={() => console.log('channel', channel)}
+        src={logo}
+        alt="Logo"
+      />
+    </ChannelBox>
+  );
+};
+```
 
 ## Theme
 
@@ -195,9 +311,10 @@ const theme = {
     600: '#1a202c',
     900: '#171923',
   },
+  grey: { 300: '#d1d1d1' },
   white: '#fff',
   green: {
-    300: '#2c7a7b',
+    300: '#2C7A7B',
   },
   scrollbar: {
     border: '#ffffff',

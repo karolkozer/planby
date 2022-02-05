@@ -1,9 +1,9 @@
-import React from 'react';
-import { useDebouncedCallback } from 'use-debounce';
-import { startOfToday, isToday as isTodayFns } from 'date-fns';
+import React from "react";
+import { useDebouncedCallback } from "use-debounce";
+import { startOfToday, isToday as isTodayFns } from "date-fns";
 
 // Import types
-import { DateTime } from '../helpers/types';
+import { DateTime } from "../helpers/types";
 
 // Import heleprs
 import {
@@ -11,7 +11,8 @@ import {
   DEBOUNCE_WAIT,
   DEBOUNCE_WAIT_MAX,
   getPositionX,
-} from '../helpers';
+  useIsomorphicLayoutEffect,
+} from "../helpers";
 
 interface useLayoutProps {
   height?: number;
@@ -33,7 +34,7 @@ export function useLayout({ height, width, startDate }: useLayoutProps) {
   const isToday = isTodayFns(new Date(startDate));
 
   const debounced = useDebouncedCallback(
-    value => {
+    (value) => {
       setScrollY(value.y);
       setScrollX(value.x);
     },
@@ -43,7 +44,7 @@ export function useLayout({ height, width, startDate }: useLayoutProps) {
 
   // -------- Handlers --------
   const handleOnScroll = React.useCallback(
-    e => {
+    (e) => {
       debounced({ y: e.target.scrollTop, x: e.target.scrollLeft });
     },
     [debounced]
@@ -82,7 +83,7 @@ export function useLayout({ height, width, startDate }: useLayoutProps) {
   }, []);
 
   // -------- Efffects --------
-  React.useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (containerRef?.current) {
       const container = containerRef.current;
       if (!width) {

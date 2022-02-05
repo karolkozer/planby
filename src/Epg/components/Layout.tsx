@@ -2,7 +2,7 @@ import React from "react";
 
 // Import types
 import {
-  ProgramData,
+  ProgramItem,
   ProgramWithPosition,
   ChannelWithPosiiton,
   DateTime,
@@ -13,13 +13,13 @@ import {
 import { DAY_WIDTH, SIDEBAR_ITEM_HEIGHT, getProgramOptions } from "../helpers";
 
 // Import styles
-import { EpgStyled } from "../styles";
+import { EpgStyled, TimelineStyled } from "../styles";
 
 // Import components
 import { Timeline, Channels, Program, Line } from "../components";
 
 interface LayoutProps {
-  programs: ProgramData[];
+  programs: ProgramItem[];
   channels: ChannelWithPosiiton[];
   startDate: DateTime;
   scrollY: number;
@@ -30,11 +30,13 @@ interface LayoutProps {
   isLine?: boolean;
   isProgramVisible: (position: Position) => boolean;
   isChannelVisible: (position: Pick<Position, "top">) => boolean;
-  renderProgram?: (v: { program: ProgramData }) => void;
+  renderProgram?: (v: { program: ProgramItem }) => void;
   renderChannel?: (v: { channel: ChannelWithPosiiton }) => void;
+  renderTimeline?: (v: { sidebarWidth: number }) => React.ReactNode;
 }
 
 const { ScrollBox, Content } = EpgStyled;
+const { TimelineWrapper } = TimelineStyled;
 
 export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
   (props, scrollBoxRef) => {
@@ -48,6 +50,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
       isChannelVisible,
       renderProgram,
       renderChannel,
+      renderTimeline,
     } = props;
 
     const channelsLength = channels.length;
@@ -70,12 +73,20 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
       }
     };
 
+    const renderTopbar = () => {
+      const props = { sidebarWidth: sidebarWidth, isSidebar: isSidebar };
+      if (renderTimeline) {
+        <TimelineWrapper {...props}>
+          {renderTimeline?.({ sidebarWidth })}
+        </TimelineWrapper>;
+      }
+      return <Timeline {...props} />;
+    };
+
     return (
       <ScrollBox ref={scrollBoxRef} onScroll={onScroll}>
         {isLine && <Line startDate={startDate} height={contentHeight} />}
-        {isTimeline && (
-          <Timeline sidebarWidth={sidebarWidth} isSidebar={isSidebar} />
-        )}
+        {isTimeline && renderTopbar()}
         {isSidebar && (
           <Channels
             sidebarWidth={sidebarWidth}

@@ -1,32 +1,42 @@
 import * as React from "react";
-// Import styles
-import { generateArray } from "../helpers";
 
 // Import styles
 import { TimelineStyled } from "../styles";
 
-const { Wrapper, Box, Time, Dividers, Divider } = TimelineStyled;
+// Import hooks
+import { useTimeline } from "../hooks";
+
+const {
+  TimelineWrapper,
+  TimelineBox,
+  TimelineTime,
+  TimelineDividers,
+  TimelineDivider,
+} = TimelineStyled;
 
 interface TimelineProps {
   isSidebar: boolean;
   sidebarWidth: number;
 }
+
 export function Timeline({ isSidebar, sidebarWidth }: TimelineProps) {
-  const time = (index: number) => `${index < 10 ? `0${index}` : index}:00`;
+  const { time, dividers } = useTimeline();
+  const timeFormat = (index: number) =>
+    `${index < 10 ? `0${index}` : index}:00`;
 
   const renderTime = (index: number) => (
-    <Box key={index}>
-      <Time>{time(index)}</Time>
-      <Dividers>{renderDividers()}</Dividers>
-    </Box>
+    <TimelineBox key={index}>
+      <TimelineTime>{timeFormat(index)}</TimelineTime>
+      <TimelineDividers>{renderDividers()}</TimelineDividers>
+    </TimelineBox>
   );
 
   const renderDividers = () =>
-    generateArray(4).map((_, index) => <Divider key={index} />);
+    dividers.map((_, index) => <TimelineDivider key={index} />);
 
   return (
-    <Wrapper sidebarWidth={sidebarWidth} isSidebar={isSidebar}>
-      {generateArray(24).map((_, index) => renderTime(index))}
-    </Wrapper>
+    <TimelineWrapper sidebarWidth={sidebarWidth} isSidebar={isSidebar}>
+      {time.map((_, index) => renderTime(index))}
+    </TimelineWrapper>
   );
 }

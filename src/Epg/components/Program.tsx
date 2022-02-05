@@ -1,63 +1,60 @@
 import * as React from "react";
-import { format } from "date-fns";
 
 // Import interfaces
 import { Program as ProgramType } from "../helpers/interfaces";
 
 // Import types
-import { ProgramData } from "../helpers/types";
-
-// Import helpers
-import { TIME_FORMAT, getLiveStatus } from "../helpers";
+import { ProgramItem } from "../helpers/types";
 
 // Import styles
 import { ProgramStyled } from "../styles";
+
+// Import hooks
+import { useProgram } from "../hooks";
 
 interface ProgramProps<T> {
   program: T;
   onClick?: (v: ProgramType) => void;
 }
 
-const { Wrapper, Content, Box, Title, Time, Image } = ProgramStyled;
+const {
+  ProgramBox,
+  ProgramContent,
+  ProgramFlex,
+  ProgramStack,
+  ProgramTitle,
+  ProgramText,
+  ProgramImage,
+} = ProgramStyled;
 
-export function Program<T extends ProgramData>({
+export function Program<T extends ProgramItem>({
   program,
   onClick,
   ...rest
 }: ProgramProps<T>) {
-  const { data, position } = program;
-  const { width } = position;
+  const { styles, formatTime, isLive, isMinWidth } = useProgram({ program });
 
-  const { title, image, since, till } = data;
-
-  const formatTime = (date: string | number | Date) =>
-    format(new Date(date), TIME_FORMAT.HOURS_MIN);
-
-  const isLive = getLiveStatus(since, till);
-  const isMinWidth = width > 400;
+  const { data } = program;
+  const { image, title, since, till } = data;
 
   return (
-    <Wrapper width={width} style={position}>
-      <Content
-        width={width}
+    <ProgramBox width={styles.width} style={styles.position}>
+      <ProgramContent
+        width={styles.width}
         isLive={isLive}
         onClick={() => onClick?.(data)}
         {...rest}
       >
-        <Box>
-          {isLive && isMinWidth && <Image src={image} alt="Preview" />}
-          <div
-            style={{
-              width: "100%",
-            }}
-          >
-            <Title>{title}</Title>
-            <Time>
+        <ProgramFlex>
+          {isLive && isMinWidth && <ProgramImage src={image} alt="Preview" />}
+          <ProgramStack>
+            <ProgramTitle>{title}</ProgramTitle>
+            <ProgramText>
               {formatTime(since)} - {formatTime(till)}
-            </Time>
-          </div>
-        </Box>
-      </Content>
-    </Wrapper>
+            </ProgramText>
+          </ProgramStack>
+        </ProgramFlex>
+      </ProgramContent>
+    </ProgramBox>
   );
 }

@@ -173,6 +173,17 @@ Properties returned from useEpg
 | `till`        | `string` | required |
 | `title`       | `string` | required |
 
+### Epg
+
+#### Base props
+
+Available props in Epg
+
+| Property    | Type        | Description              | Status   |
+| ----------- | ----------- | ------------------------ | -------- |
+| `isLoading` | `boolean`   | Loader state             | optional |
+| `loader`    | `Component` | Loader custom cpomponent | optional |
+
 ### Layout
 
 #### Base props
@@ -315,6 +326,11 @@ const theme = {
   white: '#fff',
   green: {
     300: '#2C7A7B',
+  },
+  loader: {
+    teal: '#5DDADB',
+    purple: '#3437A2',
+    pink: '#F78EB6',
   },
   scrollbar: {
     border: '#ffffff',

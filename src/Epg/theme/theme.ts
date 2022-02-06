@@ -8,6 +8,11 @@ export const theme = {
   green: {
     300: "#2C7A7B",
   },
+  loader: {
+    teal: "#5DDADB",
+    purple: "#3437A2",
+    pink: "#F78EB6",
+  },
   scrollbar: {
     border: "#ffffff",
     thumb: {

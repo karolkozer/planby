@@ -5,6 +5,7 @@ import {
   ProgramItem as ProgramItemType,
   ChannelWithPosiiton,
 } from "./helpers/types";
+export { getLiveStatus } from "./helpers/";
 
 // Types
 export type Channel = ChannelWithPosiiton;

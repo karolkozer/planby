@@ -23,6 +23,11 @@ export interface Theme {
   grey: { 300: string };
   white: string;
   green: { 300: string };
+  loader: {
+    teal: string;
+    purple: string;
+    pink: string;
+  };
   scrollbar: {
     border: string;
     thumb: {

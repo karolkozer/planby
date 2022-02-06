@@ -85,7 +85,13 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
 
     return (
       <ScrollBox ref={scrollBoxRef} onScroll={onScroll}>
-        {isLine && <Line startDate={startDate} height={contentHeight} />}
+        {isLine && (
+          <Line
+            sidebarWidth={sidebarWidth}
+            startDate={startDate}
+            height={contentHeight}
+          />
+        )}
         {isTimeline && renderTopbar()}
         {isSidebar && (
           <Channels

@@ -18,8 +18,16 @@ interface LineProps {
 
 const { Box } = LineStyled;
 
-export function Line({ height, startDate, sidebarWidth }: LineProps) {
-  const { positionX } = useLine({ startDate, sidebarWidth });
-  if (!isToday(new Date(startDate))) return null;
+export function LineMemo({ height, startDate, sidebarWidth }: LineProps) {
+  const { positionX, isScrollX } = useLine({ startDate, sidebarWidth });
+
+  const date = new Date(startDate);
+  if (!isToday(date) || !isScrollX) return null;
+
   return <Box height={height} left={positionX} />;
 }
+
+export const Line = React.memo(
+  LineMemo,
+  (prev, next) => prev.startDate === next.startDate
+);

@@ -15,6 +15,9 @@ export const ITEM_OVERSCAN = SIDEBAR_ITEM_HEIGHT;
 export const DEBOUNCE_WAIT = 100;
 export const DEBOUNCE_WAIT_MAX = 100;
 
+// Program refresh
+export const PROGRAM_REFRESH = 120000;
+
 // Theme
 export const THEME_MODE = {
   DARK: "dark",

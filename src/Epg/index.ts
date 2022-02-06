@@ -1,13 +1,15 @@
 import { ProgramStyled, ChannelStyled } from "./styles";
 
 // Import types
+import { Theme as ThemeType } from "./helpers/interfaces";
 import {
   ProgramItem as ProgramItemType,
   ChannelWithPosiiton,
 } from "./helpers/types";
-export { getLiveStatus } from "./helpers/";
+export { getLiveStatus } from "./helpers";
 
 // Types
+export type Theme = ThemeType;
 export type Channel = ChannelWithPosiiton;
 export type Program = ProgramItemType;
 

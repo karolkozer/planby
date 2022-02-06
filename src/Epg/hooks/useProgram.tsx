@@ -1,10 +1,14 @@
+import React from "react";
 import { format } from "date-fns";
 
 // Import types
 import { ProgramItem } from "../helpers/types";
 
 // Import helpers
-import { TIME_FORMAT, getLiveStatus, omit } from "../helpers";
+import { PROGRAM_REFRESH, TIME_FORMAT, getLiveStatus, omit } from "../helpers";
+
+// Import hooks
+import { useInterval } from "./useInterval";
 
 interface useProgramProps<T> {
   program: T;
@@ -20,6 +24,10 @@ export function useProgram<T extends ProgramItem>({
 
   const { since, till } = data;
 
+  const [isLive, setIsLive] = React.useState<boolean>(() =>
+    getLiveStatus(since, till)
+  );
+
   const newPosition = omit(position, "egdeEnd");
 
   const formatTime = (
@@ -27,7 +35,11 @@ export function useProgram<T extends ProgramItem>({
     formatType: string = TIME_FORMAT.HOURS_MIN
   ) => format(new Date(date), formatType);
 
-  const isLive = getLiveStatus(since, till);
+  useInterval(() => {
+    const status = getLiveStatus(since, till);
+    setIsLive(status);
+  }, PROGRAM_REFRESH);
+
   const isMinWidth = width > minWidth;
 
   return {

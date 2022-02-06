@@ -64,7 +64,7 @@ export function Loader() {
               duration: 1,
               ease: "easeInOut",
               repeat: Infinity,
-              delay: 0.1,
+              delay: 0.02,
             }}
           />
         </motion.div>
@@ -110,13 +110,13 @@ export function Loader() {
             color="#5DDADB"
             animate={{
               position: "relative",
-              right: ["0px", "70px", "0px"],
+              right: ["0px", "68px", "0px"],
             }}
             transition={{
               duration: 1,
               ease: "easeInOut",
               repeat: Infinity,
-              delay: 0.35,
+              delay: 0.33,
             }}
           />
         </div>

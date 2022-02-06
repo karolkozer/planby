@@ -9,6 +9,7 @@ import {
   DAY_WIDTH,
   HOUR_WIDTH,
   HOUR_IN_MINUTES,
+  PROGRAM_REFRESH,
   getPositionX,
 } from "../../helpers";
 
@@ -21,17 +22,20 @@ interface useLineProps {
 }
 
 export function useLine({ startDate, sidebarWidth }: useLineProps) {
-  const getInitialState = () =>
+  const initialState =
     getPositionX(startOfDay(new Date(startDate)), new Date(), startDate) +
     sidebarWidth;
-  const [positionX, setPositionX] = React.useState<number>(getInitialState);
+  const [positionX, setPositionX] = React.useState<number>(() => initialState);
 
-  const isDayEnd = positionX === DAY_WIDTH;
-  const isScrollX = isDayEnd ? 180000 : null;
+  const isDayEnd = positionX !== DAY_WIDTH;
+  const isScrollX = React.useMemo(() => (isDayEnd ? PROGRAM_REFRESH : null), [
+    isDayEnd,
+  ]);
 
   useInterval(() => {
-    const position = (HOUR_WIDTH / HOUR_IN_MINUTES) * 3;
-    setPositionX((prev) => prev + position + sidebarWidth);
+    const offset = HOUR_WIDTH / HOUR_IN_MINUTES;
+    const positionOffset = offset * 2;
+    setPositionX((prev) => prev + positionOffset);
   }, isScrollX);
 
   React.useEffect(() => {
@@ -41,5 +45,5 @@ export function useLine({ startDate, sidebarWidth }: useLineProps) {
     setPositionX(newPositionX);
   }, [startDate, sidebarWidth]);
 
-  return { positionX };
+  return { positionX, isScrollX };
 }

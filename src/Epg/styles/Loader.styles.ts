@@ -7,7 +7,7 @@ export const Box = styled.div<{ theme?: Theme }>`
   left: 0;
   bottom: 0;
   width: 100%;
-  background: rgb(0 0 0 / 78%);
+  background: ${({ theme }) => theme.loader.bg};
   display: flex;
   justify-content: center;
   align-items: center;

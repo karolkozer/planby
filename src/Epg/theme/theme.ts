@@ -12,6 +12,7 @@ export const theme = {
     teal: "#5DDADB",
     purple: "#3437A2",
     pink: "#F78EB6",
+    bg: "#171923db",
   },
   scrollbar: {
     border: "#ffffff",

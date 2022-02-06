@@ -11,6 +11,7 @@ import {
   DEBOUNCE_WAIT,
   DEBOUNCE_WAIT_MAX,
   getPositionX,
+  useIsomorphicLayoutEffect,
 } from "../helpers";
 
 interface useLayoutProps {
@@ -20,8 +21,7 @@ interface useLayoutProps {
 }
 
 export function useLayout({ height, width, startDate }: useLayoutProps) {
-  const useIsomorphicLayoutEffect =
-    typeof window !== "undefined" ? React.useLayoutEffect : React.useEffect;
+  const useIsomorphicEffect = useIsomorphicLayoutEffect();
 
   const containerRef = React.useRef<HTMLDivElement>(null);
   const scrollBoxRef = React.useRef<HTMLDivElement>(null);
@@ -85,7 +85,7 @@ export function useLayout({ height, width, startDate }: useLayoutProps) {
   }, []);
 
   // -------- Efffects --------
-  useIsomorphicLayoutEffect(() => {
+  useIsomorphicEffect(() => {
     if (containerRef?.current) {
       const container = containerRef.current;
       if (!width) {

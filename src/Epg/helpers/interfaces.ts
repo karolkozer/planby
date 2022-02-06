@@ -27,6 +27,7 @@ export interface Theme {
     teal: string;
     purple: string;
     pink: string;
+    bg: string;
   };
   scrollbar: {
     border: string;

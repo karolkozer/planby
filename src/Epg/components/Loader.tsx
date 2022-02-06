@@ -1,5 +1,6 @@
 import * as React from "react";
 import { motion } from "framer-motion";
+import { theme } from "../theme/theme";
 
 // Import styles
 import { LoaderStyled } from "../styles";
@@ -50,12 +51,12 @@ export function Loader() {
               repeat: Infinity,
             }}
             width={217}
-            color="#5DDADB"
+            color={theme.loader.teal}
             marginRight={10}
           />
           <Element
             width={122}
-            color="#3437A2"
+            color={theme.loader.purple}
             animate={{
               position: "relative",
               right: ["0px", "50px", "0px"],
@@ -76,7 +77,7 @@ export function Loader() {
         >
           <Element
             width={267}
-            color="#F78EB6"
+            color={theme.loader.pink}
             animate={{
               position: "relative",
               right: ["0px", "70px", "0px"],
@@ -92,7 +93,7 @@ export function Loader() {
         <div style={{ display: "flex", justifyContent: "end" }}>
           <Element
             width={217}
-            color="#3437A2"
+            color={theme.loader.purple}
             marginRight={10}
             animate={{
               position: "relative",
@@ -107,7 +108,7 @@ export function Loader() {
           />
           <Element
             width={82}
-            color="#5DDADB"
+            color={theme.loader.teal}
             animate={{
               position: "relative",
               right: ["0px", "68px", "0px"],

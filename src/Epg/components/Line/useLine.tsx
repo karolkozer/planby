@@ -27,7 +27,7 @@ export function useLine({ startDate, sidebarWidth }: useLineProps) {
     sidebarWidth;
   const [positionX, setPositionX] = React.useState<number>(() => initialState);
 
-  const isDayEnd = positionX !== DAY_WIDTH;
+  const isDayEnd = positionX <= DAY_WIDTH;
   const isScrollX = React.useMemo(() => (isDayEnd ? PROGRAM_REFRESH : null), [
     isDayEnd,
   ]);
@@ -45,5 +45,5 @@ export function useLine({ startDate, sidebarWidth }: useLineProps) {
     setPositionX(newPositionX);
   }, [startDate, sidebarWidth]);
 
-  return { positionX, isScrollX };
+  return { positionX };
 }

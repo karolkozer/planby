@@ -1,9 +1,13 @@
 import React from "react";
 
+// Import heleprs
+import { useIsomorphicLayoutEffect } from "../helpers";
+
 export function useInterval(callback: () => void, delay: number | null) {
+  const useIsomorphicEffect = useIsomorphicLayoutEffect();
   const savedCallback = React.useRef(callback);
 
-  React.useLayoutEffect(() => {
+  useIsomorphicEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
 

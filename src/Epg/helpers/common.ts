@@ -1,3 +1,5 @@
+import { useLayoutEffect, useEffect } from "react";
+
 type OmitObjectType = { [key: string]: any };
 export const omit = (obj: OmitObjectType, ...props: string[]) => {
   const result = { ...obj };
@@ -30,3 +32,6 @@ export const getProgramOptions = <T extends ProgramOptions>(program: T) => {
     position: { width, height, top, left },
   };
 };
+
+export const useIsomorphicLayoutEffect = () =>
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;

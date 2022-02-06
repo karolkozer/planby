@@ -314,7 +314,7 @@ const ChannelItem = ({ channel }: ChannelItemProps) => {
 
 ### Schema
 
-Make your theme custom. Below is theme schema that you can pass as one of the options to [`useEpg`](useEpg) hook.
+Make your theme custom. Below is theme schema that you can pass as one of the options to `useEpg` hook.
 
 ```jsx
 const theme = {
@@ -331,6 +331,7 @@ const theme = {
     teal: '#5DDADB',
     purple: '#3437A2',
     pink: '#F78EB6',
+    bg: '#171923db',
   },
   scrollbar: {
     border: '#ffffff',
@@ -338,7 +339,6 @@ const theme = {
       bg: '#e1e1e1',
     },
   },
-
   gradient: {
     blue: {
       300: '#002eb3',
@@ -346,20 +346,41 @@ const theme = {
       900: '#051937',
     },
   },
-
   text: {
     grey: {
       300: '#a0aec0',
       500: '#718096',
     },
   },
-
   timeline: {
     divider: {
       bg: '#718096',
     },
   },
 };
+```
+
+## All import options
+
+```tsx
+import {
+  Epg,
+  Layout,
+  ChannelBox,
+  ChannelLogo,
+  ProgramBox,
+  ProgramContent,
+  ProgramFlex,
+  ProgramStack,
+  ProgramTitle,
+  ProgramText,
+  ProgramImage,
+  useEpg,
+  useProgram,
+  Program, // Interface
+  Channel, // Interface
+  Theme, // Interface
+} from 'planby';
 ```
 
 ## License

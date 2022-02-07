@@ -1,6 +1,6 @@
 <div align="center" style="margin-bottom: 10px">
   <a href="https://www.npmjs.com/package/planby">
-    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-logo.png" alt="planby" />
+    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-logo.png" alt="Planby logo" />
   </a>
 </div>
 
@@ -15,7 +15,13 @@
 
 ## Description
 
-Planby is a solution for a quick implementation of Epg, schedules, music events timelines and many more ideas. It uses custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customized to the needs of the application design.
+Planby is a React based for a quick implementation of Epg, schedules, music events timelines and many more ideas. It uses custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customized to the needs of the application design.
+
+<div align="center" style="margin-bottom: 10px">
+  <a href="https://www.npmjs.com/package/planby">
+    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-preview.png" alt="Planby preview" />
+  </a>
+</div>
 
 ## Getting Started
 

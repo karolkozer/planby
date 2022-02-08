@@ -22,9 +22,8 @@
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why"
+    "prepare": "tsdx build && bundlewatch",
+    "size": "bundlewatch"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -41,16 +40,18 @@
     "trailingComma": "es5"
   },
   "module": "dist/planby.esm.js",
-  "size-limit": [
-    {
-      "path": "dist/planby.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/planby.esm.js",
-      "limit": "10 KB"
-    }
-  ],
+  "bundlewatch": {
+    "files": [
+      {
+        "path": "dist/planby.cjs.production.min.js",
+        "maxSize": "30kB"
+      },
+      {
+        "path": "dist/planby.esm.js",
+        "maxSize": "30kB"
+      }
+    ]
+  },
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -74,5 +75,8 @@
     "electronic",
     "program",
     "guide"
-  ]
+  ],
+  "devDependencies": {
+    "bundlewatch": "^0.3.3"
+  }
 }

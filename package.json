@@ -1,7 +1,7 @@
 {
   "name": "planby",
   "author": "Karol Kozer",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -56,13 +56,9 @@
     "@emotion/styled": "^11.6.0",
     "@size-limit/preset-small-lib": "^7.0.5",
     "@types/react": "^17.0.38",
-    "@types/react-dom": "^17.0.11",
     "date-fns": "^2.28.0",
-    "framer-motion": "^6.2.4",
     "husky": "^7.0.4",
-    "modern-normalize": "^1.1.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "size-limit": "^7.0.5",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",

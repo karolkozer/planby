@@ -15,7 +15,7 @@
 
 ## Description
 
-Planby is a React based for a quick implementation of Epg, schedules, music events timelines and many more ideas. It uses custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customized to the needs of the application design.
+Planby is a React based component for a quick implementation of Epg, schedules, music events, timelines and many more ideas. It uses a custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customised to the needs of the application design
 
 <div align="center" style="margin-bottom: 10px">
   <a href="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-preview.png">
@@ -159,7 +159,7 @@ Properties returned from useEpg
 | `onScrollLeft`  | `function(value: number)` | Default value is 300                 |
 | `onScrollRight` | `function(value: number)` | Default value is 300                 |
 | `onScrollToNow` | `function()`              | Scroll to current time/live programs |
-| `onScrollTo`    | `function(value: number)` | Scroll to value                      |
+| `onScrollTop`   | `function(value: number)` | Default value is 300                 |
 
 ### Channel schema
 
@@ -194,7 +194,7 @@ Available props in Epg
 
 #### Base props
 
-Available props in Layout
+Available props in Layout.
 
 | Property         | Type                                                     | Description                                                                                                     | Status   |
 | ---------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- |
@@ -202,7 +202,7 @@ Available props in Layout
 | `renderChannel`  | `function({ channel: { ..., position: object})`          | `channel` object contains all properties related to the channel, `position` object includes all position styles | optional |
 | `renderTimeline` | `function({sidebarWidth: number})`                       | `sidebarWidth` value of the channel's sidebar width                                                             | optional |
 
-# Rednder functions
+# Render functions
 
 You can use Plaby's style components to develop main features. Moreover, you can integrate with third party UI library eg. Chakra UI, Material UI etc or make custom styles.
 

@@ -17,10 +17,16 @@ import {
 interface useLayoutProps {
   height?: number;
   width?: number;
+  sidebarWidth: number;
   startDate: DateTime;
 }
 
-export function useLayout({ height, width, startDate }: useLayoutProps) {
+export function useLayout({
+  height,
+  width,
+  startDate,
+  sidebarWidth,
+}: useLayoutProps) {
   const useIsomorphicEffect = useIsomorphicLayoutEffect();
 
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -59,27 +65,31 @@ export function useLayout({ height, width, startDate }: useLayoutProps) {
 
       const newDate = new Date();
       const scrollPosition = getPositionX(startOfToday(), newDate, startDate);
-      const scrollNow = scrollPosition - clientWidth / 2 + 100;
+      const scrollNow = scrollPosition - clientWidth / 2 + sidebarWidth;
       scrollBoxRef.current.scrollLeft = scrollNow;
     }
-  }, [isToday, startDate, width]);
+  }, [isToday, startDate, width, sidebarWidth]);
 
-  const handleOnScrollTo = React.useCallback((num: number = HOUR_WIDTH) => {
+  const handleOnScrollTop = React.useCallback((value: number = HOUR_WIDTH) => {
     if (scrollBoxRef?.current) {
-      scrollBoxRef.current.scrollLeft = num;
+      const top = scrollBoxRef.current.scrollTop + value;
+      scrollBoxRef.current.scrollTop = top;
     }
   }, []);
 
-  const handleOnScrollRight = React.useCallback((num: number = HOUR_WIDTH) => {
-    if (scrollBoxRef?.current) {
-      const right = scrollBoxRef.current.scrollLeft + num;
-      scrollBoxRef.current.scrollLeft = right;
-    }
-  }, []);
+  const handleOnScrollRight = React.useCallback(
+    (value: number = HOUR_WIDTH) => {
+      if (scrollBoxRef?.current) {
+        const right = scrollBoxRef.current.scrollLeft + value;
+        scrollBoxRef.current.scrollLeft = right;
+      }
+    },
+    []
+  );
 
-  const handleOnScrollLeft = React.useCallback((num: number = HOUR_WIDTH) => {
+  const handleOnScrollLeft = React.useCallback((value: number = HOUR_WIDTH) => {
     if (scrollBoxRef?.current) {
-      const left = scrollBoxRef.current.scrollLeft - num;
+      const left = scrollBoxRef.current.scrollLeft - value;
       scrollBoxRef.current.scrollLeft = left;
     }
   }, []);
@@ -112,7 +122,7 @@ export function useLayout({ height, width, startDate }: useLayoutProps) {
     layoutHeight,
     onScroll: handleOnScroll,
     onScrollToNow: handleOnScrollToNow,
-    onScrollTo: handleOnScrollTo,
+    onScrollTop: handleOnScrollTop,
     onScrollLeft: handleOnScrollLeft,
     onScrollRight: handleOnScrollRight,
   };

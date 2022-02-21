@@ -1,13 +1,13 @@
 {
   "name": "planby",
   "author": "Karol Kozer",
-  "version": "0.1.27",
+  "version": "0.1.29",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/karolkozer/planby"
   },
-  "homepage": "https://planby.vercel.app",
+  "homepage": "https://planby.netlify.app",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [

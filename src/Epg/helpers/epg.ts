@@ -147,6 +147,7 @@ export const getItemVisibility = (
 
   return false;
 };
+
 export const getSidebarItemVisibility = (
   position: Position,
   scrollY: number,

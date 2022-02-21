@@ -38,10 +38,10 @@ export function useLayout({
   const [layoutHeight, setLayoutHeight] = React.useState<number>(
     height as number
   );
-
   const isToday = isTodayFns(new Date(startDate));
 
-  const debounced = useDebouncedCallback(
+  // -------- Handlers --------
+  const handleScrollDebounced = useDebouncedCallback(
     (value) => {
       setScrollY(value.y);
       setScrollX(value.x);
@@ -50,12 +50,11 @@ export function useLayout({
     { maxWait: DEBOUNCE_WAIT_MAX }
   );
 
-  // -------- Handlers --------
   const handleOnScroll = React.useCallback(
     (e) => {
-      debounced({ y: e.target.scrollTop, x: e.target.scrollLeft });
+      handleScrollDebounced({ y: e.target.scrollTop, x: e.target.scrollLeft });
     },
-    [debounced]
+    [handleScrollDebounced]
   );
 
   const handleOnScrollToNow = React.useCallback(() => {
@@ -94,6 +93,18 @@ export function useLayout({
     }
   }, []);
 
+  const handleResizeDebounced = useDebouncedCallback(
+    () => {
+      if (containerRef?.current && !width) {
+        const container = containerRef.current;
+        const { clientWidth } = container;
+        setLayoutWidth(clientWidth);
+      }
+    },
+    DEBOUNCE_WAIT * 4,
+    { maxWait: DEBOUNCE_WAIT_MAX * 4 }
+  );
+
   // -------- Efffects --------
   useIsomorphicEffect(() => {
     if (containerRef?.current) {
@@ -112,6 +123,14 @@ export function useLayout({
       handleOnScrollToNow();
     }
   }, [height, width, startDate, isToday, handleOnScrollToNow]);
+
+  useIsomorphicEffect(() => {
+    window.addEventListener("resize", handleResizeDebounced);
+
+    return () => {
+      window.removeEventListener("resize", handleResizeDebounced);
+    };
+  }, [width]);
 
   return {
     containerRef,

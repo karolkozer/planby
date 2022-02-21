@@ -15,13 +15,17 @@
 
 ## Description
 
-Planby is a React based component for a quick implementation of Epg, schedules, music events, timelines and many more ideas. It uses a custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customised to the needs of the application design
+Planby is a React based component for a quick implementation of Epg, schedules, music events, timelines and many more ideas. It uses a custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customised to the needs of the application design.
 
 <div align="center" style="margin-bottom: 10px">
   <a href="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-preview.png">
     <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-preview.png" alt="Planby preview" />
   </a>
 </div>
+
+## Codesandbox example
+
+[Live example](https://codesandbox.io/s/5o3tsy)
 
 ## Getting Started
 

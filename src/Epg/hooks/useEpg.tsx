@@ -49,13 +49,14 @@ export function useEpg({
   sidebarWidth = SIDEBAR_WIDTH,
   width,
   height,
-  ...rest
 }: useEpgProps) {
   const { containerRef, scrollBoxRef, ...layoutProps } = useLayout({
     startDate,
     sidebarWidth,
-    ...rest,
+    width,
+    height,
   });
+
   const { scrollX, scrollY, layoutWidth, layoutHeight } = layoutProps;
   const {
     onScroll,

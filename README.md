@@ -27,6 +27,10 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 
 [Live example](https://codesandbox.io/s/5o3tsy)
 
+## Become a [Sponsor!](https://opencollective.com/planby)
+
+Support us and help us continue our development. [Open Collective](https://opencollective.com/planby)
+
 ## Getting Started
 
 ### Installation

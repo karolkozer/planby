@@ -8,6 +8,10 @@
     "url": "https://github.com/karolkozer/planby"
   },
   "homepage": "https://planby.netlify.app",
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/planby"
+  },
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
@@ -23,7 +27,8 @@
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
     "prepare": "tsdx build && bundlewatch",
-    "size": "bundlewatch"
+    "size": "bundlewatch",
+    "test:watch": "jest --watchAll"
   },
   "peerDependencies": {
     "react": ">=16"
@@ -74,9 +79,15 @@
     "hooks",
     "electronic",
     "program",
-    "guide"
+    "guide",
+    "timeline",
+    "events"
   ],
   "devDependencies": {
-    "bundlewatch": "^0.3.3"
+    "@faker-js/faker": "^6.0.0-beta.0",
+    "@types/jest": "^27.4.0",
+    "bundlewatch": "^0.3.3",
+    "jest": "^27.5.1",
+    "ts-jest": "^27.1.3"
   }
 }

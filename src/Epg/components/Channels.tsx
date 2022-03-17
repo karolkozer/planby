@@ -19,14 +19,10 @@ interface ChannelsProps {
 
 const { Box } = ChannelsStyled;
 
-export function Channels({
-  channels,
-  scrollY,
-  sidebarWidth,
-  isTimeline,
-  isChannelVisible,
-  renderChannel,
-}: ChannelsProps) {
+export function Channels(props: ChannelsProps) {
+  const { channels, scrollY, sidebarWidth, renderChannel } = props;
+  const { isTimeline, isChannelVisible } = props;
+
   const renderChannels = (channel: ChannelWithPosiiton) => {
     const isVisible = isChannelVisible(channel.position);
     if (isVisible) {

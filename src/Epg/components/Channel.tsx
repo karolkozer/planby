@@ -1,6 +1,4 @@
 import * as React from "react";
-// Import interfaces
-import { Channel as ChannelType } from "../helpers/interfaces";
 
 // Import interfaces
 import { ChannelWithPosiiton } from "../helpers/types";
@@ -10,7 +8,7 @@ import { ChannelStyled } from "../styles";
 
 interface ChannelProps<T> {
   channel: T;
-  onClick?: (v: ChannelType) => void;
+  onClick?: (v: ChannelWithPosiiton) => void;
 }
 
 const { ChannelBox, ChannelLogo } = ChannelStyled;
@@ -20,12 +18,9 @@ export function Channel<T extends ChannelWithPosiiton>({
   onClick,
   ...rest
 }: ChannelProps<T>) {
-  const {
-    position: { top },
-    logo,
-  } = channel;
+  const { position, logo } = channel;
   return (
-    <ChannelBox onClick={() => onClick?.(channel)} {...rest} top={top}>
+    <ChannelBox onClick={() => onClick?.(channel)} {...position} {...rest}>
       <ChannelLogo src={logo} alt="Logo" />
     </ChannelBox>
   );

@@ -2,7 +2,7 @@ import styled from "@emotion/styled/macro";
 import { Theme } from "../helpers";
 
 // Import heleprs
-import { SIDEBAR_ITEM_HEIGHT, DAY_WIDTH, HOUR_WIDTH } from "../helpers";
+import { ITEM_HEIGHT, DAY_WIDTH, HOUR_WIDTH } from "../helpers";
 
 export const TimelineTime = styled.span<{ theme?: Theme }>`
   color: ${({ theme }) => theme.text.grey[300]};
@@ -37,7 +37,7 @@ export const TimelineWrapper = styled.div<{
   left: ${({ isSidebar, sidebarWidth }) => (isSidebar ? sidebarWidth : 0)}px;
   z-index: 100;
   display: flex;
-  height: ${SIDEBAR_ITEM_HEIGHT - 20}px;
+  height: ${ITEM_HEIGHT - 20}px;
   width: ${DAY_WIDTH}px;
   background: ${({ theme }) => theme.primary[900]};
 `;

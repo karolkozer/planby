@@ -7,12 +7,7 @@ import { Channel, Program } from "./interfaces";
 import { ProgramWithPosition, Position, DateTime } from "./types";
 
 // Import variables
-import {
-  ITEM_OVERSCAN,
-  SIDEBAR_ITEM_HEIGHT,
-  HOUR_WIDTH,
-  HOUR_IN_MINUTES,
-} from "./variables";
+import { ITEM_OVERSCAN, HOUR_WIDTH, HOUR_IN_MINUTES } from "./variables";
 
 // Import time heleprs
 import {
@@ -60,10 +55,14 @@ export const getPositionX = (
 };
 
 // -------- Channel position in the Epg --------
-export const getChannelPosition = (channelIndex: number) => {
-  const top = SIDEBAR_ITEM_HEIGHT * channelIndex;
+export const getChannelPosition = (
+  channelIndex: number,
+  itemHeight: number
+) => {
+  const top = itemHeight * channelIndex;
   const position = {
     top,
+    height: itemHeight,
   };
   return position;
 };
@@ -71,6 +70,7 @@ export const getChannelPosition = (channelIndex: number) => {
 export const getProgramPosition = (
   program: Program,
   channelIndex: number,
+  itemHeight: number,
   startDate: DateTime
 ) => {
   const item = {
@@ -81,7 +81,7 @@ export const getProgramPosition = (
   const isYesterday = isYesterdayTime(item.since, startDate);
 
   const width = getPositionX(item.since, item.till, startDate);
-  const top = SIDEBAR_ITEM_HEIGHT * channelIndex;
+  const top = itemHeight * channelIndex;
   let left = getPositionX(startDate, item.since, startDate);
   const edgeEnd = getPositionX(startDate, item.till, startDate);
 
@@ -89,7 +89,7 @@ export const getProgramPosition = (
 
   const position = {
     width,
-    height: SIDEBAR_ITEM_HEIGHT,
+    height: itemHeight,
     top,
     left,
     edgeEnd,
@@ -102,24 +102,26 @@ type ConvertedProgramsType = {
   data: Program[];
   channels: Channel[];
   startDate: DateTime;
+  itemHeight: number;
 };
 export const getConvertedPrograms = ({
   data,
   channels,
   startDate,
+  itemHeight,
 }: ConvertedProgramsType) =>
   data.map((next) => {
     const channelIndex = channels.findIndex(
       ({ uuid }) => uuid === next.channelUuid
     );
-    return getProgramPosition(next, channelIndex, startDate);
+    return getProgramPosition(next, channelIndex, itemHeight, startDate);
   }, [] as ProgramWithPosition[]);
 
 // -------- Converted channels with position data --------
-export const getConvertedChannels = (channels: Channel[]) =>
+export const getConvertedChannels = (channels: Channel[], itemHeight: number) =>
   channels.map((channel, index) => ({
     ...channel,
-    position: getChannelPosition(index),
+    position: getChannelPosition(index, itemHeight),
   }));
 
 // -------- Dynamic virtual program visibility in the EPG --------
@@ -128,9 +130,10 @@ export const getItemVisibility = (
   scrollY: number,
   scrollX: number,
   containerHeight: number,
-  containerWidth: number
+  containerWidth: number,
+  itemOverscan: number
 ) => {
-  if (scrollY > position.top + ITEM_OVERSCAN * 3) {
+  if (scrollY > position.top + itemOverscan * 3) {
     return false;
   }
 
@@ -151,9 +154,10 @@ export const getItemVisibility = (
 export const getSidebarItemVisibility = (
   position: Position,
   scrollY: number,
-  containerHeight: number
+  containerHeight: number,
+  itemOverscan: number
 ) => {
-  if (scrollY > position.top + ITEM_OVERSCAN * 3) {
+  if (scrollY > position.top + itemOverscan * 3) {
     return false;
   }
 

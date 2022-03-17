@@ -27,7 +27,7 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 
 [Live example](https://codesandbox.io/s/5o3tsy)
 
-## Become a [Sponsor!](https://opencollective.com/planby)
+## Become a [Sponsor!](https://opencollective.com/planby) 🚀
 
 Support us and help us continue our development. [Open Collective](https://opencollective.com/planby)
 
@@ -146,6 +146,7 @@ Available options in useEpg
 | `width`        | `number`          | optional | Epg width                                         |
 | `height`       | `number`          | optional | Epg height                                        |
 | `sidebarWidth` | `number`          | optional | Width of the sidebar with channels                |
+| `itemHeight`   | `number`          | optional | Height of channels and programs in the EPG        |
 | `startDate`    | `string` / `Date` | optional | Date format `2022/02/02` or `2022-02-02T00:00:00` |
 | `isSidebar`    | `boolean`         | optional | Show/hide sidebar                                 |
 | `isTimeline`   | `boolean`         | optional | Show/hide timeline                                |

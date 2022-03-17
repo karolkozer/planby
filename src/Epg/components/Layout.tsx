@@ -10,7 +10,7 @@ import {
 } from "../helpers/types";
 
 // Import helpers
-import { DAY_WIDTH, SIDEBAR_ITEM_HEIGHT, getProgramOptions } from "../helpers";
+import { DAY_WIDTH, getProgramOptions } from "../helpers";
 
 // Import styles
 import { EpgStyled, TimelineStyled } from "../styles";
@@ -24,6 +24,7 @@ interface LayoutProps {
   startDate: DateTime;
   scrollY: number;
   sidebarWidth: number;
+  itemHeight: number;
   onScroll: (e: any) => void;
   isSidebar?: boolean;
   isTimeline?: boolean;
@@ -40,7 +41,14 @@ const { TimelineWrapper } = TimelineStyled;
 
 export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
   (props, scrollBoxRef) => {
-    const { channels, programs, startDate, scrollY, sidebarWidth } = props;
+    const {
+      channels,
+      programs,
+      startDate,
+      scrollY,
+      sidebarWidth,
+      itemHeight,
+    } = props;
 
     const { isSidebar = true, isTimeline = true, isLine = true } = props;
 
@@ -54,10 +62,10 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
     } = props;
 
     const channelsLength = channels.length;
-    const contentHeight = React.useMemo(
-      () => channelsLength * SIDEBAR_ITEM_HEIGHT,
-      [channelsLength]
-    );
+    const contentHeight = React.useMemo(() => channelsLength * itemHeight, [
+      channelsLength,
+      itemHeight,
+    ]);
 
     const renderPrograms = (program: ProgramWithPosition) => {
       const { position } = program;

@@ -1,15 +1,15 @@
 // Dimensions
 export const DAY_WIDTH = 7200;
-export const HOUR_WIDTH = 7200 / 24;
+export const HOUR_WIDTH = DAY_WIDTH / 24;
 
 export const HOUR_IN_MINUTES = 60;
 
 export const TIMELINE_HEIGHT = 60;
 
 export const SIDEBAR_WIDTH = 100;
-export const SIDEBAR_ITEM_HEIGHT = 80;
+export const ITEM_HEIGHT = 80;
 
-export const ITEM_OVERSCAN = SIDEBAR_ITEM_HEIGHT;
+export const ITEM_OVERSCAN = ITEM_HEIGHT;
 
 // Debounce
 export const DEBOUNCE_WAIT = 100;

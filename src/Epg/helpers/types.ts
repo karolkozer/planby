@@ -20,7 +20,7 @@ export type ProgramItem = {
 };
 
 export type ChannelWithPosiiton = Channel & {
-  position: Pick<Position, "top">;
+  position: Pick<Position, "top" | "height">;
 };
 
 export type DateTime = string | Date;

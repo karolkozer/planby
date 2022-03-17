@@ -37,12 +37,14 @@ export function Program<T extends ProgramItem>({
   const { data } = program;
   const { image, title, since, till } = data;
 
+  const handleOnContentClick = () => onClick?.(data);
+
   return (
     <ProgramBox width={styles.width} style={styles.position}>
       <ProgramContent
         width={styles.width}
         isLive={isLive}
-        onClick={() => onClick?.(data)}
+        onClick={handleOnContentClick}
         {...rest}
       >
         <ProgramFlex>

@@ -1,13 +1,14 @@
 import styled from "@emotion/styled/macro";
 import { Theme } from "../helpers";
 
-// Import heleprs
-import { SIDEBAR_ITEM_HEIGHT } from "../helpers";
-
-export const ChannelBox = styled.div<{ top: number; theme?: Theme }>`
+export const ChannelBox = styled.div<{
+  top: number;
+  height: number;
+  theme?: Theme;
+}>`
   position: absolute;
   top: ${({ top }) => top}px;
-  height: ${SIDEBAR_ITEM_HEIGHT}px;
+  height: ${({ height }) => height}px;
   width: 100%;
   display: flex;
   align-items: center;

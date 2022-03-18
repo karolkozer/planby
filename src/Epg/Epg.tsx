@@ -17,6 +17,7 @@ interface EpgProps {
   width?: number;
   height?: number;
   isSidebar: boolean;
+  isTimeline?: boolean;
   isLoading?: boolean;
   children: React.ReactNode;
   loader?: React.ReactNode;
@@ -35,6 +36,7 @@ export const Epg = React.forwardRef<HTMLDivElement, EpgProps>(
       theme,
       sidebarWidth,
       isSidebar = true,
+      isTimeline = true,
       isLoading = false,
       loader: LoaderComponent,
       ...rest
@@ -47,7 +49,7 @@ export const Epg = React.forwardRef<HTMLDivElement, EpgProps>(
         <Global styles={globalStyles} />
         <Container width={width} height={height} ref={containerRef} {...rest}>
           <Wrapper>
-            {isSidebar && (
+            {isSidebar && isTimeline && (
               <Box
                 width={sidebarWidth}
                 height={TIMELINE_HEIGHT}

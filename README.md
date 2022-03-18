@@ -11,11 +11,12 @@
   <a href="https://npmjs.org/package/planby">
     <img alt="downloads" src="https://badgen.net/npm/dm/planby" />
   </a>
+ <a href="https://opencollective.com/planby#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
 </div>
 
 ## Description
 
-Planby is a React based component for a quick implementation of Epg, schedules, music events, timelines and many more ideas. It uses a custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customised to the needs of the application design.
+Planby is a React based component for a quick implementation of Epg, schedules, live streaming, music events, timelines and many more ideas. It uses a custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customised to the needs of the application design.
 
 <div align="center" style="margin-bottom: 10px">
   <a href="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-preview.png">
@@ -25,11 +26,13 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 
 ## Codesandbox example
 
-[Live example](https://codesandbox.io/s/5o3tsy)
+[Live example - Codesandbox](https://codesandbox.io/s/5o3tsy)
 
-## Become a [Sponsor!](https://opencollective.com/planby)
+[Live example - website with control panel](https://planby.netlify.app/)
 
-Support us and help us continue our development. [Open Collective](https://opencollective.com/planby)
+## 🚀 [Become a Sponsor!](https://opencollective.com/planby) 🚀
+
+Support our activity and help us continue our development -> [Open Collective](https://opencollective.com/planby).
 
 ## Getting Started
 
@@ -139,18 +142,19 @@ return (
 
 Available options in useEpg
 
-| Property       | Type              | Status   | Description                                       |
-| -------------- | ----------------- | -------- | ------------------------------------------------- |
-| `channels`     | `array`           | required | Array with channels data                          |
-| `epg`          | `array`           | required | Array with epg data                               |
-| `width`        | `number`          | optional | Epg width                                         |
-| `height`       | `number`          | optional | Epg height                                        |
-| `sidebarWidth` | `number`          | optional | Width of the sidebar with channels                |
-| `startDate`    | `string` / `Date` | optional | Date format `2022/02/02` or `2022-02-02T00:00:00` |
-| `isSidebar`    | `boolean`         | optional | Show/hide sidebar                                 |
-| `isTimeline`   | `boolean`         | optional | Show/hide timeline                                |
-| `isLine`       | `boolean`         | optional | Show/hide line                                    |
-| `theme`        | `object`          | optional | Object with theme schema                          |
+| Property       | Type              | Status   | Description                                                     |
+| -------------- | ----------------- | -------- | --------------------------------------------------------------- |
+| `channels`     | `array`           | required | Array with channels data                                        |
+| `epg`          | `array`           | required | Array with epg data                                             |
+| `width`        | `number`          | optional | Epg width                                                       |
+| `height`       | `number`          | optional | Epg height                                                      |
+| `sidebarWidth` | `number`          | optional | Width of the sidebar with channels. Default value is 100        |
+| `itemHeight`   | `number`          | optional | Height of channels and programs in the EPG. Default value is 80 |
+| `startDate`    | `string` / `Date` | optional | Date format `2022/02/02` or `2022-02-02T00:00:00`               |
+| `isSidebar`    | `boolean`         | optional | Show/hide sidebar                                               |
+| `isTimeline`   | `boolean`         | optional | Show/hide timeline                                              |
+| `isLine`       | `boolean`         | optional | Show/hide line                                                  |
+| `theme`        | `object`          | optional | Object with theme schema                                        |
 
 #### Note about width and height props
 
@@ -308,12 +312,9 @@ interface ChannelItemProps {
 }
 
 const ChannelItem = ({ channel }: ChannelItemProps) => {
-  const {
-    position: { top },
-    logo,
-  } = channel;
+  const { position, logo } = channel;
   return (
-    <ChannelBox top={top}>
+    <ChannelBox {...position}>
       <ChannelLogo
         onClick={() => console.log('channel', channel)}
         src={logo}

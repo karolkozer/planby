@@ -69,8 +69,8 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
 
     const renderPrograms = (program: ProgramWithPosition) => {
       const { position } = program;
-
       const isVisible = isProgramVisible(position);
+
       if (isVisible) {
         const options = getProgramOptions(program);
         if (renderProgram)

@@ -148,7 +148,7 @@ Available options in useEpg
 | `epg`          | `array`           | required | Array with epg data                                             |
 | `width`        | `number`          | optional | Epg width                                                       |
 | `height`       | `number`          | optional | Epg height                                                      |
-| `sidebarWidth` | `number`          | optional | Width of the sidebar with channels                              |
+| `sidebarWidth` | `number`          | optional | Width of the sidebar with channels. Default value is 100        |
 | `itemHeight`   | `number`          | optional | Height of channels and programs in the EPG. Default value is 80 |
 | `startDate`    | `string` / `Date` | optional | Date format `2022/02/02` or `2022-02-02T00:00:00`               |
 | `isSidebar`    | `boolean`         | optional | Show/hide sidebar                                               |

@@ -7,7 +7,7 @@ import { Channel, Program } from "./interfaces";
 import { ProgramWithPosition, Position, DateTime } from "./types";
 
 // Import variables
-import { ITEM_OVERSCAN, HOUR_WIDTH, HOUR_IN_MINUTES } from "./variables";
+import { HOUR_WIDTH, HOUR_IN_MINUTES } from "./variables";
 
 // Import time heleprs
 import {

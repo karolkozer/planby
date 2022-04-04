@@ -7,7 +7,6 @@ import { DateTime } from "../helpers/types";
 
 // Import heleprs
 import {
-  HOUR_WIDTH,
   DEBOUNCE_WAIT,
   DEBOUNCE_WAIT_MAX,
   getPositionX,
@@ -17,6 +16,7 @@ import {
 interface useLayoutProps {
   height?: number;
   width?: number;
+  hourWidth: number;
   sidebarWidth: number;
   startDate: DateTime;
 }
@@ -25,6 +25,7 @@ export function useLayout({
   height,
   width,
   startDate,
+  hourWidth,
   sidebarWidth,
 }: useLayoutProps) {
   const useIsomorphicEffect = useIsomorphicLayoutEffect();
@@ -63,35 +64,46 @@ export function useLayout({
         containerRef.current?.clientWidth) as number;
 
       const newDate = new Date();
-      const scrollPosition = getPositionX(startOfToday(), newDate, startDate);
+      const scrollPosition = getPositionX(
+        startOfToday(),
+        newDate,
+        startDate,
+        hourWidth
+      );
       const scrollNow = scrollPosition - clientWidth / 2 + sidebarWidth;
       scrollBoxRef.current.scrollLeft = scrollNow;
     }
-  }, [isToday, startDate, width, sidebarWidth]);
+  }, [isToday, startDate, width, sidebarWidth, hourWidth]);
 
-  const handleOnScrollTop = React.useCallback((value: number = HOUR_WIDTH) => {
-    if (scrollBoxRef?.current) {
-      const top = scrollBoxRef.current.scrollTop + value;
-      scrollBoxRef.current.scrollTop = top;
-    }
-  }, []);
+  const handleOnScrollTop = React.useCallback(
+    (value: number = hourWidth) => {
+      if (scrollBoxRef?.current) {
+        const top = scrollBoxRef.current.scrollTop + value;
+        scrollBoxRef.current.scrollTop = top;
+      }
+    },
+    [hourWidth]
+  );
 
   const handleOnScrollRight = React.useCallback(
-    (value: number = HOUR_WIDTH) => {
+    (value: number = hourWidth) => {
       if (scrollBoxRef?.current) {
         const right = scrollBoxRef.current.scrollLeft + value;
         scrollBoxRef.current.scrollLeft = right;
       }
     },
-    []
+    [hourWidth]
   );
 
-  const handleOnScrollLeft = React.useCallback((value: number = HOUR_WIDTH) => {
-    if (scrollBoxRef?.current) {
-      const left = scrollBoxRef.current.scrollLeft - value;
-      scrollBoxRef.current.scrollLeft = left;
-    }
-  }, []);
+  const handleOnScrollLeft = React.useCallback(
+    (value: number = hourWidth) => {
+      if (scrollBoxRef?.current) {
+        const left = scrollBoxRef.current.scrollLeft - value;
+        scrollBoxRef.current.scrollLeft = left;
+      }
+    },
+    [hourWidth]
+  );
 
   const handleResizeDebounced = useDebouncedCallback(
     () => {

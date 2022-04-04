@@ -13,13 +13,26 @@ import { useLine } from "./useLine";
 interface LineProps {
   height: number;
   startDate: DateTime;
+  dayWidth: number;
+  hourWidth: number;
   sidebarWidth: number;
 }
 
 const { Box } = LineStyled;
 
-export function Line({ height, startDate, sidebarWidth }: LineProps) {
-  const { positionX } = useLine({ startDate, sidebarWidth });
+export function Line({
+  height,
+  startDate,
+  dayWidth,
+  hourWidth,
+  sidebarWidth,
+}: LineProps) {
+  const { positionX } = useLine({
+    startDate,
+    dayWidth,
+    hourWidth,
+    sidebarWidth,
+  });
 
   const date = new Date(startDate);
   if (!isToday(date)) return null;

@@ -2,7 +2,7 @@ import styled from "@emotion/styled/macro";
 import { Theme } from "../helpers";
 
 // Import heleprs
-import { ITEM_HEIGHT, DAY_WIDTH, HOUR_WIDTH } from "../helpers";
+import { ITEM_HEIGHT } from "../helpers";
 
 export const TimelineTime = styled.span<{ theme?: Theme }>`
   color: ${({ theme }) => theme.text.grey[300]};
@@ -20,15 +20,16 @@ export const TimelineDividers = styled.div`
   padding-bottom: 6px;
 `;
 
-export const TimelineDivider = styled.div<{ theme?: Theme }>`
+export const TimelineDivider = styled.div<{ width: number; theme?: Theme }>`
   background: ${({ theme }) => theme.timeline.divider.bg};
   height: 10px;
   width: 1px;
-  margin-right: ${HOUR_WIDTH / 4}px;
+  margin-right: ${({ width }) => width / 4}px;
 `;
 
 export const TimelineWrapper = styled.div<{
   isSidebar: boolean;
+  dayWidth: number;
   sidebarWidth: number;
   theme?: Theme;
 }>`
@@ -38,12 +39,12 @@ export const TimelineWrapper = styled.div<{
   z-index: 100;
   display: flex;
   height: ${ITEM_HEIGHT - 20}px;
-  width: ${DAY_WIDTH}px;
+  width: ${({ dayWidth }) => dayWidth}px;
   background: ${({ theme }) => theme.primary[900]};
 `;
 
-export const TimelineBox = styled.div`
-  width: ${HOUR_WIDTH}px;
+export const TimelineBox = styled.div<{ width: number }>`
+  width: ${({ width }) => width}px;
   font-size: 14px;
   position: relative;
 

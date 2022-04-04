@@ -10,7 +10,7 @@ import {
 } from "../helpers/types";
 
 // Import helpers
-import { DAY_WIDTH, getProgramOptions } from "../helpers";
+import { getProgramOptions } from "../helpers";
 
 // Import styles
 import { EpgStyled, TimelineStyled } from "../styles";
@@ -18,11 +18,18 @@ import { EpgStyled, TimelineStyled } from "../styles";
 // Import components
 import { Timeline, Channels, Program, Line } from "../components";
 
+interface RenderTimeline {
+  sidebarWidth: number;
+  hourWidth: number;
+}
+
 interface LayoutProps {
   programs: ProgramItem[];
   channels: ChannelWithPosiiton[];
   startDate: DateTime;
   scrollY: number;
+  dayWidth: number;
+  hourWidth: number;
   sidebarWidth: number;
   itemHeight: number;
   onScroll: (e: any) => void;
@@ -33,7 +40,7 @@ interface LayoutProps {
   isChannelVisible: (position: Pick<Position, "top">) => boolean;
   renderProgram?: (v: { program: ProgramItem }) => void;
   renderChannel?: (v: { channel: ChannelWithPosiiton }) => void;
-  renderTimeline?: (v: { sidebarWidth: number }) => React.ReactNode;
+  renderTimeline?: (v: RenderTimeline) => React.ReactNode;
 }
 
 const { ScrollBox, Content } = EpgStyled;
@@ -41,15 +48,8 @@ const { TimelineWrapper } = TimelineStyled;
 
 export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
   (props, scrollBoxRef) => {
-    const {
-      channels,
-      programs,
-      startDate,
-      scrollY,
-      sidebarWidth,
-      itemHeight,
-    } = props;
-
+    const { channels, programs, startDate, scrollY } = props;
+    const { dayWidth, hourWidth, sidebarWidth, itemHeight } = props;
     const { isSidebar = true, isTimeline = true, isLine = true } = props;
 
     const {
@@ -82,19 +82,25 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
     };
 
     const renderTopbar = () => {
-      const props = { sidebarWidth: sidebarWidth, isSidebar: isSidebar };
+      const props = {
+        dayWidth,
+        sidebarWidth: sidebarWidth,
+        isSidebar: isSidebar,
+      };
       if (renderTimeline) {
         <TimelineWrapper {...props}>
-          {renderTimeline?.({ sidebarWidth })}
+          {renderTimeline?.({ sidebarWidth, hourWidth })}
         </TimelineWrapper>;
       }
-      return <Timeline {...props} />;
+      return <Timeline hourWidth={hourWidth} {...props} />;
     };
 
     return (
       <ScrollBox ref={scrollBoxRef} onScroll={onScroll}>
         {isLine && (
           <Line
+            dayWidth={dayWidth}
+            hourWidth={hourWidth}
             sidebarWidth={sidebarWidth}
             startDate={startDate}
             height={contentHeight}
@@ -115,7 +121,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
           data-testid="content"
           sidebarWidth={sidebarWidth}
           isSidebar={isSidebar}
-          width={DAY_WIDTH}
+          width={dayWidth}
           height={contentHeight}
         >
           {programs.map((program) =>

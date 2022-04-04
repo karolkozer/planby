@@ -7,7 +7,7 @@ import { Channel, Program } from "./interfaces";
 import { ProgramWithPosition, Position, DateTime } from "./types";
 
 // Import variables
-import { HOUR_WIDTH, HOUR_IN_MINUTES } from "./variables";
+import { HOUR_IN_MINUTES } from "./variables";
 
 // Import time heleprs
 import {
@@ -17,13 +17,14 @@ import {
 } from "./time";
 
 // -------- Program width --------
-const getItemDiffWidth = (diff: number) =>
-  (diff * HOUR_WIDTH) / HOUR_IN_MINUTES;
+const getItemDiffWidth = (diff: number, hourWidth: number) =>
+  (diff * hourWidth) / HOUR_IN_MINUTES;
 
 export const getPositionX = (
   since: DateTime,
   till: DateTime,
-  startDate: DateTime
+  startDate: DateTime,
+  hourWidth: number
 ) => {
   const tomorrowDate = startOfDay(addDays(new Date(startDate), 1));
   const dateNow = startOfDay(new Date(till));
@@ -35,7 +36,7 @@ export const getPositionX = (
       roundToMinutes(till),
       startOfDay(new Date(startDate))
     );
-    return getItemDiffWidth(diffTime);
+    return getItemDiffWidth(diffTime, hourWidth);
   }
 
   if (isTomorrow) {
@@ -43,7 +44,7 @@ export const getPositionX = (
       startOfDay(new Date(till)),
       roundToMinutes(since)
     );
-    return getItemDiffWidth(diffTime);
+    return getItemDiffWidth(diffTime, hourWidth);
   }
 
   const diffTime = differenceInMinutes(
@@ -51,7 +52,7 @@ export const getPositionX = (
     roundToMinutes(new Date(since))
   );
 
-  return getItemDiffWidth(diffTime);
+  return getItemDiffWidth(diffTime, hourWidth);
 };
 
 // -------- Channel position in the Epg --------
@@ -71,6 +72,7 @@ export const getProgramPosition = (
   program: Program,
   channelIndex: number,
   itemHeight: number,
+  hourWidth: number,
   startDate: DateTime
 ) => {
   const item = {
@@ -80,10 +82,10 @@ export const getProgramPosition = (
   };
   const isYesterday = isYesterdayTime(item.since, startDate);
 
-  const width = getPositionX(item.since, item.till, startDate);
+  const width = getPositionX(item.since, item.till, startDate, hourWidth);
   const top = itemHeight * channelIndex;
-  let left = getPositionX(startDate, item.since, startDate);
-  const edgeEnd = getPositionX(startDate, item.till, startDate);
+  let left = getPositionX(startDate, item.since, startDate, hourWidth);
+  const edgeEnd = getPositionX(startDate, item.till, startDate, hourWidth);
 
   if (isYesterday) left = 0;
 
@@ -103,18 +105,26 @@ type ConvertedProgramsType = {
   channels: Channel[];
   startDate: DateTime;
   itemHeight: number;
+  hourWidth: number;
 };
 export const getConvertedPrograms = ({
   data,
   channels,
   startDate,
   itemHeight,
+  hourWidth,
 }: ConvertedProgramsType) =>
   data.map((next) => {
     const channelIndex = channels.findIndex(
       ({ uuid }) => uuid === next.channelUuid
     );
-    return getProgramPosition(next, channelIndex, itemHeight, startDate);
+    return getProgramPosition(
+      next,
+      channelIndex,
+      itemHeight,
+      hourWidth,
+      startDate
+    );
   }, [] as ProgramWithPosition[]);
 
 // -------- Converted channels with position data --------

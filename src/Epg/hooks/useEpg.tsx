@@ -8,7 +8,12 @@ import { Channel, Program, Theme } from "../helpers/interfaces";
 import { DateTime } from "../helpers/types";
 
 // Import helpers
-import { ITEM_HEIGHT, ITEM_OVERSCAN } from "../helpers";
+import {
+  DAY_WIDTH,
+  ITEM_HEIGHT,
+  ITEM_OVERSCAN,
+  getHourWidth,
+} from "../helpers";
 
 // Import theme
 import { theme as defaultTheme } from "../theme";
@@ -36,6 +41,7 @@ interface useEpgProps {
   isTimeline?: boolean;
   isLine?: boolean;
   theme?: Theme;
+  dayWidth?: number;
   sidebarWidth?: number;
   itemHeight?: number;
   itemOverscan?: number;
@@ -51,17 +57,23 @@ export function useEpg({
   isTimeline = true,
   isLine = true,
   theme: customTheme,
+  dayWidth = DAY_WIDTH,
   sidebarWidth = SIDEBAR_WIDTH,
   itemHeight = ITEM_HEIGHT,
   itemOverscan = ITEM_OVERSCAN,
   width,
   height,
 }: useEpgProps) {
+  // Get hour width of the day
+  const hourWidth = React.useMemo(() => getHourWidth(dayWidth), [dayWidth]);
+
+  // -------- Effects --------
   const { containerRef, scrollBoxRef, ...layoutProps } = useLayout({
     startDate,
     sidebarWidth,
     width,
     height,
+    hourWidth,
   });
 
   const { scrollX, scrollY, layoutWidth, layoutHeight } = layoutProps;
@@ -87,8 +99,9 @@ export function useEpg({
         channels,
         startDate: startDateTime,
         itemHeight,
+        hourWidth,
       }),
-    [epg, channels, startDateTime, itemHeight]
+    [epg, channels, startDateTime, itemHeight, hourWidth]
   );
 
   const theme: Theme = customTheme || defaultTheme;
@@ -135,6 +148,8 @@ export function useEpg({
     isLine,
     isProgramVisible,
     isChannelVisible,
+    dayWidth,
+    hourWidth,
     sidebarWidth,
     itemHeight,
     ref: scrollBoxRef,

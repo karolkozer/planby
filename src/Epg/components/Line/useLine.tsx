@@ -5,45 +5,55 @@ import { startOfDay } from "date-fns";
 import { DateTime } from "../../helpers/types";
 
 // Import helpers
-import {
-  DAY_WIDTH,
-  HOUR_WIDTH,
-  HOUR_IN_MINUTES,
-  PROGRAM_REFRESH,
-  getPositionX,
-} from "../../helpers";
+import { HOUR_IN_MINUTES, PROGRAM_REFRESH, getPositionX } from "../../helpers";
 
 // Import hooks
 import { useInterval } from "../../hooks";
 
 interface useLineProps {
   startDate: DateTime;
+  dayWidth: number;
+  hourWidth: number;
   sidebarWidth: number;
 }
 
-export function useLine({ startDate, sidebarWidth }: useLineProps) {
+export function useLine({
+  startDate,
+  dayWidth,
+  hourWidth,
+  sidebarWidth,
+}: useLineProps) {
   const initialState =
-    getPositionX(startOfDay(new Date(startDate)), new Date(), startDate) +
-    sidebarWidth;
+    getPositionX(
+      startOfDay(new Date(startDate)),
+      new Date(),
+      startDate,
+      hourWidth
+    ) + sidebarWidth;
   const [positionX, setPositionX] = React.useState<number>(() => initialState);
 
-  const isDayEnd = positionX <= DAY_WIDTH;
+  const isDayEnd = positionX <= dayWidth;
   const isScrollX = React.useMemo(() => (isDayEnd ? PROGRAM_REFRESH : null), [
     isDayEnd,
   ]);
 
   useInterval(() => {
-    const offset = HOUR_WIDTH / HOUR_IN_MINUTES;
+    const offset = hourWidth / HOUR_IN_MINUTES;
     const positionOffset = offset * 2;
     setPositionX((prev) => prev + positionOffset);
   }, isScrollX);
 
   React.useEffect(() => {
     const date = new Date(startDate);
-    const newPositionX =
-      getPositionX(startOfDay(date), new Date(), startDate) + sidebarWidth;
+    const positionX = getPositionX(
+      startOfDay(date),
+      new Date(),
+      startDate,
+      hourWidth
+    );
+    const newPositionX = positionX + sidebarWidth;
     setPositionX(newPositionX);
-  }, [startDate, sidebarWidth]);
+  }, [startDate, sidebarWidth, hourWidth]);
 
   return { positionX };
 }

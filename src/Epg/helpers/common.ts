@@ -1,4 +1,5 @@
 import { useLayoutEffect, useEffect } from "react";
+import { HOURS_IN_DAY } from "./variables";
 
 type OmitObjectType = { [key: string]: any };
 export const omit = (obj: OmitObjectType, ...props: string[]) => {
@@ -35,3 +36,5 @@ export const getProgramOptions = <T extends ProgramOptions>(program: T) => {
 
 export const useIsomorphicLayoutEffect = () =>
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
+export const getHourWidth = (dayWidth: number) => dayWidth / HOURS_IN_DAY;

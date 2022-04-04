@@ -31,7 +31,7 @@ const Element = ({
 
 export function Loader() {
   return (
-    <Box>
+    <Box aria-label="loading">
       <div>
         <div
           style={{ display: "flex", justifyContent: "end", marginBottom: 16 }}

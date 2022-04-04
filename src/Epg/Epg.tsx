@@ -47,7 +47,13 @@ export const Epg = React.forwardRef<HTMLDivElement, EpgProps>(
     return (
       <ThemeProvider theme={theme}>
         <Global styles={globalStyles} />
-        <Container width={width} height={height} ref={containerRef} {...rest}>
+        <Container
+          data-testid="container"
+          width={width}
+          height={height}
+          ref={containerRef}
+          {...rest}
+        >
           <Wrapper>
             {isSidebar && isTimeline && (
               <Box

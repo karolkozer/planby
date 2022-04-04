@@ -25,7 +25,7 @@ export function Timeline({ isSidebar, sidebarWidth }: TimelineProps) {
     `${index < 10 ? `0${index}` : index}:00`;
 
   const renderTime = (index: number) => (
-    <TimelineBox key={index}>
+    <TimelineBox data-testid="timeline-item" key={index}>
       <TimelineTime>{timeFormat(index)}</TimelineTime>
       <TimelineDividers>{renderDividers()}</TimelineDividers>
     </TimelineBox>
@@ -35,7 +35,11 @@ export function Timeline({ isSidebar, sidebarWidth }: TimelineProps) {
     dividers.map((_, index) => <TimelineDivider key={index} />);
 
   return (
-    <TimelineWrapper sidebarWidth={sidebarWidth} isSidebar={isSidebar}>
+    <TimelineWrapper
+      data-testid="timeline"
+      sidebarWidth={sidebarWidth}
+      isSidebar={isSidebar}
+    >
       {time.map((_, index) => renderTime(index))}
     </TimelineWrapper>
   );

@@ -20,7 +20,12 @@ export function Channel<T extends ChannelWithPosiiton>({
 }: ChannelProps<T>) {
   const { position, logo } = channel;
   return (
-    <ChannelBox onClick={() => onClick?.(channel)} {...position} {...rest}>
+    <ChannelBox
+      data-testid="sidebar-item"
+      onClick={() => onClick?.(channel)}
+      {...position}
+      {...rest}
+    >
       <ChannelLogo src={logo} alt="Logo" />
     </ChannelBox>
   );

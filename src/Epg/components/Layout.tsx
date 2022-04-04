@@ -112,6 +112,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
           />
         )}
         <Content
+          data-testid="content"
           sidebarWidth={sidebarWidth}
           isSidebar={isSidebar}
           width={DAY_WIDTH}

@@ -40,8 +40,13 @@ export function Program<T extends ProgramItem>({
   const handleOnContentClick = () => onClick?.(data);
 
   return (
-    <ProgramBox width={styles.width} style={styles.position}>
+    <ProgramBox
+      data-testid="program-item"
+      width={styles.width}
+      style={styles.position}
+    >
       <ProgramContent
+        data-testid="program-content"
         width={styles.width}
         isLive={isLive}
         onClick={handleOnContentClick}
@@ -51,7 +56,7 @@ export function Program<T extends ProgramItem>({
           {isLive && isMinWidth && <ProgramImage src={image} alt="Preview" />}
           <ProgramStack>
             <ProgramTitle>{title}</ProgramTitle>
-            <ProgramText>
+            <ProgramText aria-label="program time">
               {formatTime(since)} - {formatTime(till)}
             </ProgramText>
           </ProgramStack>

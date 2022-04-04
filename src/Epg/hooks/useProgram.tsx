@@ -23,7 +23,6 @@ export function useProgram<T extends ProgramItem>({
   const { width } = position;
 
   const { since, till } = data;
-
   const [isLive, setIsLive] = React.useState<boolean>(() =>
     getLiveStatus(since, till)
   );

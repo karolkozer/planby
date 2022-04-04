@@ -32,7 +32,12 @@ export function Channels(props: ChannelsProps) {
   };
 
   return (
-    <Box width={sidebarWidth} isTimeline={isTimeline} bottom={scrollY}>
+    <Box
+      data-testid="sidebar"
+      width={sidebarWidth}
+      isTimeline={isTimeline}
+      bottom={scrollY}
+    >
       {channels.map(renderChannels)}
     </Box>
   );

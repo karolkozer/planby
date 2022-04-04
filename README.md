@@ -142,21 +142,20 @@ return (
 
 Available options in useEpg
 
-| Property                                                                                                                | Type              | Status   | Description                                                     |
-| ----------------------------------------------------------------------------------------------------------------------- | ----------------- | -------- | --------------------------------------------------------------- |
-| `channels`                                                                                                              | `array`           | required | Array with channels data                                        |
-| `epg`                                                                                                                   | `array`           | required | Array with epg data                                             |
-| `width`                                                                                                                 | `number`          | optional | Epg width                                                       |
-| `height`                                                                                                                | `number`          | optional | Epg height                                                      |
-| `sidebarWidth`                                                                                                          | `number`          | optional | Width of the sidebar with channels                              |
-| `itemHeight`                                                                                                            | `number`          | optional | Height of channels and programs in the EPG. Default value is 80 |
-| `dayWidth`                                                                                                              | `number`          | optional | Width of the day. Default value is 7200.                        |
-| Calculation to set up day width with own hour width value eg. 24h \* 300px(your custom hour width) = 7200px -> dayWidth |
-| `startDate`                                                                                                             | `string` / `Date` | optional | Date format `2022/02/02` or `2022-02-02T00:00:00`               |
-| `isSidebar`                                                                                                             | `boolean`         | optional | Show/hide sidebar                                               |
-| `isTimeline`                                                                                                            | `boolean`         | optional | Show/hide timeline                                              |
-| `isLine`                                                                                                                | `boolean`         | optional | Show/hide line                                                  |
-| `theme`                                                                                                                 | `object`          | optional | Object with theme schema                                        |
+| Property       | Type              | Status   | Description                                                                                                                                                      |
+| -------------- | ----------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `channels`     | `array`           | required | Array with channels data                                                                                                                                         |
+| `epg`          | `array`           | required | Array with epg data                                                                                                                                              |
+| `width`        | `number`          | optional | Epg width                                                                                                                                                        |
+| `height`       | `number`          | optional | Epg height                                                                                                                                                       |
+| `sidebarWidth` | `number`          | optional | Width of the sidebar with channels                                                                                                                               |
+| `itemHeight`   | `number`          | optional | Height of channels and programs in the EPG. Default value is 80                                                                                                  |
+| `dayWidth`     | `number`          | optional | Width of the day. Default value is 7200. Calculation to set up day width with own hour width value eg. 24h \* 300px(your custom hour width) = 7200px -> dayWidth |
+| `startDate`    | `string` / `Date` | optional | Date format `2022/02/02` or `2022-02-02T00:00:00`                                                                                                                |
+| `isSidebar`    | `boolean`         | optional | Show/hide sidebar                                                                                                                                                |
+| `isTimeline`   | `boolean`         | optional | Show/hide timeline                                                                                                                                               |
+| `isLine`       | `boolean`         | optional | Show/hide line                                                                                                                                                   |
+| `theme`        | `object`          | optional | Object with theme schema                                                                                                                                         |
 
 #### Note about width and height props
 

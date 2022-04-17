@@ -2,7 +2,7 @@ import { render, screen } from "../../test/test-utils";
 import { Layout } from "../Layout";
 import { getLayoutProps } from "../../test";
 
-test("should render Layout coponent properly", () => {
+test("should render Layout component properly", () => {
   const props = getLayoutProps();
 
   render(<Layout {...props} />);

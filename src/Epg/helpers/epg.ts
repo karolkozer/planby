@@ -1,4 +1,4 @@
-import { differenceInMinutes, startOfDay, addDays, isEqual } from "date-fns";
+import { differenceInMinutes, getTime } from "date-fns";
 
 // Import interfaces
 import { Channel, Program } from "./interfaces";
@@ -15,6 +15,7 @@ import {
   roundToMinutes,
   isYesterday as isYesterdayTime,
 } from "./time";
+import { getDate } from "./common";
 
 // -------- Program width --------
 const getItemDiffWidth = (diff: number, hourWidth: number) =>
@@ -24,32 +25,42 @@ export const getPositionX = (
   since: DateTime,
   till: DateTime,
   startDate: DateTime,
+  endDate: DateTime,
   hourWidth: number
 ) => {
-  const tomorrowDate = startOfDay(addDays(new Date(startDate), 1));
-  const dateNow = startOfDay(new Date(till));
-  const isTomorrow = isEqual(dateNow, tomorrowDate);
-  const isYesterday = isYesterdayTime(since, startDate);
+  const isTomorrow = getTime(getDate(till)) > getTime(getDate(endDate));
+  const isYesterday = getTime(getDate(since)) < getTime(getDate(startDate));
+
+  // When time range is set to 1 hour and program time is greater than 1 hour
+  if (isYesterday && isTomorrow) {
+    const diffTime = differenceInMinutes(
+      roundToMinutes(getDate(endDate)),
+      getDate(startDate)
+    );
+    return getItemDiffWidth(diffTime, hourWidth);
+  }
 
   if (isYesterday) {
     const diffTime = differenceInMinutes(
-      roundToMinutes(till),
-      startOfDay(new Date(startDate))
+      roundToMinutes(getDate(till)),
+      getDate(startDate)
     );
     return getItemDiffWidth(diffTime, hourWidth);
   }
 
   if (isTomorrow) {
     const diffTime = differenceInMinutes(
-      startOfDay(new Date(till)),
-      roundToMinutes(since)
+      getDate(endDate),
+      roundToMinutes(getDate(since))
     );
+
+    if (diffTime < 0) return 0;
     return getItemDiffWidth(diffTime, hourWidth);
   }
 
   const diffTime = differenceInMinutes(
-    roundToMinutes(new Date(till)),
-    roundToMinutes(new Date(since))
+    roundToMinutes(getDate(till)),
+    roundToMinutes(getDate(since))
   );
 
   return getItemDiffWidth(diffTime, hourWidth);
@@ -73,7 +84,8 @@ export const getProgramPosition = (
   channelIndex: number,
   itemHeight: number,
   hourWidth: number,
-  startDate: DateTime
+  startDate: DateTime,
+  endDate: DateTime
 ) => {
   const item = {
     ...program,
@@ -82,12 +94,26 @@ export const getProgramPosition = (
   };
   const isYesterday = isYesterdayTime(item.since, startDate);
 
-  const width = getPositionX(item.since, item.till, startDate, hourWidth);
+  let width = getPositionX(
+    item.since,
+    item.till,
+    startDate,
+    endDate,
+    hourWidth
+  );
   const top = itemHeight * channelIndex;
-  let left = getPositionX(startDate, item.since, startDate, hourWidth);
-  const edgeEnd = getPositionX(startDate, item.till, startDate, hourWidth);
+  let left = getPositionX(startDate, item.since, startDate, endDate, hourWidth);
+  const edgeEnd = getPositionX(
+    startDate,
+    item.till,
+    startDate,
+    endDate,
+    hourWidth
+  );
 
   if (isYesterday) left = 0;
+  // If item has negative top position, it means that it is not visible in this day
+  if (top < 0) width = 0;
 
   const position = {
     width,
@@ -100,20 +126,22 @@ export const getProgramPosition = (
 };
 
 // -------- Converted programs with position data --------
-type ConvertedProgramsType = {
+interface ConvertedPrograms {
   data: Program[];
   channels: Channel[];
   startDate: DateTime;
+  endDate: DateTime;
   itemHeight: number;
   hourWidth: number;
-};
+}
 export const getConvertedPrograms = ({
   data,
   channels,
   startDate,
+  endDate,
   itemHeight,
   hourWidth,
-}: ConvertedProgramsType) =>
+}: ConvertedPrograms) =>
   data.map((next) => {
     const channelIndex = channels.findIndex(
       ({ uuid }) => uuid === next.channelUuid
@@ -123,7 +151,8 @@ export const getConvertedPrograms = ({
       channelIndex,
       itemHeight,
       hourWidth,
-      startDate
+      startDate,
+      endDate
     );
   }, [] as ProgramWithPosition[]);
 
@@ -143,6 +172,10 @@ export const getItemVisibility = (
   containerWidth: number,
   itemOverscan: number
 ) => {
+  if (position.width <= 0) {
+    return false;
+  }
+
   if (scrollY > position.top + itemOverscan * 3) {
     return false;
   }

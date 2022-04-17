@@ -110,6 +110,8 @@ return (
 
 or
 
+#### Custom width and height
+
 ```tsx
 const {
   getEpgProps,
@@ -134,6 +136,35 @@ return (
 
 ```
 
+or
+
+#### Time range
+
+```tsx
+const {
+  getEpgProps,
+  getLayoutProps,
+  ...
+} = useEpg({
+  epg,
+  channels,
+  startDate: '2022-02-02T10:00:00',
+  endDate: '2022-02-02T20:00:00',
+  width: 1200,
+  height: 600
+});
+
+return (
+  <div>
+     <Epg {...getEpgProps()}>
+        <Layout
+          {...getLayoutProps()}
+        />
+      </Epg>
+  </div>
+
+```
+
 ## API
 
 ### useEpg
@@ -142,21 +173,22 @@ return (
 
 Available options in useEpg
 
-| Property                                                                                                                | Type              | Status   | Description                                                     |
-| ----------------------------------------------------------------------------------------------------------------------- | ----------------- | -------- | --------------------------------------------------------------- |
-| `channels`                                                                                                              | `array`           | required | Array with channels data                                        |
-| `epg`                                                                                                                   | `array`           | required | Array with epg data                                             |
-| `width`                                                                                                                 | `number`          | optional | Epg width                                                       |
-| `height`                                                                                                                | `number`          | optional | Epg height                                                      |
-| `sidebarWidth`                                                                                                          | `number`          | optional | Width of the sidebar with channels                              |
-| `itemHeight`                                                                                                            | `number`          | optional | Height of channels and programs in the EPG. Default value is 80 |
-| `dayWidth`                                                                                                              | `number`          | optional | Width of the day. Default value is 7200.                        |
-| Calculation to set up day width with own hour width value eg. 24h \* 300px(your custom hour width) = 7200px -> dayWidth |
-| `startDate`                                                                                                             | `string` / `Date` | optional | Date format `2022/02/02` or `2022-02-02T00:00:00`               |
-| `isSidebar`                                                                                                             | `boolean`         | optional | Show/hide sidebar                                               |
-| `isTimeline`                                                                                                            | `boolean`         | optional | Show/hide timeline                                              |
-| `isLine`                                                                                                                | `boolean`         | optional | Show/hide line                                                  |
-| `theme`                                                                                                                 | `object`          | optional | Object with theme schema                                        |
+| Property           | Type      | Status   | Description                                                                                                                                                      |
+| ------------------ | --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `channels`         | `array`   | required | Array with channels data                                                                                                                                         |
+| `epg`              | `array`   | required | Array with epg data                                                                                                                                              |
+| `width`            | `number`  | optional | Epg width                                                                                                                                                        |
+| `height`           | `number`  | optional | Epg height                                                                                                                                                       |
+| `sidebarWidth`     | `number`  | optional | Width of the sidebar with channels                                                                                                                               |
+| `itemHeight`       | `number`  | optional | Height of channels and programs in the EPG. Default value is 80                                                                                                  |
+| `dayWidth`         | `number`  | optional | Width of the day. Default value is 7200. Calculation to set up day width with own hour width value eg. 24h \* 300px(your custom hour width) = 7200px -> dayWidth |
+| `startDate`        | `string`  | optional | Date format `2022/02/02` or `2022-02-02T00:00:00`. You can set your own start time eg. `2022-02-02T10:00:00`, `2022-02-02T14:00:00` etc. Full clock hours only.  |
+| `endtDate`         | `string`  | optional | Date format `2022-02-02T00:00:00`. You can set your own end time eg. `2022-02-02T15:00:00`, `2022-02-02T:20:00` etc. Full clock hours only.                      |
+| `isBaseTimeFormat` | `boolean` | optional | Convert to 12 hours format eg. `2:00am, 4:00pm` etc. Default value is false.                                                                                     |
+| `isSidebar`        | `boolean` | optional | Show/hide sidebar                                                                                                                                                |
+| `isTimeline`       | `boolean` | optional | Show/hide timeline                                                                                                                                               |
+| `isLine`           | `boolean` | optional | Show/hide line                                                                                                                                                   |
+| `theme`            | `object`  | optional | Object with theme schema                                                                                                                                         |
 
 #### Note about width and height props
 
@@ -238,17 +270,18 @@ import {
   ProgramImage,
   useProgram,
   Program,
+  ProgramItem
 } from "planby";
 
-interface ItemProps {
-  program: Program
-}
 
-const Item = ({ program }: ItemProps) => {
-  const { styles, formatTime, isLive, isMinWidth } = useProgram({ program });
+const Item = ({ program,...rest }: ProgramItem) => {
+  const { styles, formatTime, isLive, isMinWidth } = useProgram({ program,...rest });
 
   const { data } = program;
   const { image, title, since, till } = data;
+
+  const sinceTime = formatTime(since);
+  const tillTime = formatTime(till);
 
   return (
     <ProgramBox width={styles.width} style={styles.position}>
@@ -261,7 +294,7 @@ const Item = ({ program }: ItemProps) => {
           <ProgramStack>
             <ProgramTitle>{title}</ProgramTitle>
             <ProgramText>
-              {formatTime(since)} - {formatTime(till)}
+              {sinceTime} - {tillTime}
             </ProgramText>
           </ProgramStack>
         </ProgramFlex>
@@ -302,6 +335,70 @@ return (
 export default App;
 ```
 
+## renderProgram - 12 hours time format
+
+Below is an example that allows you to render your custom Program component with 12 hours time format using Plaby's style components.
+
+```tsx
+...
+const Item = ({ program, ...rest }: ProgramItem) => {
+  const {
+    styles,
+    formatTime,
+    set12HoursTimeFormat,
+    isLive,
+    isMinWidth,
+  } = useProgram({
+    program,
+    ...rest
+  });
+
+  const { data } = program;
+  const { image, title, since, till } = data;
+
+  const sinceTime = formatTime(since, set12HoursTimeFormat()).toLowerCase();
+  const tillTime = formatTime(till, set12HoursTimeFormat()).toLowerCase();
+
+  return (
+    <ProgramBox width={styles.width} style={styles.position}>
+      <ProgramContent
+        width={styles.width}
+        isLive={isLive}
+      >
+        <ProgramFlex>
+          {isLive && isMinWidth && <ProgramImage src={image} alt="Preview" />}
+          <ProgramStack>
+            <ProgramTitle>{title}</ProgramTitle>
+            <ProgramText>
+              {sinceTime} - {tillTime}
+            </ProgramText>
+          </ProgramStack>
+        </ProgramFlex>
+      </ProgramContent>
+    </ProgramBox>
+  );
+};
+
+function App() {
+
+  ...
+
+ const {
+  getEpgProps,
+  getLayoutProps,
+} = useEpg({
+  epg,
+  channels,
+  isBaseTimeFormat: true,
+  startDate: '2022/02/02', // or 2022-02-02T00:00:00
+});
+
+...
+}
+
+export default App;
+```
+
 ## renderChannel
 
 Below is an example that allows you to render your custom Channel component using Plaby's style components.
@@ -325,6 +422,69 @@ const ChannelItem = ({ channel }: ChannelItemProps) => {
     </ChannelBox>
   );
 };
+```
+
+## renderTimeline
+
+Below is an example that allows you to render your custom Timeline component using Plaby's style components.
+
+```tsx
+import {
+  TimelineWrapper,
+  TimelineBox,
+  TimelineTime,
+  TimelineDividers,
+  useTimeline,
+} from 'planby';
+
+interface TimelineProps {
+  isBaseTimeFormat: boolean;
+  isSidebar: boolean;
+  dayWidth: number;
+  hourWidth: number;
+  numberOfHoursInDay: number;
+  offsetStartHoursRange: number;
+  sidebarWidth: number;
+}
+
+export function Timeline({
+  isBaseTimeFormat,
+  isSidebar,
+  dayWidth,
+  hourWidth,
+  numberOfHoursInDay,
+  offsetStartHoursRange,
+  sidebarWidth,
+}: TimelineProps) {
+  const { time, dividers, formatTime } = useTimeline(
+    numberOfHoursInDay,
+    isBaseTimeFormat
+  );
+
+  const renderTime = (index: number) => (
+    <TimelineBox key={index} width={hourWidth}>
+      <TimelineTime>
+        {formatTime(index + offsetStartHoursRange).toLowerCase()}
+      </TimelineTime>
+      <TimelineDividers>{renderDividers()}</TimelineDividers>
+    </TimelineBox>
+  );
+
+  const renderDividers = () =>
+    dividers.map((_, index) => (
+      <TimelineDivider key={index} width={hourWidth} />
+    ));
+
+  return (
+    <TimelineWrapper
+      dayWidth={dayWidth}
+      sidebarWidth={sidebarWidth}
+      isSidebar={isSidebar}
+    >
+      {time.map((_, index) => renderTime(index))}
+    </TimelineWrapper>
+  );
+}
 ```
 
 ## Theme
@@ -392,10 +552,16 @@ import {
   ProgramTitle,
   ProgramText,
   ProgramImage,
+  TimelineWrapper,
+  TimelineBox,
+  TimelineTime,
+  TimelineDividers,
   useEpg,
   useProgram,
+  useTimeline,
   Program, // Interface
   Channel, // Interface
+  ProgramItem, // Interface for program render
   Theme, // Interface
 } from 'planby';
 ```

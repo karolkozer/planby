@@ -26,5 +26,7 @@ export const THEME_MODE = {
 
 export const TIME_FORMAT = {
   DEFAULT: "yyyy-MM-dd HH:mm:ss",
+  DATE: "yyyy-MM-dd",
   HOURS_MIN: "HH:mm",
+  BASE_HOURS_TIME: "h:mm a",
 };

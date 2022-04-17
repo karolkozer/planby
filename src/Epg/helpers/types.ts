@@ -24,3 +24,5 @@ export type ChannelWithPosiiton = Channel & {
 };
 
 export type DateTime = string | Date;
+
+export type BaseTimeFormat = boolean;

@@ -322,8 +322,8 @@ return (
       <Epg {...getEpgProps()}>
         <Layout
             {...getLayoutProps()}
-            renderProgram={({ program }) => (
-              <Item key={program.data.id} program={program} />
+            renderProgram={({ program,...rest }) => (
+              <Item key={program.data.id} program={program} {...rest} />
             )}
           />
       </Epg>

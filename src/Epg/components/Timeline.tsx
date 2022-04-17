@@ -1,5 +1,8 @@
 import * as React from "react";
 
+// Import types
+import { BaseTimeFormat } from "../helpers/types";
+
 // Import styles
 import { TimelineStyled } from "../styles";
 
@@ -15,25 +18,32 @@ const {
 } = TimelineStyled;
 
 interface TimelineProps {
+  isBaseTimeFormat: BaseTimeFormat;
   isSidebar: boolean;
   dayWidth: number;
   hourWidth: number;
+  numberOfHoursInDay: number;
+  offsetStartHoursRange: number;
   sidebarWidth: number;
 }
 
 export function Timeline({
+  isBaseTimeFormat,
   isSidebar,
   dayWidth,
   hourWidth,
+  numberOfHoursInDay,
+  offsetStartHoursRange,
   sidebarWidth,
 }: TimelineProps) {
-  const { time, dividers } = useTimeline();
-  const timeFormat = (index: number) =>
-    `${index < 10 ? `0${index}` : index}:00`;
+  const { time, dividers, formatTime } = useTimeline(
+    numberOfHoursInDay,
+    isBaseTimeFormat
+  );
 
   const renderTime = (index: number) => (
     <TimelineBox data-testid="timeline-item" key={index} width={hourWidth}>
-      <TimelineTime>{timeFormat(index)}</TimelineTime>
+      <TimelineTime>{formatTime(index + offsetStartHoursRange)}</TimelineTime>
       <TimelineDividers>{renderDividers()}</TimelineDividers>
     </TimelineBox>
   );

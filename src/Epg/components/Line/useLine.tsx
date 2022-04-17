@@ -12,6 +12,7 @@ import { useInterval } from "../../hooks";
 
 interface useLineProps {
   startDate: DateTime;
+  endDate: DateTime;
   dayWidth: number;
   hourWidth: number;
   sidebarWidth: number;
@@ -19,6 +20,7 @@ interface useLineProps {
 
 export function useLine({
   startDate,
+  endDate,
   dayWidth,
   hourWidth,
   sidebarWidth,
@@ -28,6 +30,7 @@ export function useLine({
       startOfDay(new Date(startDate)),
       new Date(),
       startDate,
+      endDate,
       hourWidth
     ) + sidebarWidth;
   const [positionX, setPositionX] = React.useState<number>(() => initialState);
@@ -49,11 +52,12 @@ export function useLine({
       startOfDay(date),
       new Date(),
       startDate,
+      endDate,
       hourWidth
     );
     const newPositionX = positionX + sidebarWidth;
     setPositionX(newPositionX);
-  }, [startDate, sidebarWidth, hourWidth]);
+  }, [startDate, endDate, sidebarWidth, hourWidth]);
 
   return { positionX };
 }

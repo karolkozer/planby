@@ -2,6 +2,7 @@ import * as React from "react";
 
 // Import interfaces
 import { Program as ProgramType } from "../helpers/interfaces";
+import { BaseTimeFormat } from "../helpers/types";
 
 // Import types
 import { ProgramItem } from "../helpers/types";
@@ -14,6 +15,7 @@ import { useProgram } from "../hooks";
 
 interface ProgramProps<T> {
   program: T;
+  isBaseTimeFormat: BaseTimeFormat;
   onClick?: (v: ProgramType) => void;
 }
 
@@ -29,10 +31,20 @@ const {
 
 export function Program<T extends ProgramItem>({
   program,
+  isBaseTimeFormat,
   onClick,
   ...rest
 }: ProgramProps<T>) {
-  const { styles, formatTime, isLive, isMinWidth } = useProgram({ program });
+  const {
+    styles,
+    formatTime,
+    set12HoursTimeFormat,
+    isLive,
+    isMinWidth,
+  } = useProgram({
+    program,
+    isBaseTimeFormat,
+  });
 
   const { data } = program;
   const { image, title, since, till } = data;
@@ -57,7 +69,8 @@ export function Program<T extends ProgramItem>({
           <ProgramStack>
             <ProgramTitle>{title}</ProgramTitle>
             <ProgramText aria-label="program time">
-              {formatTime(since)} - {formatTime(till)}
+              {formatTime(since, set12HoursTimeFormat())} -{" "}
+              {formatTime(till, set12HoursTimeFormat())}
             </ProgramText>
           </ProgramStack>
         </ProgramFlex>

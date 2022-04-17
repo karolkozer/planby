@@ -1,18 +1,18 @@
 import React from "react";
-import { startOfToday } from "date-fns";
+import { startOfToday, startOfDay, addDays } from "date-fns";
 
 // Import interfaces
 import { Channel, Program, Theme } from "../helpers/interfaces";
 
 // Import types
-import { DateTime } from "../helpers/types";
+import { DateTime, BaseTimeFormat } from "../helpers/types";
 
 // Import helpers
 import {
   DAY_WIDTH,
   ITEM_HEIGHT,
   ITEM_OVERSCAN,
-  getHourWidth,
+  getDayWidthResources,
 } from "../helpers";
 
 // Import theme
@@ -37,6 +37,8 @@ interface useEpgProps {
   width?: number;
   height?: number;
   startDate?: DateTime;
+  endDate?: DateTime;
+  isBaseTimeFormat?: BaseTimeFormat;
   isSidebar?: boolean;
   isTimeline?: boolean;
   isLine?: boolean;
@@ -48,28 +50,36 @@ interface useEpgProps {
 }
 
 const defaultStartDateTime = formatTime(startOfToday());
+const defaultEndDateTime = formatTime(startOfDay(addDays(startOfToday(), 1)));
 
 export function useEpg({
   channels: channelsEpg,
   epg,
   startDate = defaultStartDateTime,
+  endDate = defaultEndDateTime,
+  isBaseTimeFormat = false,
   isSidebar = true,
   isTimeline = true,
   isLine = true,
   theme: customTheme,
-  dayWidth = DAY_WIDTH,
+  dayWidth: customDayWidth = DAY_WIDTH,
   sidebarWidth = SIDEBAR_WIDTH,
   itemHeight = ITEM_HEIGHT,
   itemOverscan = ITEM_OVERSCAN,
   width,
   height,
 }: useEpgProps) {
-  // Get hour width of the day
-  const hourWidth = React.useMemo(() => getHourWidth(dayWidth), [dayWidth]);
+  // Get day and hour width of the day
+  const { hourWidth, dayWidth, ...dayWidthResourcesProps } = React.useMemo(
+    () =>
+      getDayWidthResources({ dayWidth: customDayWidth, startDate, endDate }),
+    [customDayWidth, startDate, endDate]
+  );
 
   // -------- Effects --------
   const { containerRef, scrollBoxRef, ...layoutProps } = useLayout({
     startDate,
+    endDate,
     sidebarWidth,
     width,
     height,
@@ -92,16 +102,18 @@ export function useEpg({
   );
 
   const startDateTime = formatTime(startDate);
+  const endDateTime = formatTime(endDate);
   const programs = React.useMemo(
     () =>
       getConvertedPrograms({
         data: epg,
         channels,
         startDate: startDateTime,
+        endDate: endDateTime,
         itemHeight,
         hourWidth,
       }),
-    [epg, channels, startDateTime, itemHeight, hourWidth]
+    [epg, channels, startDateTime, endDateTime, itemHeight, hourWidth]
   );
 
   const theme: Theme = customTheme || defaultTheme;
@@ -141,8 +153,10 @@ export function useEpg({
     programs,
     channels,
     startDate,
+    endDate,
     scrollY,
     onScroll,
+    isBaseTimeFormat,
     isSidebar,
     isTimeline,
     isLine,
@@ -152,6 +166,7 @@ export function useEpg({
     hourWidth,
     sidebarWidth,
     itemHeight,
+    ...dayWidthResourcesProps,
     ref: scrollBoxRef,
   });
 

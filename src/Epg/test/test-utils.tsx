@@ -9,7 +9,10 @@ import { theme } from "../theme";
 // Import styles
 import { globalStyles } from "../styles";
 
-const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
+interface AllTheProvidersProps {
+  children: React.ReactNode;
+}
+const AllTheProviders = ({ children }: AllTheProvidersProps) => {
   return (
     <ThemeProvider theme={theme}>
       <Global styles={globalStyles} />
@@ -21,7 +24,7 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
 const customRender = (
   ui: React.ReactElement,
   options?: Omit<RenderOptions, "wrapper">
-) => render(ui, { wrapper: AllTheProviders, ...options });
+) => render(ui, { wrapper: AllTheProviders as React.FC, ...options });
 
 export * from "@testing-library/react";
 export { customRender as render, userEvent };

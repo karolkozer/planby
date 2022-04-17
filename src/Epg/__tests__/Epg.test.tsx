@@ -3,7 +3,7 @@ import { render, screen, within } from "../test/test-utils";
 import { Epg } from "../Epg";
 import { Layout } from "../components";
 
-import { getLayoutProps } from "../test";
+import { getLayoutProps, getTestTimeDate } from "../test";
 
 // Import theme
 import { theme as defaultTheme } from "../theme";
@@ -20,9 +20,10 @@ function getEpgProps(overrides: Overrides = {}) {
 interface RenderEpg {
   epgOptions?: Overrides;
   layoutOptions?: Overrides;
+  sliceNumber?: number;
 }
-function renderEpg({ epgOptions, layoutOptions }: RenderEpg = {}) {
-  const layoutProps = getLayoutProps(layoutOptions);
+function renderEpg({ epgOptions, layoutOptions, sliceNumber }: RenderEpg = {}) {
+  const layoutProps = getLayoutProps(layoutOptions, sliceNumber);
   render(
     <>
       {/* @ts-ignore:next-line */}
@@ -81,14 +82,39 @@ test("should render Epg coponent properly", () => {
   );
 });
 
-test("should set initial Epg width and height props", () => {
+test("should set initial Epg props", () => {
   const epgOptions = getEpgProps({ width: 1000, height: 600 });
-  renderEpg({ epgOptions });
+  const layoutOptions = {
+    dayWidth: 7200,
+    startDate: getTestTimeDate("01"),
+    endDate: getTestTimeDate("23"),
+    hourWidth: 300,
+    isBaseTimeFormat: true,
+    numberOfHoursInDay: 22,
+    offsetStartHoursRange: 1,
+  };
+  renderEpg({
+    epgOptions,
+    layoutOptions,
+    sliceNumber: 10,
+  });
 
   const container = screen.getByTestId("container");
-
   expect(container).toBeInTheDocument();
   expect(container).toHaveStyle(`height: 600px; width: 1000px`);
+
+  const timeline = screen.getByTestId("timeline");
+  const inTimeline = within(timeline);
+  expect(timeline).toBeInTheDocument();
+  expect(inTimeline.queryByText("00:00")).not.toBeInTheDocument();
+  expect(inTimeline.getByText("1:00am")).toBeInTheDocument();
+  expect(inTimeline.getAllByTestId("timeline-item")).toHaveLength(22);
+  expect(inTimeline.getAllByTestId("timeline-item")[0]).toHaveStyle(
+    `width: ${layoutOptions.hourWidth}px`
+  );
+
+  const content = screen.getByTestId("content");
+  expect(content).toHaveStyle(`width: ${layoutOptions.dayWidth}px`);
 });
 
 test("should show loader in Epg layout", () => {

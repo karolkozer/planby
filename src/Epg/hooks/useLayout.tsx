@@ -19,12 +19,14 @@ interface useLayoutProps {
   hourWidth: number;
   sidebarWidth: number;
   startDate: DateTime;
+  endDate: DateTime;
 }
 
 export function useLayout({
   height,
   width,
   startDate,
+  endDate,
   hourWidth,
   sidebarWidth,
 }: useLayoutProps) {
@@ -68,12 +70,13 @@ export function useLayout({
         startOfToday(),
         newDate,
         startDate,
+        endDate,
         hourWidth
       );
       const scrollNow = scrollPosition - clientWidth / 2 + sidebarWidth;
       scrollBoxRef.current.scrollLeft = scrollNow;
     }
-  }, [isToday, startDate, width, sidebarWidth, hourWidth]);
+  }, [isToday, startDate, endDate, width, sidebarWidth, hourWidth]);
 
   const handleOnScrollTop = React.useCallback(
     (value: number = hourWidth) => {

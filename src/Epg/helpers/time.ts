@@ -16,3 +16,9 @@ export const isYesterday = (since: DateTime, startDate: DateTime) => {
 
   return startDateTime > sinceTime;
 };
+
+export const isFutureTime = (date: DateTime) => {
+  const dateTime = getTime(new Date(date));
+  const now = getTime(new Date());
+  return dateTime > now;
+};

@@ -13,6 +13,7 @@ import { useLine } from "./useLine";
 interface LineProps {
   height: number;
   startDate: DateTime;
+  endDate: DateTime;
   dayWidth: number;
   hourWidth: number;
   sidebarWidth: number;
@@ -23,12 +24,14 @@ const { Box } = LineStyled;
 export function Line({
   height,
   startDate,
+  endDate,
   dayWidth,
   hourWidth,
   sidebarWidth,
 }: LineProps) {
   const { positionX } = useLine({
     startDate,
+    endDate,
     dayWidth,
     hourWidth,
     sidebarWidth,

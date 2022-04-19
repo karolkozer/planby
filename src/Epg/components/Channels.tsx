@@ -1,12 +1,12 @@
-import * as React from "react";
+import * as React from 'react';
 // Import interfaces
-import { ChannelWithPosiiton } from "../helpers/types";
+import { ChannelWithPosiiton } from '../helpers/types';
 
 // Import styles
-import { ChannelsStyled } from "../styles";
+import { ChannelsStyled } from '../styles';
 
 // Import Components
-import { Channel } from "../components";
+import { Channel } from '../components';
 
 interface ChannelsProps {
   channels: ChannelWithPosiiton[];
@@ -14,7 +14,7 @@ interface ChannelsProps {
   sidebarWidth: number;
   isTimeline: boolean;
   isChannelVisible: (position: any) => boolean;
-  renderChannel?: (v: { channel: ChannelWithPosiiton }) => void;
+  renderChannel?: (v: { channel: ChannelWithPosiiton }) => React.ReactNode;
 }
 
 const { Box } = ChannelsStyled;
@@ -29,6 +29,7 @@ export function Channels(props: ChannelsProps) {
       if (renderChannel) return renderChannel({ channel });
       return <Channel key={channel.uuid} channel={channel} />;
     }
+    return null;
   };
 
   return (

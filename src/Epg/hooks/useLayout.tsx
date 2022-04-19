@@ -54,7 +54,7 @@ export function useLayout({
   );
 
   const handleOnScroll = React.useCallback(
-    (e) => {
+    (e: React.UIEvent<HTMLDivElement, UIEvent> & { target: Element }) => {
       handleScrollDebounced({ y: e.target.scrollTop, x: e.target.scrollLeft });
     },
     [handleScrollDebounced]

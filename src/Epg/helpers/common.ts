@@ -2,6 +2,8 @@ import { useLayoutEffect, useEffect } from "react";
 import { differenceInHours, startOfDay } from "date-fns";
 import { HOURS_IN_DAY } from "./variables";
 
+type DateTime = string | number | Date;
+
 type OmitObjectType = { [key: string]: any };
 export const omit = (obj: OmitObjectType, ...props: string[]) => {
   const result = { ...obj };
@@ -14,15 +16,6 @@ export const omit = (obj: OmitObjectType, ...props: string[]) => {
 };
 
 export const generateArray = (num: number) => new Array(num).fill("");
-
-type DateTime = string | number | Date;
-const getTime = (date: DateTime) => new Date(date).getTime();
-export const getLiveStatus = (since: DateTime, till: DateTime) => {
-  const nowTime = getTime(new Date());
-  const sinceTime = getTime(since);
-  const sinceTill = getTime(till);
-  return nowTime >= sinceTime && sinceTill > nowTime;
-};
 
 type ProgramOptions = {
   position: { width: number; height: number; top: number; left: number };

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 // Import types
 import {
@@ -8,16 +8,16 @@ import {
   DateTime,
   Position,
   BaseTimeFormat,
-} from "../helpers/types";
+} from '../helpers/types';
 
 // Import helpers
-import { getProgramOptions, isFutureTime } from "../helpers";
+import { getProgramOptions, isFutureTime } from '../helpers';
 
 // Import styles
-import { EpgStyled, TimelineStyled } from "../styles";
+import { EpgStyled, TimelineStyled } from '../styles';
 
 // Import components
-import { Timeline, Channels, Program, Line } from "../components";
+import { Timeline, Channels, Program, Line } from '../components';
 
 interface RenderTimeline {
   sidebarWidth: number;
@@ -39,18 +39,20 @@ interface LayoutProps {
   offsetStartHoursRange: number;
   sidebarWidth: number;
   itemHeight: number;
-  onScroll: (e: any) => void;
+  onScroll: (
+    e: React.UIEvent<HTMLDivElement, UIEvent> & { target: Element }
+  ) => void;
   isBaseTimeFormat?: BaseTimeFormat;
   isSidebar?: boolean;
   isTimeline?: boolean;
   isLine?: boolean;
   isProgramVisible: (position: Position) => boolean;
-  isChannelVisible: (position: Pick<Position, "top">) => boolean;
+  isChannelVisible: (position: Pick<Position, 'top'>) => boolean;
   renderProgram?: (v: {
     program: ProgramItem;
     isBaseTimeFormat: BaseTimeFormat;
-  }) => void;
-  renderChannel?: (v: { channel: ChannelWithPosiiton }) => void;
+  }) => React.ReactNode;
+  renderChannel?: (v: { channel: ChannelWithPosiiton }) => React.ReactNode;
   renderTimeline?: (v: RenderTimeline) => React.ReactNode;
 }
 
@@ -104,6 +106,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
           />
         );
       }
+      return null;
     };
 
     const renderTopbar = () => {
@@ -157,7 +160,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
           width={dayWidth}
           height={contentHeight}
         >
-          {programs.map((program) =>
+          {programs.map(program =>
             renderPrograms(program as ProgramWithPosition)
           )}
         </Content>

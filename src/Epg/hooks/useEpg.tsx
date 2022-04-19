@@ -1,11 +1,11 @@
 import React from "react";
-import { startOfToday, startOfDay, addDays } from "date-fns";
+import { startOfToday } from "date-fns";
 
 // Import interfaces
 import { Channel, Program, Theme } from "../helpers/interfaces";
 
 // Import types
-import { DateTime, BaseTimeFormat } from "../helpers/types";
+import { DateTime, BaseTimeFormat, Position } from "../helpers/types";
 
 // Import helpers
 import {
@@ -13,6 +13,7 @@ import {
   ITEM_HEIGHT,
   ITEM_OVERSCAN,
   getDayWidthResources,
+  getTimeRangeDates,
 } from "../helpers";
 
 // Import theme
@@ -50,13 +51,12 @@ interface useEpgProps {
 }
 
 const defaultStartDateTime = formatTime(startOfToday());
-const defaultEndDateTime = formatTime(startOfDay(addDays(startOfToday(), 1)));
 
 export function useEpg({
   channels: channelsEpg,
   epg,
-  startDate = defaultStartDateTime,
-  endDate = defaultEndDateTime,
+  startDate: startDateInput = defaultStartDateTime,
+  endDate: endDateInput = "",
   isBaseTimeFormat = false,
   isSidebar = true,
   isTimeline = true,
@@ -69,6 +69,12 @@ export function useEpg({
   width,
   height,
 }: useEpgProps) {
+  // Get converted start and end dates
+  const { startDate, endDate } = getTimeRangeDates(
+    startDateInput,
+    endDateInput
+  );
+
   // Get day and hour width of the day
   const { hourWidth, dayWidth, ...dayWidthResourcesProps } = React.useMemo(
     () =>
@@ -87,13 +93,8 @@ export function useEpg({
   });
 
   const { scrollX, scrollY, layoutWidth, layoutHeight } = layoutProps;
-  const {
-    onScroll,
-    onScrollToNow,
-    onScrollTop,
-    onScrollLeft,
-    onScrollRight,
-  } = layoutProps;
+  const { onScroll, onScrollToNow, onScrollTop, onScrollLeft, onScrollRight } =
+    layoutProps;
 
   //-------- Variables --------
   const channels = React.useMemo(
@@ -120,7 +121,7 @@ export function useEpg({
 
   // -------- Handlers --------
   const isProgramVisible = React.useCallback(
-    (position) =>
+    (position: Position) =>
       getItemVisibility(
         position,
         scrollY,
@@ -133,7 +134,7 @@ export function useEpg({
   );
 
   const isChannelVisible = React.useCallback(
-    (position) =>
+    (position: Pick<Position, "top">) =>
       getSidebarItemVisibility(position, scrollY, layoutHeight, itemOverscan),
     [scrollY, layoutHeight, itemOverscan]
   );

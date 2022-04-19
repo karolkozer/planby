@@ -11,6 +11,9 @@
   <a href="https://npmjs.org/package/planby">
     <img alt="downloads" src="https://badgen.net/npm/dm/planby" />
   </a>
+  <a href="https://npmjs.org/package/planby">
+    <img alt="downloads" src="https://img.shields.io/npm/dt/planby?color=%2327ae60&label=recent%20downloads" />
+  </a> 
  <a href="https://opencollective.com/planby#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
 </div>
 

@@ -195,7 +195,7 @@ export const getItemVisibility = (
 };
 
 export const getSidebarItemVisibility = (
-  position: Position,
+  position: Pick<Position, "top">,
   scrollY: number,
   containerHeight: number,
   itemOverscan: number

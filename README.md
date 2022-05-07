@@ -325,8 +325,8 @@ return (
       <Epg {...getEpgProps()}>
         <Layout
             {...getLayoutProps()}
-            renderProgram={({ program }) => (
-              <Item key={program.data.id} program={program} />
+            renderProgram={({ program,...rest }) => (
+              <Item key={program.data.id} program={program} {...rest} />
             )}
           />
       </Epg>
@@ -425,6 +425,37 @@ const ChannelItem = ({ channel }: ChannelItemProps) => {
     </ChannelBox>
   );
 };
+
+
+function App() {
+
+  ...
+
+  const {
+    getEpgProps,
+    getLayoutProps,
+  } = useEpg({
+    epg,
+    channels,
+    startDate: '2022/02/02', // or 2022-02-02T00:00:00
+  });
+
+  return (
+    <div>
+      <div style={{ height: '600px', width: '1200px' }}>
+        <Epg {...getEpgProps()}>
+          <Layout
+              {...getLayoutProps()}
+              renderChannel={({ channel }) => (
+              <ChannelItem key={channel.uuid} channel={channel} />
+            )}
+            />
+        </Epg>
+      </div>
+    </div>
+  );
+}
+
 ```
 
 ## renderTimeline
@@ -436,6 +467,7 @@ import {
   TimelineWrapper,
   TimelineBox,
   TimelineTime,
+  TimelineDivider,
   TimelineDividers,
   useTimeline,
 } from 'planby';
@@ -488,6 +520,35 @@ export function Timeline({
     </TimelineWrapper>
   );
 }
+
+function App() {
+
+  ...
+
+  const {
+    getEpgProps,
+    getLayoutProps,
+  } = useEpg({
+    epg,
+    channels,
+    startDate: '2022/02/02', // or 2022-02-02T00:00:00
+  });
+
+  return (
+    <div>
+      <div style={{ height: '600px', width: '1200px' }}>
+        <Epg {...getEpgProps()}>
+          <Layout
+              {...getLayoutProps()}
+              renderTimeline={(props) => <Timeline {...props} />}
+            />
+        </Epg>
+      </div>
+    </div>
+  );
+}
+
+export default App;
 ```
 
 ## Theme

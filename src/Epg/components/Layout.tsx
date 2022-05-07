@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // Import types
 import {
@@ -8,16 +8,16 @@ import {
   DateTime,
   Position,
   BaseTimeFormat,
-} from '../helpers/types';
+} from "../helpers/types";
 
 // Import helpers
-import { getProgramOptions, isFutureTime } from '../helpers';
+import { getProgramOptions, isFutureTime } from "../helpers";
 
 // Import styles
-import { EpgStyled, TimelineStyled } from '../styles';
+import { EpgStyled } from "../styles";
 
 // Import components
-import { Timeline, Channels, Program, Line } from '../components';
+import { Timeline, Channels, Program, Line } from "../components";
 
 interface RenderTimeline {
   sidebarWidth: number;
@@ -25,6 +25,8 @@ interface RenderTimeline {
   numberOfHoursInDay: number;
   offsetStartHoursRange: number;
   isBaseTimeFormat: BaseTimeFormat;
+  isSidebar: boolean;
+  dayWidth: number;
 }
 
 interface LayoutProps {
@@ -47,7 +49,7 @@ interface LayoutProps {
   isTimeline?: boolean;
   isLine?: boolean;
   isProgramVisible: (position: Position) => boolean;
-  isChannelVisible: (position: Pick<Position, 'top'>) => boolean;
+  isChannelVisible: (position: Pick<Position, "top">) => boolean;
   renderProgram?: (v: {
     program: ProgramItem;
     isBaseTimeFormat: BaseTimeFormat;
@@ -57,7 +59,6 @@ interface LayoutProps {
 }
 
 const { ScrollBox, Content } = EpgStyled;
-const { TimelineWrapper } = TimelineStyled;
 
 export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
   (props, scrollBoxRef) => {
@@ -123,9 +124,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
         hourWidth,
       };
       if (renderTimeline) {
-        <TimelineWrapper {...props}>
-          {renderTimeline?.({ sidebarWidth, ...timeProps })}
-        </TimelineWrapper>;
+        return renderTimeline({ ...timeProps, ...props });
       }
       return <Timeline {...timeProps} {...props} />;
     };
@@ -160,7 +159,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
           width={dayWidth}
           height={contentHeight}
         >
-          {programs.map(program =>
+          {programs.map((program) =>
             renderPrograms(program as ProgramWithPosition)
           )}
         </Content>

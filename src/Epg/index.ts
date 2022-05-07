@@ -39,6 +39,7 @@ const {
   TimelineWrapper,
   TimelineBox,
   TimelineTime,
+  TimelineDivider,
   TimelineDividers,
 } = TimelineStyled;
 
@@ -59,4 +60,5 @@ export {
   TimelineBox,
   TimelineTime,
   TimelineDividers,
+  TimelineDivider,
 };

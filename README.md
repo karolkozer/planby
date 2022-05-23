@@ -26,6 +26,16 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
     <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-preview.png" alt="Planby preview" />
   </a>
 </div>
+<div align="center" style="margin-bottom: 10px">
+  <a href="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-music-festival-event.png">
+    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-music-festival-event.png" alt="Planby preview" />
+  </a>
+</div>
+<div align="center" style="margin-bottom: 10px">
+  <a href="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-conf-event.png">
+    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-conf-event.png" alt="Planby preview" />
+  </a>
+</div>
 
 ## Codesandbox example
 

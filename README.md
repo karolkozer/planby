@@ -1,6 +1,6 @@
 <div align="center" style="margin-bottom: 10px">
   <a href="https://www.npmjs.com/package/planby">
-    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-logo.png" alt="Planby logo" />
+    <img src="https://i.postimg.cc/J0XMPHNQ/planby-logo.png" alt="Planby logo" />
   </a>
 </div>
 
@@ -22,18 +22,18 @@
 Planby is a React based component for a quick implementation of Epg, schedules, live streaming, music events, timelines and many more ideas. It uses a custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customised to the needs of the application design.
 
 <div align="center" style="margin-bottom: 10px">
-  <a href="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-tv-vod.png">
-    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-tv-vod.png" alt="Planby preview" />
+  <a href="https://planby.netlify.app/">
+    <img src="https://i.postimg.cc/1zgmfd8T/planby-tv-vod.png" alt="Planby preview" />
   </a>
 </div>
 <div align="center" style="margin-bottom: 10px">
-  <a href="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-music-festival-event.png">
-    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-music-festival-event.png" alt="Planby preview" />
+  <a href="https://planby.netlify.app/">
+    <img src="https://i.postimg.cc/50qZ05ST/planby-music-festival-event.png" alt="Planby preview" />
   </a>
 </div>
 <div align="center" style="margin-bottom: 10px">
-  <a href="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-conf-event.png">
-    <img src="https://raw.githubusercontent.com/karolkozer/planby/master/images/planby-conf-event.png" alt="Planby preview" />
+  <a href="https://planby.netlify.app/">
+    <img src="https://i.postimg.cc/s2Pn9jGZ/planby-conf-event.png" alt="Planby preview" />
   </a>
 </div>
 

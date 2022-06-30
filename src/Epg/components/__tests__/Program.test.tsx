@@ -5,7 +5,7 @@ import { subMinutes, addMinutes } from "date-fns";
 
 test("should render and show Program component properly", () => {
   const program = buildProgramWithPosition();
-  render(<Program program={program} />);
+  render(<Program isBaseTimeFormat={false} program={program} />);
 
   expect(screen.getByText(program.data.title)).toBeInTheDocument();
   expect(screen.getByLabelText(/program time/i)).toBeInTheDocument();
@@ -19,7 +19,7 @@ test("should highlight live program", () => {
   const till = addMinutes(new Date(), 60);
   const program = buildProgramWithPosition({ program: { since, till } });
 
-  render(<Program program={program} />);
+  render(<Program isBaseTimeFormat={false} program={program} />);
 
   expect(screen.getByRole("img", { name: /preview/i })).toBeInTheDocument();
   expect(screen.getByRole("img", { name: /preview/i })).toHaveAttribute(
@@ -35,7 +35,9 @@ test("should handle onClick prop", () => {
   const onClick = jest.fn();
   const program = buildProgramWithPosition();
 
-  render(<Program program={program} onClick={onClick} />);
+  render(
+    <Program isBaseTimeFormat={false} program={program} onClick={onClick} />
+  );
 
   userEvent.click(screen.getByTestId(/program-content/i));
 

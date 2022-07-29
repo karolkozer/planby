@@ -2,8 +2,9 @@ import styled from "@emotion/styled/macro";
 import { Theme } from "../helpers";
 
 export const Box = styled.div<{
-  width: number;
   isTimeline: boolean;
+  isRTL: boolean;
+  width: number;
   bottom: number;
   theme?: Theme;
 }>`
@@ -14,4 +15,6 @@ export const Box = styled.div<{
   left: 0;
   z-index: 100;
   background-color: ${({ theme }) => theme.primary[900]};
+
+  ${({ isRTL }) => isRTL && `transform: scale(-1,1)`};
 `;

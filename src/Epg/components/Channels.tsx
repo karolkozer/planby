@@ -1,19 +1,20 @@
-import * as React from 'react';
+import * as React from "react";
 // Import interfaces
-import { ChannelWithPosiiton } from '../helpers/types';
+import { ChannelWithPosiiton } from "../helpers/types";
 
 // Import styles
-import { ChannelsStyled } from '../styles';
+import { ChannelsStyled } from "../styles";
 
 // Import Components
-import { Channel } from '../components';
+import { Channel } from "../components";
 
 interface ChannelsProps {
+  isTimeline: boolean;
+  isRTL: boolean;
+  isChannelVisible: (position: any) => boolean;
   channels: ChannelWithPosiiton[];
   scrollY: number;
   sidebarWidth: number;
-  isTimeline: boolean;
-  isChannelVisible: (position: any) => boolean;
   renderChannel?: (v: { channel: ChannelWithPosiiton }) => React.ReactNode;
 }
 
@@ -21,7 +22,7 @@ const { Box } = ChannelsStyled;
 
 export function Channels(props: ChannelsProps) {
   const { channels, scrollY, sidebarWidth, renderChannel } = props;
-  const { isTimeline, isChannelVisible } = props;
+  const { isRTL, isTimeline, isChannelVisible } = props;
 
   const renderChannels = (channel: ChannelWithPosiiton) => {
     const isVisible = isChannelVisible(channel.position);
@@ -35,8 +36,9 @@ export function Channels(props: ChannelsProps) {
   return (
     <Box
       data-testid="sidebar"
-      width={sidebarWidth}
+      isRTL={isRTL}
       isTimeline={isTimeline}
+      width={sidebarWidth}
       bottom={scrollY}
     >
       {channels.map(renderChannels)}

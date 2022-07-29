@@ -20,13 +20,15 @@ export const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-export const ScrollBox = styled.div<{ theme?: Theme }>`
+export const ScrollBox = styled.div<{ theme?: Theme; isRTL?: boolean }>`
   height: 100%;
   width: 100%;
   position: relative;
   overflow: auto;
   scroll-behavior: smooth;
   background: ${({ theme }) => theme.primary[900]};
+
+  ${({ isRTL }) => isRTL && `transform: scale(-1,1)`};
 
   ::-webkit-scrollbar {
     width: 10px;
@@ -54,6 +56,7 @@ export const ScrollBox = styled.div<{ theme?: Theme }>`
 `;
 
 export const Box = styled.div<{
+  isRTL?: boolean;
   width: number;
   height: number;
   left?: number;
@@ -64,9 +67,10 @@ export const Box = styled.div<{
   height: ${({ height }) => height}px;
   width: ${({ width }) => width}px;
   top: ${({ top = 0 }) => top}px;
-  left: ${({ left = 0 }) => left}px;
   background: ${({ theme }) => theme.primary[900]};
   z-index: 900;
+
+  ${({ isRTL, left = 0 }) => (isRTL ? `right:0px;` : ` left: ${left}px`)};
 `;
 
 export const Content = styled.div<{

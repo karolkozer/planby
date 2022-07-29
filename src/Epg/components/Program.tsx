@@ -14,8 +14,9 @@ import { ProgramStyled } from "../styles";
 import { useProgram } from "../hooks";
 
 interface ProgramProps<T> {
-  program: T;
+  isRTL?: boolean;
   isBaseTimeFormat: BaseTimeFormat;
+  program: T;
   onClick?: (v: ProgramType) => void;
 }
 
@@ -31,25 +32,36 @@ const {
 
 export function Program<T extends ProgramItem>({
   program,
-  isBaseTimeFormat,
   onClick,
   ...rest
 }: ProgramProps<T>) {
   const {
+    isRTL,
+    isLive,
+    isMinWidth,
     styles,
     formatTime,
     set12HoursTimeFormat,
-    isLive,
-    isMinWidth,
+    getRTLSinceTime,
+    getRTLTillTime,
   } = useProgram({
     program,
-    isBaseTimeFormat,
+    ...rest,
   });
 
   const { data } = program;
   const { image, title, since, till } = data;
 
   const handleOnContentClick = () => onClick?.(data);
+
+  const sinceTime = formatTime(
+    getRTLSinceTime(since),
+    set12HoursTimeFormat()
+  ).toLowerCase();
+  const tillTime = formatTime(
+    getRTLTillTime(till),
+    set12HoursTimeFormat()
+  ).toLowerCase();
 
   return (
     <ProgramBox
@@ -66,11 +78,10 @@ export function Program<T extends ProgramItem>({
       >
         <ProgramFlex>
           {isLive && isMinWidth && <ProgramImage src={image} alt="Preview" />}
-          <ProgramStack>
+          <ProgramStack isRTL={isRTL}>
             <ProgramTitle>{title}</ProgramTitle>
             <ProgramText aria-label="program time">
-              {formatTime(since, set12HoursTimeFormat())} -{" "}
-              {formatTime(till, set12HoursTimeFormat())}
+              {sinceTime} - {tillTime}
             </ProgramText>
           </ProgramStack>
         </ProgramFlex>

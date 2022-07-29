@@ -42,6 +42,7 @@ interface useEpgProps {
   isBaseTimeFormat?: BaseTimeFormat;
   isSidebar?: boolean;
   isTimeline?: boolean;
+  isRTL?: boolean;
   isLine?: boolean;
   theme?: Theme;
   dayWidth?: number;
@@ -57,6 +58,7 @@ export function useEpg({
   epg,
   startDate: startDateInput = defaultStartDateTime,
   endDate: endDateInput = "",
+  isRTL = false,
   isBaseTimeFormat = false,
   isSidebar = true,
   isTimeline = true,
@@ -93,8 +95,13 @@ export function useEpg({
   });
 
   const { scrollX, scrollY, layoutWidth, layoutHeight } = layoutProps;
-  const { onScroll, onScrollToNow, onScrollTop, onScrollLeft, onScrollRight } =
-    layoutProps;
+  const {
+    onScroll,
+    onScrollToNow,
+    onScrollTop,
+    onScrollLeft,
+    onScrollRight,
+  } = layoutProps;
 
   //-------- Variables --------
   const channels = React.useMemo(
@@ -140,11 +147,12 @@ export function useEpg({
   );
 
   const getEpgProps = () => ({
-    width,
-    height,
+    isRTL,
     isSidebar,
     isLine,
     isTimeline,
+    width,
+    height,
     sidebarWidth,
     ref: containerRef,
     theme,
@@ -157,6 +165,7 @@ export function useEpg({
     endDate,
     scrollY,
     onScroll,
+    isRTL,
     isBaseTimeFormat,
     isSidebar,
     isTimeline,

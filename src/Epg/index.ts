@@ -14,6 +14,7 @@ export type Channel = ChannelWithPosiiton;
 export type Program = ProgramItemType;
 export type ProgramItem = {
   program: ProgramItemType;
+  isRTL: boolean;
   isBaseTimeFormat: BaseTimeFormatType;
 };
 

@@ -20,12 +20,13 @@ import { EpgStyled } from "../styles";
 import { Timeline, Channels, Program, Line } from "../components";
 
 interface RenderTimeline {
+  isBaseTimeFormat: BaseTimeFormat;
+  isSidebar: boolean;
+  isRTL: boolean;
   sidebarWidth: number;
   hourWidth: number;
   numberOfHoursInDay: number;
   offsetStartHoursRange: number;
-  isBaseTimeFormat: BaseTimeFormat;
-  isSidebar: boolean;
   dayWidth: number;
 }
 
@@ -44,6 +45,7 @@ interface LayoutProps {
   onScroll: (
     e: React.UIEvent<HTMLDivElement, UIEvent> & { target: Element }
   ) => void;
+  isRTL?: boolean;
   isBaseTimeFormat?: BaseTimeFormat;
   isSidebar?: boolean;
   isTimeline?: boolean;
@@ -52,6 +54,7 @@ interface LayoutProps {
   isChannelVisible: (position: Pick<Position, "top">) => boolean;
   renderProgram?: (v: {
     program: ProgramItem;
+    isRTL: boolean;
     isBaseTimeFormat: BaseTimeFormat;
   }) => React.ReactNode;
   renderChannel?: (v: { channel: ChannelWithPosiiton }) => React.ReactNode;
@@ -70,6 +73,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
       isTimeline = true,
       isLine = true,
       isBaseTimeFormat = false,
+      isRTL = false,
     } = props;
 
     const {
@@ -97,11 +101,13 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
         if (renderProgram)
           return renderProgram({
             program: options,
+            isRTL,
             isBaseTimeFormat,
           });
         return (
           <Program
             key={program.data.id}
+            isRTL={isRTL}
             isBaseTimeFormat={isBaseTimeFormat}
             program={options}
           />
@@ -112,9 +118,10 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
 
     const renderTopbar = () => {
       const props = {
+        sidebarWidth,
+        isSidebar,
+        isRTL,
         dayWidth,
-        sidebarWidth: sidebarWidth,
-        isSidebar: isSidebar,
         numberOfHoursInDay,
       };
       const timeProps = {
@@ -130,7 +137,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
     };
 
     return (
-      <ScrollBox ref={scrollBoxRef} onScroll={onScroll}>
+      <ScrollBox isRTL={isRTL} ref={scrollBoxRef} onScroll={onScroll}>
         {isLine && isFuture && (
           <Line
             dayWidth={dayWidth}
@@ -144,9 +151,10 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
         {isTimeline && renderTopbar()}
         {isSidebar && (
           <Channels
-            sidebarWidth={sidebarWidth}
+            isRTL={isRTL}
             isTimeline={isTimeline}
             isChannelVisible={isChannelVisible}
+            sidebarWidth={sidebarWidth}
             channels={channels as ChannelWithPosiiton[]}
             scrollY={scrollY}
             renderChannel={renderChannel}

@@ -4,11 +4,18 @@ import { Theme } from "../helpers";
 // Import heleprs
 import { ITEM_HEIGHT } from "../helpers";
 
-export const TimelineTime = styled.span<{ theme?: Theme }>`
+export const TimelineTime = styled.span<{
+  theme?: Theme;
+  isBaseTimeFormat?: boolean;
+  isRTL?: boolean;
+}>`
   color: ${({ theme }) => theme.text.grey[300]};
   position: absolute;
   top: 18px;
-  left: -18px;
+  left: ${({ isRTL, isBaseTimeFormat }) =>
+    isRTL && isBaseTimeFormat ? "-32" : "-18"}px;
+
+  ${({ isRTL }) => isRTL && `transform: scale(-1,1)`};
 `;
 
 export const TimelineDividers = styled.div`

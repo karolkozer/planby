@@ -72,6 +72,12 @@ export const ProgramImage = styled.img`
   width: 100px;
 `;
 
-export const ProgramStack = styled.div`
+export const ProgramStack = styled.div<{ isRTL?: boolean }>`
   overflow: hidden;
+  ${({ isRTL }) =>
+    isRTL &&
+    `transform: scale(-1,1); 
+     display: flex; 
+     flex-direction: column; 
+     align-items: flex-end`};
 `;

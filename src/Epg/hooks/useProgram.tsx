@@ -12,13 +12,15 @@ import { useInterval } from "./useInterval";
 
 interface useProgramProps<T> {
   program: T;
+  isRTL?: boolean;
   isBaseTimeFormat: BaseTimeFormat;
   minWidth?: number;
 }
 
 export function useProgram<T extends ProgramItem>({
-  program,
+  isRTL = false,
   isBaseTimeFormat,
+  program,
   minWidth = 200,
 }: useProgramProps<T>) {
   const { data, position } = program;
@@ -41,6 +43,11 @@ export function useProgram<T extends ProgramItem>({
     return TIME_FORMAT.HOURS_MIN;
   };
 
+  const getRTLSinceTime = (since: string | number | Date) =>
+    isRTL ? till : since;
+  const getRTLTillTime = (till: string | number | Date) =>
+    isRTL ? since : till;
+
   useInterval(() => {
     const status = getLiveStatus(since, till);
     setIsLive(status);
@@ -49,10 +56,13 @@ export function useProgram<T extends ProgramItem>({
   const isMinWidth = width > minWidth;
 
   return {
-    formatTime,
-    set12HoursTimeFormat,
     isLive,
     isMinWidth,
+    isRTL,
+    formatTime,
+    set12HoursTimeFormat,
+    getRTLSinceTime,
+    getRTLTillTime,
     styles: { width, position: newPosition },
   };
 }

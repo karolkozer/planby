@@ -16,6 +16,7 @@ import { Loader } from "./components";
 interface EpgProps {
   width?: number;
   height?: number;
+  isRTL?: boolean;
   isSidebar: boolean;
   isTimeline?: boolean;
   isLoading?: boolean;
@@ -35,6 +36,7 @@ export const Epg = React.forwardRef<HTMLDivElement, EpgProps>(
       height,
       theme,
       sidebarWidth,
+      isRTL = false,
       isSidebar = true,
       isTimeline = true,
       isLoading = false,
@@ -57,6 +59,7 @@ export const Epg = React.forwardRef<HTMLDivElement, EpgProps>(
           <Wrapper>
             {isSidebar && isTimeline && (
               <Box
+                isRTL={isRTL}
                 width={sidebarWidth}
                 height={TIMELINE_HEIGHT}
                 left={0}

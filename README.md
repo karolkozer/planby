@@ -201,6 +201,7 @@ Available options in useEpg
 | `isSidebar`        | `boolean` | optional | Show/hide sidebar                                                                                                                                                |
 | `isTimeline`       | `boolean` | optional | Show/hide timeline                                                                                                                                               |
 | `isLine`           | `boolean` | optional | Show/hide line                                                                                                                                                   |
+| `isRTL`            | `boolean` | optional | Change direction to RTL or LTR. Default value is false                                                                                                           |
 | `theme`            | `object`  | optional | Object with theme schema                                                                                                                                         |
 
 #### Note about width and height props
@@ -412,6 +413,76 @@ function App() {
 export default App;
 ```
 
+## renderProgram - RTL direction
+
+Below is an example that allows you to render your custom Program component with RTL direction using Plaby's style components.
+
+```tsx
+...
+const Item = ({ program, ...rest }: ProgramItem) => {
+  const {
+    isRTL,
+    isLive,
+    isMinWidth,
+    formatTime,
+    styles,
+    set12HoursTimeFormat,
+    getRTLSinceTime,
+    getRTLTillTime,
+  } = useProgram({
+    program,
+    ...rest
+  });
+
+  const { data } = program;
+  const { image, title, since, till } = data;
+
+  const sinceTime = formatTime(
+    getRTLSinceTime(since),
+    set12HoursTimeFormat()
+  ).toLowerCase();
+  const tillTime = formatTime(
+    getRTLTillTime(till),
+    set12HoursTimeFormat()
+  ).toLowerCase();
+
+  return (
+    <ProgramBox width={styles.width} style={styles.position}>
+      <ProgramContent width={styles.width} isLive={isLive}>
+        <ProgramFlex>
+          {isLive && isMinWidth && <ProgramImage src={image} alt="Preview" />}
+          <ProgramStack isRTL={isRTL}>
+            <ProgramTitle>{title}</ProgramTitle>
+            <ProgramText>
+              {sinceTime} - {tillTime}
+            </ProgramText>
+          </ProgramStack>
+        </ProgramFlex>
+      </ProgramContent>
+    </ProgramBox>
+  );
+};
+
+function App() {
+
+  ...
+
+ const {
+  getEpgProps,
+  getLayoutProps,
+} = useEpg({
+  epg,
+  channels,
+  isBaseTimeFormat: true,
+  startDate: '2022/02/02', // or 2022-02-02T00:00:00
+});
+
+...
+}
+
+export default App;
+```
+
 ## renderChannel
 
 Below is an example that allows you to render your custom Channel component using Plaby's style components.
@@ -559,6 +630,60 @@ function App() {
 }
 
 export default App;
+```
+
+## renderTimeline - RTL direction
+
+Below is an example that allows you to render your custom Timeline component using Plaby's style components.
+
+```tsx
+import {
+  TimelineWrapper,
+  TimelineBox,
+  TimelineTime,
+  TimelineDivider,
+  TimelineDividers,
+  useTimeline,
+} from 'planby';
+
+interface TimelineProps {
+  isRTL: boolean;
+  isBaseTimeFormat: boolean;
+  isSidebar: boolean;
+  dayWidth: number;
+  hourWidth: number;
+  numberOfHoursInDay: number;
+  offsetStartHoursRange: number;
+  sidebarWidth: number;
+}
+
+export function Timeline({
+  isRTL,
+  isBaseTimeFormat,
+  isSidebar,
+  dayWidth,
+  hourWidth,
+  numberOfHoursInDay,
+  offsetStartHoursRange,
+  sidebarWidth,
+}: TimelineProps) {
+  const { time, dividers, formatTime } = useTimeline(
+    numberOfHoursInDay,
+    isBaseTimeFormat
+  );
+
+  const renderTime = (index: number) => (
+    <TimelineBox key={index} width={hourWidth}>
+      <TimelineTime isBaseTimeFormat={isBaseTimeFormat} isRTL={isRTL}>
+        {formatTime(index + offsetStartHoursRange).toLowerCase()}
+      </TimelineTime>
+      <TimelineDividers>{renderDividers()}</TimelineDividers>
+    </TimelineBox>
+  );
+
+ ...
+}
+
 ```
 
 ## Theme

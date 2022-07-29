@@ -18,6 +18,7 @@ const {
 } = TimelineStyled;
 
 interface TimelineProps {
+  isRTL?: boolean;
   isBaseTimeFormat: BaseTimeFormat;
   isSidebar: boolean;
   dayWidth: number;
@@ -28,6 +29,7 @@ interface TimelineProps {
 }
 
 export function Timeline({
+  isRTL,
   isBaseTimeFormat,
   isSidebar,
   dayWidth,
@@ -43,7 +45,9 @@ export function Timeline({
 
   const renderTime = (index: number) => (
     <TimelineBox data-testid="timeline-item" key={index} width={hourWidth}>
-      <TimelineTime>{formatTime(index + offsetStartHoursRange)}</TimelineTime>
+      <TimelineTime isBaseTimeFormat={isBaseTimeFormat} isRTL={isRTL}>
+        {formatTime(index + offsetStartHoursRange)}
+      </TimelineTime>
       <TimelineDividers>{renderDividers()}</TimelineDividers>
     </TimelineBox>
   );

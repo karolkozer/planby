@@ -11,8 +11,11 @@ const defaultState = ({ overrides, styles }: DefaultState = {}) => {
   return {
     formatTime: expect.any(Function),
     set12HoursTimeFormat: expect.any(Function),
+    getRTLSinceTime: expect.any(Function),
+    getRTLTillTime: expect.any(Function),
     isLive: false,
     isMinWidth: true,
+    isRTL: false,
     styles,
     ...overrides,
   };
@@ -41,7 +44,11 @@ test("should return generated props from useTimeline", () => {
 
 test("should specify an initial state in useTimeline", () => {
   const program = buildProgramWithPosition();
-  const props = { program, isBaseTimeFormat: true, minWidth: 800 };
+  const props = {
+    program,
+    isBaseTimeFormat: true,
+    minWidth: 800,
+  };
   const { result } = renderHook(() => useProgram(props));
   const options = {
     ...getStyles(program),

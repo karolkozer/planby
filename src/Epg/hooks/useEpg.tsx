@@ -45,6 +45,7 @@ interface useEpgProps {
   isRTL?: boolean;
   isLine?: boolean;
   theme?: Theme;
+  globalStyles?: string;
   dayWidth?: number;
   sidebarWidth?: number;
   itemHeight?: number;
@@ -64,6 +65,7 @@ export function useEpg({
   isTimeline = true,
   isLine = true,
   theme: customTheme,
+  globalStyles,
   dayWidth: customDayWidth = DAY_WIDTH,
   sidebarWidth = SIDEBAR_WIDTH,
   itemHeight = ITEM_HEIGHT,
@@ -156,6 +158,7 @@ export function useEpg({
     sidebarWidth,
     ref: containerRef,
     theme,
+    globalStyles,
   });
 
   const getLayoutProps = () => ({

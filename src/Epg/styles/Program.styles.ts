@@ -48,7 +48,6 @@ const Elipsis = `
 
 export const ProgramTitle = styled.p<{ theme?: Theme }>`
   font-size: 14px;
-  font-weight: 400;
   text-align: left;
   margin-top: 0;
   margin-bottom: 5px;

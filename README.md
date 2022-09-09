@@ -203,10 +203,30 @@ Available options in useEpg
 | `isLine`           | `boolean` | optional | Show/hide line                                                                                                                                                   |
 | `isRTL`            | `boolean` | optional | Change direction to RTL or LTR. Default value is false                                                                                                           |
 | `theme`            | `object`  | optional | Object with theme schema                                                                                                                                         |
+| `globalStyles`     | `string`  | optional | Inject custom global styles and font. Font weight: 400,500,600. Default font is "Inter"                                                                          |
 
 #### Note about width and height props
 
 Without declaring the `width` and `length` properties, the component takes the dimensions of the parent element.
+
+#### globalStyles
+
+Inject own custom font and other global styles.
+
+```tsx
+const globalStyles = `
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+  .planby {
+    font-family: "Inter", system-ui, -apple-system,
+     "Segoe UI", Roboto, Helvetica, Arial, sans-serif, 
+     "Apple Color Emoji", "Segoe UI Emoji";
+  }
+
+  // Other styles
+  ...
+`;
+```
 
 #### Instance Properties
 

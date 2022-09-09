@@ -23,6 +23,7 @@ interface EpgProps {
   children: React.ReactNode;
   loader?: React.ReactNode;
   theme: Theme;
+  globalStyles?: string;
   sidebarWidth: number;
 }
 
@@ -34,8 +35,9 @@ export const Epg = React.forwardRef<HTMLDivElement, EpgProps>(
       children,
       width,
       height,
-      theme,
       sidebarWidth,
+      theme,
+      globalStyles: customGlobalStyles,
       isRTL = false,
       isSidebar = true,
       isTimeline = true,
@@ -46,10 +48,12 @@ export const Epg = React.forwardRef<HTMLDivElement, EpgProps>(
     containerRef
   ) => {
     const renderLoader = () => LoaderComponent ?? <Loader />;
+    const epgGlobalStyles = customGlobalStyles ?? globalStyles;
     return (
       <ThemeProvider theme={theme}>
-        <Global styles={globalStyles} />
+        <Global styles={epgGlobalStyles} />
         <Container
+          className="planby"
           data-testid="container"
           width={width}
           height={height}

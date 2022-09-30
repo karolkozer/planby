@@ -45,7 +45,7 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 
 ## Testimonials
 
-<div align="center" style="margin-bottom: 20px">
+<div align="center" style="margin-bottom: 20px; background:#0d1117">
 <a href="https://www.jwplayer.com"  >
 <img style="height: 160px" src="https://raw.githubusercontent.com/marcovandeveen/demo/main/logo-jwp-primary-white.png" alt="JW Player logo" />
 </a>

@@ -45,35 +45,25 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 
 ## Testimonials
 
-<div>
-<a href="https://www.jwplayer.com" style="display: flex; justify-content: center">
+<div align="center" style="margin-bottom: 20px">
+<a href="https://www.jwplayer.com"  >
 <img style="height: 160px" src="https://raw.githubusercontent.com/marcovandeveen/demo/main/logo-jwp-primary-white.png" alt="JW Player logo" />
 </a>
-<div style="margin-top:20px">
-<p style="text-align:justify">We added Planby as the EPG component of the <a href="https://www.jwplayer.com">
+</div>
+<p align="justify" style="margin-bottom: 12px">
+We added Planby as the EPG component of the <a href="https://www.jwplayer.com">
  JWP
   </a> open-source  <a href="https://github.com/jwplayer/ott-web-app">
   OTT web app
-  </a>. The JWP Web App enables developers to quickly build OTT Apps for web platforms, and using Planby developers can easily visualize schedules for 24x7 live streams in their OTT Apps. </p>
-<p style="display:flex; flex-direction:column; font-weight:bold">
-<span>
-<span>
-Marco van de Veen
-<a href="https://www.linkedin.com/in/mvdveen/">
-<img alt="Linkedin icon" style="height: 15px" src="https://brand.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"/>
-</a>
-</span>
-</span>
-<span>
-Product Manager
-</span>
-<span>
-JW Player
-</span>
+  </a>. The JWP Web App enables developers to quickly build OTT Apps for web platforms, and using Planby developers can easily visualize schedules for 24x7 live streams in their OTT Apps.
 </p>
 
-</div>
-</div>
+**Marco van de Veen**
+<a href="https://www.linkedin.com/in/mvdveen/">
+<img alt="Linkedin icon" style="height: 15px" src="https://brand.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"/>
+</a><br />
+**Product Manager**<br />
+**JW Player**
 
 ## 🚀 [Become a Sponsor!](https://opencollective.com/planby) 🚀
 

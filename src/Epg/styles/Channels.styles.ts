@@ -13,7 +13,7 @@ export const Box = styled.div<{
   float: left;
   bottom: ${({ bottom }) => bottom}px;
   left: 0;
-  z-index: 100;
+  z-index: 5;
   background-color: ${({ theme }) => theme.primary[900]};
 
   ${({ isRTL }) => isRTL && `transform: scale(-1,1)`};

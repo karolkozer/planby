@@ -41,6 +41,8 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 
 [Live example - Codesandbox](https://codesandbox.io/s/5o3tsy)
 
+[Live example - Typescript Codesandbox](https://codesandbox.io/s/planby-epg-demo-ts-lp66v5)
+
 [Live example - website with control panel](https://planby.netlify.app/)
 
 ## Testimonials

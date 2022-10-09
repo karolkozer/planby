@@ -1,7 +1,7 @@
 import { ProgramStyled, ChannelStyled, TimelineStyled } from "./styles";
 
 // Import types
-import { Theme as ThemeType } from "./helpers/interfaces";
+import { Theme as ThemeType, Program as IProgram } from "./helpers/interfaces";
 import {
   ProgramItem as ProgramItemType,
   ChannelWithPosiiton,
@@ -11,7 +11,7 @@ import {
 // Types
 export type Theme = ThemeType;
 export type Channel = ChannelWithPosiiton;
-export type Program = ProgramItemType;
+export type Program = IProgram;
 export type ProgramItem = {
   program: ProgramItemType;
   isRTL: boolean;

@@ -43,7 +43,7 @@ export const TimelineWrapper = styled.div<{
   position: sticky;
   top: 0;
   left: ${({ isSidebar, sidebarWidth }) => (isSidebar ? sidebarWidth : 0)}px;
-  z-index: 100;
+  z-index: 5;
   display: flex;
   height: ${ITEM_HEIGHT - 20}px;
   width: ${({ dayWidth }) => dayWidth}px;

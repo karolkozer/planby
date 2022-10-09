@@ -9,5 +9,5 @@ export const Box = styled.div<{ height: number; left: number; theme?: Theme }>`
   width: 3px;
   background: ${({ theme }) => theme.green[300]};
   pointer-events: none;
-  z-index: 100;
+  z-index: 10;
 `;

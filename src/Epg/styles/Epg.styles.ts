@@ -8,6 +8,12 @@ export const Container = styled.div<{
   padding: 5px;
   height: ${({ height }) => (height ? `${height}px` : "100%")};
   width: ${({ width }) => (width ? `${width}px` : "100%")};
+
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -68,7 +74,7 @@ export const Box = styled.div<{
   width: ${({ width }) => width}px;
   top: ${({ top = 0 }) => top}px;
   background: ${({ theme }) => theme.primary[900]};
-  z-index: 900;
+  z-index: 90;
 
   ${({ isRTL, left = 0 }) => (isRTL ? `right:0px;` : ` left: ${left}px`)};
 `;

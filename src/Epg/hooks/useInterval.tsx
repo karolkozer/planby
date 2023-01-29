@@ -1,6 +1,6 @@
 import React from "react";
 
-// Import heleprs
+// Import helpers
 import { useIsomorphicLayoutEffect } from "../helpers";
 
 export function useInterval(callback: () => void, delay: number | null) {

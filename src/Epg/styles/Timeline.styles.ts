@@ -1,7 +1,7 @@
 import styled from "@emotion/styled/macro";
-import { Theme } from "../helpers";
+import { Layers, Theme } from "../helpers";
 
-// Import heleprs
+// Import helpers
 import { ITEM_HEIGHT } from "../helpers";
 
 export const TimelineTime = styled.span<{
@@ -43,11 +43,11 @@ export const TimelineWrapper = styled.div<{
   position: sticky;
   top: 0;
   left: ${({ isSidebar, sidebarWidth }) => (isSidebar ? sidebarWidth : 0)}px;
-  z-index: 5;
   display: flex;
   height: ${ITEM_HEIGHT - 20}px;
   width: ${({ dayWidth }) => dayWidth}px;
   background: ${({ theme }) => theme.primary[900]};
+  z-index: ${Layers.Timeline};
 `;
 
 export const TimelineBox = styled.div<{ width: number }>`

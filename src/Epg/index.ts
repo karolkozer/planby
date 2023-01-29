@@ -4,13 +4,13 @@ import { ProgramStyled, ChannelStyled, TimelineStyled } from "./styles";
 import { Theme as ThemeType, Program as IProgram } from "./helpers/interfaces";
 import {
   ProgramItem as ProgramItemType,
-  ChannelWithPosiiton,
+  ChannelWithPosition,
   BaseTimeFormat as BaseTimeFormatType,
 } from "./helpers/types";
 
 // Types
 export type Theme = ThemeType;
-export type Channel = ChannelWithPosiiton;
+export type Channel = ChannelWithPosition;
 export type Program = IProgram;
 export type ProgramItem = {
   program: ProgramItemType;

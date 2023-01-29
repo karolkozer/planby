@@ -1,5 +1,5 @@
 import styled from "@emotion/styled/macro";
-import { Theme } from "../helpers";
+import { Layers, Theme } from "../helpers";
 
 export const ProgramBox = styled.div<{ width: number }>`
   position: absolute;
@@ -21,9 +21,10 @@ export const ProgramContent = styled.div<{
   overflow: hidden;
   cursor: pointer;
   transition: all 0.4s ease-in-out;
-  z-index: 1;
   background: ${({ theme: { primary } }) =>
     `linear-gradient(to right, ${primary[600]}, ${primary[600]})`};
+  z-index: ${Layers.Program};
+
   &:hover {
     background: ${({ theme: { gradient } }) =>
       `linear-gradient(to right, ${gradient.blue[900]}, ${gradient.blue[600]})`};

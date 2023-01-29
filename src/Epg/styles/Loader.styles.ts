@@ -1,6 +1,6 @@
 import styled from "@emotion/styled/macro";
 import { keyframes } from "@emotion/react";
-import { Theme } from "../helpers";
+import { Layers, Theme } from "../helpers";
 
 const time = [0, 50, 0];
 
@@ -22,7 +22,7 @@ export const Box = styled.div<{ theme?: Theme }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: ${Layers.Loader};
 `;
 
 export const Shape = styled.div<{

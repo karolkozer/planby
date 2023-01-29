@@ -2,13 +2,13 @@ import React from "react";
 import { startOfDay } from "date-fns";
 
 // Import types
-import { DateTime } from "../../helpers/types";
+import { DateTime } from "../helpers/types";
 
 // Import helpers
-import { HOUR_IN_MINUTES, PROGRAM_REFRESH, getPositionX } from "../../helpers";
+import { HOUR_IN_MINUTES, PROGRAM_REFRESH, getPositionX } from "../helpers";
 
 // Import hooks
-import { useInterval } from "../../hooks";
+import { useInterval } from ".";
 
 interface useLineProps {
   startDate: DateTime;

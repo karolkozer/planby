@@ -1,5 +1,5 @@
 import styled from "@emotion/styled/macro";
-import { Theme } from "../helpers";
+import { Layers, Theme } from "../helpers";
 
 export const Container = styled.div<{
   height?: number;
@@ -74,7 +74,7 @@ export const Box = styled.div<{
   width: ${({ width }) => width}px;
   top: ${({ top = 0 }) => top}px;
   background: ${({ theme }) => theme.primary[900]};
-  z-index: 90;
+  z-index: ${Layers.EpgCornerBox};
 
   ${({ isRTL, left = 0 }) => (isRTL ? `right:0px;` : ` left: ${left}px`)};
 `;

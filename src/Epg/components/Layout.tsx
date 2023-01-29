@@ -4,7 +4,7 @@ import React from "react";
 import {
   ProgramItem,
   ProgramWithPosition,
-  ChannelWithPosiiton,
+  ChannelWithPosition,
   DateTime,
   Position,
   BaseTimeFormat,
@@ -32,7 +32,7 @@ interface RenderTimeline {
 
 interface LayoutProps {
   programs: ProgramItem[];
-  channels: ChannelWithPosiiton[];
+  channels: ChannelWithPosition[];
   startDate: DateTime;
   endDate: DateTime;
   scrollY: number;
@@ -57,7 +57,7 @@ interface LayoutProps {
     isRTL: boolean;
     isBaseTimeFormat: BaseTimeFormat;
   }) => React.ReactNode;
-  renderChannel?: (v: { channel: ChannelWithPosiiton }) => React.ReactNode;
+  renderChannel?: (v: { channel: ChannelWithPosition }) => React.ReactNode;
   renderTimeline?: (v: RenderTimeline) => React.ReactNode;
 }
 
@@ -155,7 +155,7 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
             isTimeline={isTimeline}
             isChannelVisible={isChannelVisible}
             sidebarWidth={sidebarWidth}
-            channels={channels as ChannelWithPosiiton[]}
+            channels={channels as ChannelWithPosition[]}
             scrollY={scrollY}
             renderChannel={renderChannel}
           />

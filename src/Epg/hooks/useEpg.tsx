@@ -19,7 +19,7 @@ import {
 // Import theme
 import { theme as defaultTheme } from "../theme";
 
-// Import heleprs
+// Import helpers
 import {
   SIDEBAR_WIDTH,
   formatTime,

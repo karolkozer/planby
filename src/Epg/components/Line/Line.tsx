@@ -8,7 +8,7 @@ import { DateTime } from "../../helpers/types";
 import { LineStyled } from "../../styles";
 
 // Import components
-import { useLine } from "./useLine";
+import { useLine } from "../../hooks/useLine";
 
 interface LineProps {
   height: number;

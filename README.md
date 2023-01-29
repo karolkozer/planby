@@ -23,7 +23,7 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 
 <div align="center" style="margin-bottom: 10px">
   <a href="https://planby.netlify.app/">
-    <img src="https://i.postimg.cc/1zgmfd8T/planby-tv-vod.png" alt="Planby preview" />
+    <img src="https://i.postimg.cc/6p2GDGMX/tv-preview-custom.png" alt="Planby preview" />
   </a>
 </div>
 <div align="center" style="margin-bottom: 10px">

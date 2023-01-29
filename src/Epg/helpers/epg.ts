@@ -9,7 +9,7 @@ import { ProgramWithPosition, Position, DateTime } from "./types";
 // Import variables
 import { HOUR_IN_MINUTES } from "./variables";
 
-// Import time heleprs
+// Import time helpers
 import {
   formatTime,
   roundToMinutes,

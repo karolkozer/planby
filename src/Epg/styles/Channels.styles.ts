@@ -1,5 +1,5 @@
 import styled from "@emotion/styled/macro";
-import { Theme } from "../helpers";
+import { Layers, Theme } from "../helpers";
 
 export const Box = styled.div<{
   isTimeline: boolean;
@@ -13,7 +13,7 @@ export const Box = styled.div<{
   float: left;
   bottom: ${({ bottom }) => bottom}px;
   left: 0;
-  z-index: 5;
+  z-index: ${Layers.Sidebar};
   background-color: ${({ theme }) => theme.primary[900]};
 
   ${({ isRTL }) => isRTL && `transform: scale(-1,1)`};

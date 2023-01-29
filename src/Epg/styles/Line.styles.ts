@@ -1,5 +1,5 @@
 import styled from "@emotion/styled/macro";
-import { Theme } from "../helpers";
+import { Layers, Theme } from "../helpers";
 
 export const Box = styled.div<{ height: number; left: number; theme?: Theme }>`
   position: absolute;
@@ -9,5 +9,5 @@ export const Box = styled.div<{ height: number; left: number; theme?: Theme }>`
   width: 3px;
   background: ${({ theme }) => theme.green[300]};
   pointer-events: none;
-  z-index: 10;
+  z-index: ${Layers.Line};
 `;

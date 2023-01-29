@@ -5,7 +5,7 @@ import { startOfToday, isToday as isTodayFns } from "date-fns";
 // Import types
 import { DateTime } from "../helpers/types";
 
-// Import heleprs
+// Import helpers
 import {
   DEBOUNCE_WAIT,
   DEBOUNCE_WAIT_MAX,

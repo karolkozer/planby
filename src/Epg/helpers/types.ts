@@ -19,7 +19,7 @@ export type ProgramItem = {
   data: Program;
 };
 
-export type ChannelWithPosiiton = Channel & {
+export type ChannelWithPosition = Channel & {
   position: Pick<Position, "top" | "height">;
 };
 

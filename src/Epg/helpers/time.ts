@@ -1,4 +1,4 @@
-import { format, roundToNearestMinutes, startOfDay, addDays } from "date-fns";
+import {format, roundToNearestMinutes, startOfDay, addDays, parseISO} from "date-fns";
 
 // Import types
 import { DateTime as DateRangeTime } from "./types";
@@ -8,30 +8,42 @@ import { TIME_FORMAT } from "./variables";
 
 type DateTime = number | string | Date;
 
-const getTime = (date: DateTime) => new Date(date).getTime();
+const getTime = (date: Date) => date.getTime();
+
+export const parse = (date: DateTime) => {
+  if (typeof date === "string") {
+    return parseISO(date)
+  }
+
+  if (typeof date === "number") {
+    return new Date(date)
+  }
+
+  return date
+}
 
 export const getLiveStatus = (since: DateTime, till: DateTime) => {
   const nowTime = getTime(new Date());
-  const sinceTime = getTime(since);
-  const sinceTill = getTime(till);
+  const sinceTime = getTime(parse(since));
+  const sinceTill = getTime(parse(till));
   return nowTime >= sinceTime && sinceTill > nowTime;
 };
 
 export const formatTime = (date: DateTime) =>
-  format(new Date(date), TIME_FORMAT.DEFAULT).replace(/\s/g, "T");
+  format(parse(date), TIME_FORMAT.DEFAULT).replace(/\s/g, "T");
 
 export const roundToMinutes = (date: DateTime) =>
-  roundToNearestMinutes(new Date(date));
+  roundToNearestMinutes(parse(date));
 
 export const isYesterday = (since: DateTime, startDate: DateTime) => {
-  const sinceTime = getTime(new Date(since));
-  const startDateTime = getTime(new Date(startDate));
+  const sinceTime = getTime(parse(since));
+  const startDateTime = getTime(parse(startDate));
 
   return startDateTime > sinceTime;
 };
 
 export const isFutureTime = (date: DateTime) => {
-  const dateTime = getTime(new Date(date));
+  const dateTime = getTime(parse(date));
   const now = getTime(new Date());
   return dateTime > now;
 };
@@ -42,7 +54,7 @@ export const getTimeRangeDates = (
 ) => {
   let endDateValue = endDate;
   if (endDate === "") {
-    endDateValue = formatTime(startOfDay(addDays(new Date(startDate), 1)));
+    endDateValue = formatTime(startOfDay(addDays(parse(startDate), 1)));
   }
 
   return { startDate, endDate: endDateValue };

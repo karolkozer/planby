@@ -12,8 +12,8 @@ export function getLayoutProps(
     programs,
     channels,
     scrollY: 0,
-    startDate: "2022-03-23T00:00:00",
-    endDate: "2022-03-23T23:59:00",
+    startDate: "2022-03-23T00:00:00Z",
+    endDate: "2022-03-23T23:59:00Z",
     dayWidth: 7200,
     hourWidth: 300,
     numberOfHoursInDay: 24,
@@ -35,4 +35,4 @@ export const getTestTimeDate = (
   h: string = "00",
   m: string = "00",
   s: string = "00"
-) => `2022-03-23T${h}:${m}:${s}`;
+) => `2022-03-23T${h}:${m}:${s}Z`;

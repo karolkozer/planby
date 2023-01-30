@@ -11,15 +11,15 @@ type DateTime = number | string | Date;
 const getTime = (date: Date) => date.getTime();
 
 export const parseDateTime = (date: DateTime) => {
+  if (date instanceof Date) {
+    return date
+  }
+
   if (typeof date === "string") {
     return parseISO(date)
   }
 
-  if (typeof date === "number") {
-    return new Date(date)
-  }
-
-  return date
+  return new Date(date)
 }
 
 export const getLiveStatus = (since: DateTime, till: DateTime) => {

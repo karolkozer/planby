@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import {format, setHours, startOfToday} from "date-fns";
 
 // Import types
 import { BaseTimeFormat } from "../helpers/types";
@@ -14,16 +14,14 @@ export function useTimeline(
   const dividers = generateArray(4);
 
   const formatTime = (index: number) => {
-    const date = new Date();
-    const baseDate = format(date, TIME_FORMAT.DATE);
-    const time = index < 10 ? `0${index}` : index;
-
     if (isBaseTimeFormat) {
-      const date = new Date(`${baseDate}T${time}:00:00`);
+      const now = startOfToday()
+      const date = setHours(now, index)
       const timeFormat = format(date, TIME_FORMAT.BASE_HOURS_TIME);
       return timeFormat.toLowerCase().replace(/\s/g, "");
     }
 
+    const time = index < 10 ? `0${index}` : index;
     return `${time}:00`;
   };
 

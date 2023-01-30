@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import { ProgramItem, BaseTimeFormat } from "../helpers/types";
 
 // Import helpers
-import { PROGRAM_REFRESH, TIME_FORMAT, getLiveStatus, omit } from "../helpers";
+import {PROGRAM_REFRESH, TIME_FORMAT, getLiveStatus, omit, parseDateTime} from "../helpers";
 
 // Import hooks
 import { useInterval } from "./useInterval";
@@ -36,7 +36,7 @@ export function useProgram<T extends ProgramItem>({
   const formatTime = (
     date: string | number | Date,
     formatType: string = TIME_FORMAT.HOURS_MIN
-  ) => format(new Date(date), formatType).replace(/\s/g, "");
+  ) => format(parseDateTime(date), formatType).replace(/\s/g, "");
 
   const set12HoursTimeFormat = () => {
     if (isBaseTimeFormat) return TIME_FORMAT.BASE_HOURS_TIME;

@@ -10,7 +10,7 @@ type DateTime = number | string | Date;
 
 const getTime = (date: Date) => date.getTime();
 
-export const parse = (date: DateTime) => {
+export const parseDateTime = (date: DateTime) => {
   if (typeof date === "string") {
     return parseISO(date)
   }
@@ -24,26 +24,26 @@ export const parse = (date: DateTime) => {
 
 export const getLiveStatus = (since: DateTime, till: DateTime) => {
   const nowTime = getTime(new Date());
-  const sinceTime = getTime(parse(since));
-  const sinceTill = getTime(parse(till));
+  const sinceTime = getTime(parseDateTime(since));
+  const sinceTill = getTime(parseDateTime(till));
   return nowTime >= sinceTime && sinceTill > nowTime;
 };
 
 export const formatTime = (date: DateTime) =>
-  format(parse(date), TIME_FORMAT.DEFAULT).replace(/\s/g, "T");
+  format(parseDateTime(date), TIME_FORMAT.DEFAULT).replace(/\s/g, "T");
 
 export const roundToMinutes = (date: DateTime) =>
-  roundToNearestMinutes(parse(date));
+  roundToNearestMinutes(parseDateTime(date));
 
 export const isYesterday = (since: DateTime, startDate: DateTime) => {
-  const sinceTime = getTime(parse(since));
-  const startDateTime = getTime(parse(startDate));
+  const sinceTime = getTime(parseDateTime(since));
+  const startDateTime = getTime(parseDateTime(startDate));
 
   return startDateTime > sinceTime;
 };
 
 export const isFutureTime = (date: DateTime) => {
-  const dateTime = getTime(parse(date));
+  const dateTime = getTime(parseDateTime(date));
   const now = getTime(new Date());
   return dateTime > now;
 };
@@ -54,7 +54,7 @@ export const getTimeRangeDates = (
 ) => {
   let endDateValue = endDate;
   if (endDate === "") {
-    endDateValue = formatTime(startOfDay(addDays(parse(startDate), 1)));
+    endDateValue = formatTime(startOfDay(addDays(parseDateTime(startDate), 1)));
   }
 
   return { startDate, endDate: endDateValue };

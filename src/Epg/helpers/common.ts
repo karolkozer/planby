@@ -1,7 +1,7 @@
 import { useLayoutEffect, useEffect } from "react";
 import { differenceInHours, startOfDay } from "date-fns";
 import { HOURS_IN_DAY } from "./variables";
-import { parse } from "./time";
+import { parseDateTime } from "./time";
 
 type DateTime = string | number | Date;
 
@@ -34,7 +34,7 @@ export const useIsomorphicLayoutEffect = () =>
 
 export const getHourWidth = (dayWidth: number) => dayWidth / HOURS_IN_DAY;
 
-export const getDate = (date: DateTime) => parse(date);
+export const getDate = (date: DateTime) => parseDateTime(date);
 
 const abs = (num: number) => Math.abs(num);
 interface DayWidth {

@@ -5,7 +5,7 @@ import { startOfDay } from "date-fns";
 import { DateTime } from "../helpers/types";
 
 // Import helpers
-import { HOUR_IN_MINUTES, PROGRAM_REFRESH, getPositionX } from "../helpers";
+import {HOUR_IN_MINUTES, PROGRAM_REFRESH, getPositionX, parseDateTime} from "../helpers";
 
 // Import hooks
 import { useInterval } from ".";
@@ -27,7 +27,7 @@ export function useLine({
 }: useLineProps) {
   const initialState =
     getPositionX(
-      startOfDay(new Date(startDate)),
+      startOfDay(parseDateTime(startDate)),
       new Date(),
       startDate,
       endDate,
@@ -47,7 +47,7 @@ export function useLine({
   }, isScrollX);
 
   React.useEffect(() => {
-    const date = new Date(startDate);
+    const date = parseDateTime(startDate);
     const positionX = getPositionX(
       startOfDay(date),
       new Date(),

@@ -9,7 +9,7 @@ import { DateTime } from "../helpers/types";
 import {
   DEBOUNCE_WAIT,
   DEBOUNCE_WAIT_MAX,
-  getPositionX,
+  getPositionX, parseDateTime,
   useIsomorphicLayoutEffect,
 } from "../helpers";
 
@@ -41,7 +41,7 @@ export function useLayout({
   const [layoutHeight, setLayoutHeight] = React.useState<number>(
     height as number
   );
-  const isToday = isTodayFns(new Date(startDate));
+  const isToday = isTodayFns(parseDateTime(startDate));
 
   // -------- Handlers --------
   const handleScrollDebounced = useDebouncedCallback(

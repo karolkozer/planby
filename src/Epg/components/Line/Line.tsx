@@ -9,6 +9,7 @@ import { LineStyled } from "../../styles";
 
 // Import components
 import { useLine } from "../../hooks/useLine";
+import {parseDateTime} from "../../helpers";
 
 interface LineProps {
   height: number;
@@ -37,7 +38,7 @@ export function Line({
     sidebarWidth,
   });
 
-  const date = new Date(startDate);
+  const date = parseDateTime(startDate);
   if (!isToday(date)) return null;
 
   return <Box height={height} left={positionX} />;

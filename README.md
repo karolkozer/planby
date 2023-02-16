@@ -210,24 +210,25 @@ return (
 
 Available options in useEpg
 
-| Property           | Type      | Status   | Description                                                                                                                                                      |
-| ------------------ | --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `channels`         | `array`   | required | Array with channels data                                                                                                                                         |
-| `epg`              | `array`   | required | Array with epg data                                                                                                                                              |
-| `width`            | `number`  | optional | Epg width                                                                                                                                                        |
-| `height`           | `number`  | optional | Epg height                                                                                                                                                       |
-| `sidebarWidth`     | `number`  | optional | Width of the sidebar with channels                                                                                                                               |
-| `itemHeight`       | `number`  | optional | Height of channels and programs in the EPG. Default value is 80                                                                                                  |
-| `dayWidth`         | `number`  | optional | Width of the day. Default value is 7200. Calculation to set up day width with own hour width value eg. 24h \* 300px(your custom hour width) = 7200px -> dayWidth |
-| `startDate`        | `string`  | optional | Date format `2022/02/02` or `2022-02-02T00:00:00`. You can set your own start time eg. `2022-02-02T10:00:00`, `2022-02-02T14:00:00` etc. Full clock hours only.  |
-| `endtDate`         | `string`  | optional | Date format `2022-02-02T00:00:00`. You can set your own end time eg. `2022-02-02T15:00:00`, `2022-02-02T:20:00` etc. Full clock hours only.                      |
-| `isBaseTimeFormat` | `boolean` | optional | Convert to 12 hours format eg. `2:00am, 4:00pm` etc. Default value is false.                                                                                     |
-| `isSidebar`        | `boolean` | optional | Show/hide sidebar                                                                                                                                                |
-| `isTimeline`       | `boolean` | optional | Show/hide timeline                                                                                                                                               |
-| `isLine`           | `boolean` | optional | Show/hide line                                                                                                                                                   |
-| `isRTL`            | `boolean` | optional | Change direction to RTL or LTR. Default value is false                                                                                                           |
-| `theme`            | `object`  | optional | Object with theme schema                                                                                                                                         |
-| `globalStyles`     | `string`  | optional | Inject custom global styles and font. Font weight: 400,500,600. Default font is "Inter"                                                                          |
+| Property           | Type      | Status   | Description                                                                                                                                                                                                    | Access     |
+| ------------------ | --------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| `channels`         | `array`   | required | Array with channels data                                                                                                                                                                                       |
+| `epg`              | `array`   | required | Array with epg data                                                                                                                                                                                            |
+| `width`            | `number`  | optional | Epg width                                                                                                                                                                                                      |
+| `height`           | `number`  | optional | Epg height                                                                                                                                                                                                     |
+| `sidebarWidth`     | `number`  | optional | Width of the sidebar with channels                                                                                                                                                                             |
+| `itemHeight`       | `number`  | optional | Height of channels and programs in the EPG. Default value is 80                                                                                                                                                |
+| `dayWidth`         | `number`  | optional | Width of the day. Default value is 7200. Calculation to set up day width with own hour width value eg. 24h \* 300px(your custom hour width) = 7200px -> dayWidth                                               |
+| `startDate`        | `string`  | optional | Date format `2022/02/02` or `2022-02-02T00:00:00`. You can set your own start time eg. `2022-02-02T10:00:00`, `2022-02-02T14:00:00` etc. Full clock hours only.                                                |
+| `endtDate`         | `string`  | optional | Date format `2022-02-02T00:00:00`. You can set your own end time eg. `2022-02-02T15:00:00`, `2022-02-02T:20:00` etc. Full clock hours only. Endless scroll through multiple days available only for `Sponsors` | `Sponsors` |
+| `liveRefreshTime`  | `number`  | optional | Live refresh time of the events. Default value is 120 sec.                                                                                                                                                     | `Sponsors` |
+| `isBaseTimeFormat` | `boolean` | optional | Convert to 12 hours format eg. `2:00am, 4:00pm` etc. Default value is false.                                                                                                                                   |
+| `isSidebar`        | `boolean` | optional | Show/hide sidebar                                                                                                                                                                                              |
+| `isTimeline`       | `boolean` | optional | Show/hide timeline                                                                                                                                                                                             |
+| `isLine`           | `boolean` | optional | Show/hide line                                                                                                                                                                                                 |
+| `isRTL`            | `boolean` | optional | Change direction to RTL or LTR. Default value is false                                                                                                                                                         |
+| `theme`            | `object`  | optional | Object with theme schema                                                                                                                                                                                       |
+| `globalStyles`     | `string`  | optional | Inject custom global styles and font. Font weight: 400,500,600. Default font is "Inter"                                                                                                                        |
 
 #### Note about width and height props
 
@@ -300,11 +301,12 @@ Available props in Epg
 
 Available props in Layout.
 
-| Property         | Type                                                     | Description                                                                                                     | Status   |
-| ---------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- |
+| Property         | Type                                                     | Description                                                                                                     | Status   | Access     |
+| ---------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ---------- |
 | `renderProgram`  | `function({ program: { data: object, position: object})` | `data` object contains all properties related to the program, `position` object includes all position styles    | optional |
 | `renderChannel`  | `function({ channel: { ..., position: object})`          | `channel` object contains all properties related to the channel, `position` object includes all position styles | optional |
 | `renderTimeline` | `function({sidebarWidth: number})`                       | `sidebarWidth` value of the channel's sidebar width                                                             | optional |
+| `renderLine`     | `function({styles: object})`                             | basic `styles` and `position` values for the custom live tracking Line                                          | optional | `Sponsors` |
 
 # Render functions
 

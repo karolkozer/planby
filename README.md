@@ -69,6 +69,14 @@ We added Planby as the EPG component of the <a href="https://www.jwplayer.com">
 
 ## 🚀 [Become a Sponsor!](https://opencollective.com/planby) 🚀
 
+Become a Sponsor and get exclusive access to Planby features and updates -> [PRO Plan GitHub Sponsors](https://github.com/sponsors/karolkozer)
+
+- Exclusive repository access 🚀
+- Exclusive content
+- New features
+- Updates
+- Support
+
 Support our activity and help us continue our development -> [Open Collective](https://opencollective.com/planby).
 
 ## Getting Started
@@ -223,6 +231,7 @@ Available options in useEpg
 | `endtDate`         | `string`  | optional | Date format `2022-02-02T00:00:00`. You can set your own end time eg. `2022-02-02T15:00:00`, `2022-02-02T:20:00` etc. Full clock hours only. Endless scroll through multiple days available only for `Sponsors` | `Sponsors` |
 | `liveRefreshTime`  | `number`  | optional | Live refresh time of the events. Default value is 120 sec.                                                                                                                                                     | `Sponsors` |
 | `isBaseTimeFormat` | `boolean` | optional | Convert to 12 hours format eg. `2:00am, 4:00pm` etc. Default value is false.                                                                                                                                   |
+| `isCurrentTime`    | `boolean` | optional | Show current time in Timeline. Default value is false.                                                                                                                                                         | `Sponsors` |
 | `isSidebar`        | `boolean` | optional | Show/hide sidebar                                                                                                                                                                                              |
 | `isTimeline`       | `boolean` | optional | Show/hide timeline                                                                                                                                                                                             |
 | `isLine`           | `boolean` | optional | Show/hide line                                                                                                                                                                                                 |
@@ -301,12 +310,13 @@ Available props in Epg
 
 Available props in Layout.
 
-| Property         | Type                                                     | Description                                                                                                     | Status   | Access     |
-| ---------------- | -------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ---------- |
-| `renderProgram`  | `function({ program: { data: object, position: object})` | `data` object contains all properties related to the program, `position` object includes all position styles    | optional |
-| `renderChannel`  | `function({ channel: { ..., position: object})`          | `channel` object contains all properties related to the channel, `position` object includes all position styles | optional |
-| `renderTimeline` | `function({sidebarWidth: number})`                       | `sidebarWidth` value of the channel's sidebar width                                                             | optional |
-| `renderLine`     | `function({styles: object})`                             | basic `styles` and `position` values for the custom live tracking Line                                          | optional | `Sponsors` |
+| Property            | Type                                                                                  | Description                                                                                                     | Status   | Access     |
+| ------------------- | ------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | -------- | ---------- |
+| `renderProgram`     | `function({ program: { data: object, position: object})`                              | `data` object contains all properties related to the program, `position` object includes all position styles    | optional |
+| `renderChannel`     | `function({ channel: { ..., position: object})`                                       | `channel` object contains all properties related to the channel, `position` object includes all position styles | optional |
+| `renderTimeline`    | `function({sidebarWidth: number})`                                                    | `sidebarWidth` value of the channel's sidebar width                                                             | optional |
+| `renderLine`        | `function({styles: object})`                                                          | basic `styles` and `position` values for the custom live tracking Line                                          | optional | `Sponsors` |
+| `renderCurrentTime` | `function({styles: object, isRTL: boolean, isBaseTimeFormat: boolean, time: string})` | basic `styles` values for the custom current time                                                               | optional | `Sponsors` |
 
 # Render functions
 

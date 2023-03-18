@@ -238,7 +238,7 @@ Available options in useEpg
 | `isLine`           | `boolean` | optional | Show/hide line                                                                                                                                                                                                 |
 | `isRTL`            | `boolean` | optional | Change direction to RTL or LTR. Default value is false                                                                                                                                                         |
 | `theme`            | `object`  | optional | Object with theme schema                                                                                                                                                                                       |
-| `globalStyles`     | `string`  | optional | Inject custom global styles and font. Font weight: 400,500,600. Default font is "Inter"                                                                                                                        |
+| `globalStyles`     | `string`  | optional | Inject custom global styles and font. Font weight: 400,500,600. Default font is "Inter"                                                                                                                        | `Sponsors` |
 
 #### Note about width and height props
 
@@ -252,14 +252,43 @@ Inject own custom font and other global styles.
 const globalStyles = `
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
-  .planby {
-    font-family: "Inter", system-ui, -apple-system,
-     "Segoe UI", Roboto, Helvetica, Arial, sans-serif, 
-     "Apple Color Emoji", "Segoe UI Emoji";
-  }
+/* Available in sponsors plan */
+ .planby {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 
-  // Other styles
-  ...
+  /* Layout */
+  .planby-layout {}
+
+  /* Line */
+  .planby-line {}
+
+  /* Current time */
+  .planby-current-time {}
+  .planby-current-content {}
+
+  /* Channels */
+  .planby-channels {}
+
+  /* Channel */
+  .planby-channel {}
+
+  /* Program */
+  .planby-program {}
+  .planby-program-content {}
+  .planby-program-flex {}
+  .planby-program-stack {}
+  .planby-program-title {}
+  .planby-program-text {}
+
+  /* Timeline */
+  .planby-timeline-wrapper {}
+  .planby-timeline-box {}
+  .planby-timeline-time {}
+  .planby-timeline-dividers {}
+  .planby-timeline-wrapper {}
+}
+  
 `;
 ```
 

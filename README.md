@@ -28,12 +28,12 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 </div>
 <div align="center" style="margin-bottom: 10px">
   <a href="https://planby.netlify.app/">
-    <img src="https://i.postimg.cc/50qZ05ST/planby-music-festival-event.png" alt="Planby preview" />
+    <img src="https://i.postimg.cc/s2Pn9jGZ/planby-conf-event.png" alt="Planby preview" />
   </a>
 </div>
 <div align="center" style="margin-bottom: 10px">
   <a href="https://planby.netlify.app/">
-    <img src="https://i.postimg.cc/s2Pn9jGZ/planby-conf-event.png" alt="Planby preview" />
+    <img src="https://i.postimg.cc/50qZ05ST/planby-music-festival-event.png" alt="Planby preview" />
   </a>
 </div>
 
@@ -47,6 +47,11 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 
 ## Testimonials
 
+<div align="center" >
+  <a href="https://planby.netlify.app/#testimonials">
+    <img src="https://raw.githubusercontent.com/karolkozer/planby-demo-resources/master/they-use-planby.png" alt="Planby preview" />
+  </a>
+</div>
 <div align="center" style="margin-bottom: 10px">
   <a href="https://planby.netlify.app/#testimonials">
     <img src="https://raw.githubusercontent.com/karolkozer/planby-demo-resources/master/testimonials.png" alt="Planby preview" />
@@ -55,15 +60,13 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 
 ## 🚀 [Become a Sponsor!](https://opencollective.com/planby) 🚀
 
-Become a Sponsor and get exclusive access to Planby features and updates -> [PRO Plan GitHub Sponsors](https://github.com/sponsors/karolkozer)
+Become a Sponsor and get exclusive access to Planby features and updates -> [GitHub Sponsors](https://github.com/sponsors/karolkozer)
 
 - Exclusive repository access 🚀
 - Exclusive content
 - New features
 - Updates
 - Support
-
-Support our activity and help us continue our development -> [Open Collective](https://opencollective.com/planby).
 
 ## Getting Started
 
@@ -204,27 +207,27 @@ return (
 
 Available options in useEpg
 
-| Property           | Type      | Status   | Description                                                                                                                                                                                                 | Access     |
-| ------------------ | --------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
-| `channels`         | `array`   | required | Array with channels data                                                                                                                                                                                    |
-| `epg`              | `array`   | required | Array with epg data                                                                                                                                                                                         |
-| `width`            | `number`  | optional | Epg width                                                                                                                                                                                                   |
-| `height`           | `number`  | optional | Epg height                                                                                                                                                                                                  |
-| `sidebarWidth`     | `number`  | optional | Width of the sidebar with channels                                                                                                                                                                          |
-| `itemHeight`       | `number`  | optional | Height of channels and programs in the EPG. Default value is 80                                                                                                                                             |
-| `dayWidth`         | `number`  | optional | Width of the day. Default value is 7200. Calculation to set up day width with own hour width value eg. 24h \* 300px(your custom hour width) = 7200px -> dayWidth                                            |
-| `startDate`        | `string`  | optional | Date format `2022/02/02` or `2022-02-02T00:00:00`. You can set your own start time eg. `2022-02-02T10:00:00`, `2022-02-02T14:00:00` etc. Full clock hours only.                                             |
-| `endDate`          | `string`  | optional | Date format `2022-02-02T00:00:00`. , `2022-02-02T:20:00` etc. Must be within the same 24-hour period as startDate. Full clock hours only. Scroll through `multiple days` is available only in Sponsors plan | `Sponsors` |
-| `liveRefreshTime`  | `number`  | optional | Live refresh time of the events. Default value is 120 sec.                                                                                                                                                  | `Sponsors` |
-| `isBaseTimeFormat` | `boolean` | optional | Convert to 12 hours format eg. `2:00am, 4:00pm` etc. Default value is false.                                                                                                                                |
-| `isCurrentTime`    | `boolean` | optional | Show current time in Timeline. Default value is false.                                                                                                                                                      | `Sponsors` |
-| `isVerticalMode`   | `boolean` | optional | Show Timeline in vertical view. Default value is false.                                                                                                                                                     | `Sponsors` |
-| `isSidebar`        | `boolean` | optional | Show/hide sidebar                                                                                                                                                                                           |
-| `isTimeline`       | `boolean` | optional | Show/hide timeline                                                                                                                                                                                          |
-| `isLine`           | `boolean` | optional | Show/hide line                                                                                                                                                                                              |
-| `isRTL`            | `boolean` | optional | Change direction to RTL or LTR. Default value is false                                                                                                                                                      |
-| `theme`            | `object`  | optional | Object with theme schema                                                                                                                                                                                    |
-| `globalStyles`     | `string`  | optional | Inject custom global styles and font. Font weight: 400,500,600. Default font is "Inter"                                                                                                                     | `Sponsors` |
+| Property           | Type      | Status   | Description                                                                                                                                                                                                   | Access     |
+| ------------------ | --------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| `channels`         | `array`   | required | Array with channels data                                                                                                                                                                                      |
+| `epg`              | `array`   | required | Array with epg data                                                                                                                                                                                           |
+| `width`            | `number`  | optional | Epg width                                                                                                                                                                                                     |
+| `height`           | `number`  | optional | Epg height                                                                                                                                                                                                    |
+| `sidebarWidth`     | `number`  | optional | Width of the sidebar with channels                                                                                                                                                                            |
+| `itemHeight`       | `number`  | optional | Height of channels and programs in the EPG. Default value is 80                                                                                                                                               |
+| `dayWidth`         | `number`  | optional | Width of the day. Default value is 7200. Calculation to set up day width with own hour width value eg. 24h \* 300px(your custom hour width) = 7200px -> dayWidth                                              |
+| `startDate`        | `string`  | optional | Date format `2022/02/02` or `2022-02-02T00:00:00`. You can set your own start time eg. `2022-02-02T10:00:00`, `2022-02-02T14:00:00` etc. Full clock hours only.                                               |
+| `endDate`          | `string`  | optional | Date format `2022-02-02T00:00:00`. , `2022-02-02T:20:00` etc. Must be within the same 24-hour period as startDate. Full clock hours only. Scroll through `multiple days` is available only in `Sponsors` plan |
+| `liveRefreshTime`  | `number`  | optional | Live refresh time of the events. Default value is 120 sec.                                                                                                                                                    | `Sponsors` |
+| `isBaseTimeFormat` | `boolean` | optional | Convert to 12 hours format eg. `2:00am, 4:00pm` etc. Default value is false.                                                                                                                                  |
+| `isCurrentTime`    | `boolean` | optional | Show current time in Timeline. Default value is false.                                                                                                                                                        | `Sponsors` |
+| `isVerticalMode`   | `boolean` | optional | Show Timeline in vertical view. Default value is false.                                                                                                                                                       | `Sponsors` |
+| `isSidebar`        | `boolean` | optional | Show/hide sidebar                                                                                                                                                                                             |
+| `isTimeline`       | `boolean` | optional | Show/hide timeline                                                                                                                                                                                            |
+| `isLine`           | `boolean` | optional | Show/hide line                                                                                                                                                                                                |
+| `isRTL`            | `boolean` | optional | Change direction to RTL or LTR. Default value is false                                                                                                                                                        |
+| `theme`            | `object`  | optional | Object with theme schema                                                                                                                                                                                      |
+| `globalStyles`     | `string`  | optional | Inject custom global styles and font. Font weight: 400,500,600. Default font is "Inter"                                                                                                                       | `Sponsors` |
 
 #### Note about width and height props
 

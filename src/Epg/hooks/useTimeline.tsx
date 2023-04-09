@@ -18,7 +18,7 @@ export function useTimeline(
     const baseDate = format(date, TIME_FORMAT.DATE);
     const time = index < 10 ? `0${index}` : index;
 
-    if (isBaseTimeFormat) {
+    if (isBaseTimeFormat && index <= 24) {
       const date = new Date(`${baseDate}T${time}:00:00`);
       const timeFormat = format(date, TIME_FORMAT.BASE_HOURS_TIME);
       return timeFormat.toLowerCase().replace(/\s/g, "");

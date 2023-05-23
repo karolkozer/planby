@@ -33,7 +33,7 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
 </div>
 <div align="center" style="margin-bottom: 10px">
   <a href="https://planby.netlify.app/">
-    <img src="https://i.postimg.cc/wM5wxVPG/Screenshot-2023-04-02-at-14-04-47.png" alt="Planby preview" />
+    <img src="https://raw.githubusercontent.com/karolkozer/planby-demo-resources/master/planby-planner-week.png" alt="Planby preview" />
   </a>
 </div>
 <div align="center" style="margin-bottom: 10px">
@@ -233,6 +233,7 @@ Available options in useEpg
 | `isLine`           | `boolean`                         | optional | Show/hide line                                                                                                                                                                                                |
 | `isRTL`            | `boolean`                         | optional | Change direction to RTL or LTR. Default value is false                                                                                                                                                        |
 | `theme`            | `object`                          | optional | Object with theme schema                                                                                                                                                                                      |
+| `areas`            | `array`                           | optional | Area gives possibilities to add field ranges to the Timeline layout.                                                                                                                                          | `Sponsors` |
 | `mode`             | `{ type: string, style: string }` | optional | Type values: `day/week/month`. Style values: `default/modern` Define the mode and style of the timeline. Default mode is `day` and style is `default`                                                         | `Sponsors` |
 | `globalStyles`     | `string`                          | optional | Inject custom global styles and font. Font weight: 400,500,600. Default font is "Inter"                                                                                                                       | `Sponsors` |
 

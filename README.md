@@ -316,14 +316,15 @@ Properties returned from useEpg
 
 ### Epg schema
 
-| Property      | Type     | Status   |
-| ------------- | -------- | -------- |
-| `channelUuid` | `string` | required |
-| `id`          | `string` | required |
-| `image`       | `string` | required |
-| `since`       | `string` | required |
-| `till`        | `string` | required |
-| `title`       | `string` | required |
+| Property          | Type      | Status   | Description                                                          | Access   |
+| ----------------- | --------- | -------- | -------------------------------------------------------------------- | -------- |
+| `channelUuid`     | `string`  | required |
+| `id`              | `string`  | required |
+| `image`           | `string`  | required |
+| `since`           | `string`  | required |
+| `till`            | `string`  | required |
+| `title`           | `string`  | required |
+| `fixedVisibility` | `boolean` | optional | The element is always visible in the layout during the scroll events | Sponsors |
 
 ### Epg
 

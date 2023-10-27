@@ -75,6 +75,9 @@ export function useEpg({
   height,
   timezone,
 }: useEpgProps) {
+
+  console.log('Timezone passed to useEpg (should be riyadh): ', timezone)
+
   // Get converted start and end dates
   const { startDate, endDate } = getTimeRangeDates(
     startDateInput,

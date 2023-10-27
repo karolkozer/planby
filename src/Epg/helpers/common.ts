@@ -1,6 +1,7 @@
 import { useLayoutEffect, useEffect } from "react";
-import { differenceInHours, startOfDay } from "date-fns";
+import { differenceInHours } from "date-fns";
 import { HOURS_IN_DAY } from "./variables";
+import { utcToZonedTime  } from "date-fns-tz";
 
 type DateTime = string | number | Date;
 
@@ -33,21 +34,29 @@ export const useIsomorphicLayoutEffect = () =>
 
 export const getHourWidth = (dayWidth: number) => dayWidth / HOURS_IN_DAY;
 
-export const getDate = (date: DateTime) => new Date(date);
+export const getDate = (date: DateTime, timezone?: string) => timezone ? utcToZonedTime(new Date(date), timezone) : new Date(date);
+
+const differenceInHoursWithTimezone = (dateLeft: DateTime, dateRight: DateTime, timezone: string) => {
+  return trunc(utcToZonedTime(dateLeft, timezone).getTime() - utcToZonedTime(dateRight, timezone).getTime());
+}
+
+const trunc = (value: number) => (value < 0 ? Math.ceil(value) : Math.floor(value)); // Math.trunc is not supported by IE
 
 const abs = (num: number) => Math.abs(num);
 interface DayWidth {
   dayWidth: number;
   startDate: DateTime;
   endDate: DateTime;
+  timezone?: string;
 }
 export const getDayWidthResources = ({
   dayWidth,
   startDate,
   endDate,
+  timezone
 }: DayWidth) => {
-  const startDateTime = getDate(startDate);
-  const endDateTime = getDate(endDate);
+  const startDateTime = getDate(startDate, timezone);
+  const endDateTime = getDate(endDate, timezone);
 
   if (endDateTime < startDateTime) {
     console.error(
@@ -55,12 +64,16 @@ export const getDayWidthResources = ({
     );
   }
 
+  const startOfDay = timezone ? utcToZonedTime(new Date(startDateTime), timezone) : new Date(startDateTime);
+  startOfDay.setHours(0, 0, 0, 0);
+
   const offsetStartHoursRange = differenceInHours(
     startDateTime,
-    startOfDay(startDateTime)
+    startOfDay
   );
 
-  const numberOfHoursInDay = differenceInHours(endDateTime, startDateTime);
+
+  const numberOfHoursInDay = timezone ? differenceInHoursWithTimezone(endDateTime, startDateTime, timezone) : differenceInHours(endDateTime, startDateTime);
   const hourWidth = Math.floor(dayWidth / numberOfHoursInDay);
   const newDayWidth = hourWidth * numberOfHoursInDay;
 
@@ -71,3 +84,4 @@ export const getDayWidthResources = ({
     offsetStartHoursRange: abs(offsetStartHoursRange),
   };
 };
+

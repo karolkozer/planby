@@ -50,6 +50,7 @@ interface useEpgProps {
   sidebarWidth?: number;
   itemHeight?: number;
   itemOverscan?: number;
+  timezone?: string;
 }
 
 const defaultStartDateTime = formatTime(startOfToday());
@@ -72,17 +73,19 @@ export function useEpg({
   itemOverscan = ITEM_OVERSCAN,
   width,
   height,
+  timezone,
 }: useEpgProps) {
   // Get converted start and end dates
   const { startDate, endDate } = getTimeRangeDates(
     startDateInput,
-    endDateInput
+    endDateInput,
+    timezone
   );
 
   // Get day and hour width of the day
   const { hourWidth, dayWidth, ...dayWidthResourcesProps } = React.useMemo(
     () =>
-      getDayWidthResources({ dayWidth: customDayWidth, startDate, endDate }),
+      getDayWidthResources({ dayWidth: customDayWidth, startDate, endDate, timezone }),
     [customDayWidth, startDate, endDate]
   );
 

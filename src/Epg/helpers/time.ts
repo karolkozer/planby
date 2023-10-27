@@ -1,5 +1,5 @@
-import { format, roundToNearestMinutes, startOfDay, addDays } from "date-fns";
-
+import { roundToNearestMinutes, startOfDay, addDays } from "date-fns";
+import { utcToZonedTime, format  } from "date-fns-tz";
 // Import types
 import { DateTime as DateRangeTime } from "./types";
 
@@ -8,41 +8,42 @@ import { TIME_FORMAT } from "./variables";
 
 type DateTime = number | string | Date;
 
-const getTime = (date: DateTime) => new Date(date).getTime();
+const getTime = (date: DateTime, timezone?: string) => timezone ? utcToZonedTime(new Date(date), timezone).getTime() : new Date(date).getTime();
 
-export const getLiveStatus = (since: DateTime, till: DateTime) => {
-  const nowTime = getTime(new Date());
-  const sinceTime = getTime(since);
-  const sinceTill = getTime(till);
+export const getLiveStatus = (since: DateTime, till: DateTime, timezone?: string) => {
+  const nowTime = getTime(timezone ? utcToZonedTime(new Date(), timezone) : new Date());
+  const sinceTime = getTime(since, timezone);
+  const sinceTill = getTime(till, timezone);
   return nowTime >= sinceTime && sinceTill > nowTime;
 };
 
-export const formatTime = (date: DateTime) =>
-  format(new Date(date), TIME_FORMAT.DEFAULT).replace(/\s/g, "T");
+export const formatTime = (date: DateTime, timezone?: string) =>
+  format(new Date(date), TIME_FORMAT.DEFAULT, {timeZone: timezone}).replace(/\s/g, "T");
 
-export const roundToMinutes = (date: DateTime) =>
-  roundToNearestMinutes(new Date(date));
+export const roundToMinutes = (date: DateTime, timezone?: string) => 
+   timezone ? roundToNearestMinutes(utcToZonedTime(new Date(date), timezone)) : roundToNearestMinutes(new Date(date));
 
-export const isYesterday = (since: DateTime, startDate: DateTime) => {
-  const sinceTime = getTime(new Date(since));
-  const startDateTime = getTime(new Date(startDate));
+export const isYesterday = (since: DateTime, startDate: DateTime, timezone?: string) => {
+  const sinceTime = timezone ? utcToZonedTime(new Date(since), timezone).getTime() : new Date(since).getTime();
+  const startDateTime = timezone ? utcToZonedTime(new Date(startDate), timezone).getTime() : new Date(startDate).getTime();
 
   return startDateTime > sinceTime;
 };
 
-export const isFutureTime = (date: DateTime) => {
-  const dateTime = getTime(new Date(date));
-  const now = getTime(new Date());
+export const isFutureTime = (date: DateTime, timezone?: string) => {
+  const dateTime = timezone ? utcToZonedTime(new Date(date), timezone).getTime() : new Date(date).getTime();
+  const now = timezone ? utcToZonedTime(new Date(), timezone).getTime() : new Date().getTime();
   return dateTime > now;
 };
 
 export const getTimeRangeDates = (
   startDate: DateRangeTime,
-  endDate: DateRangeTime
+  endDate: DateRangeTime,
+  timezone?: string
 ) => {
   let endDateValue = endDate;
   if (endDate === "") {
-    endDateValue = formatTime(startOfDay(addDays(new Date(startDate), 1)));
+    endDateValue = formatTime(startOfDay(addDays(new Date(startDate), 1)), timezone);
   }
 
   return { startDate, endDate: endDateValue };

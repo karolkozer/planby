@@ -61,6 +61,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "date-fns": "^2.28.0",
+    "date-fns-tz": "^2.0.0",
     "use-debounce": "^7.0.1"
   },
   "keywords": [

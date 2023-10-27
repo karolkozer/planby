@@ -12,6 +12,7 @@ import {
   getPositionX,
   useIsomorphicLayoutEffect,
 } from "../helpers";
+import { utcToZonedTime } from "date-fns-tz";
 
 interface useLayoutProps {
   height?: number;
@@ -20,6 +21,7 @@ interface useLayoutProps {
   sidebarWidth: number;
   startDate: DateTime;
   endDate: DateTime;
+  timezone?: string;
 }
 
 export function useLayout({
@@ -29,6 +31,7 @@ export function useLayout({
   endDate,
   hourWidth,
   sidebarWidth,
+  timezone,
 }: useLayoutProps) {
   const useIsomorphicEffect = useIsomorphicLayoutEffect();
 
@@ -41,7 +44,7 @@ export function useLayout({
   const [layoutHeight, setLayoutHeight] = React.useState<number>(
     height as number
   );
-  const isToday = isTodayFns(new Date(startDate));
+  const isToday = timezone ? isTodayFns(utcToZonedTime(new Date(startDate), timezone)) : isTodayFns(new Date(startDate));
 
   // -------- Handlers --------
   const handleScrollDebounced = useDebouncedCallback(
@@ -65,7 +68,7 @@ export function useLayout({
       const clientWidth = (width ??
         containerRef.current?.clientWidth) as number;
 
-      const newDate = new Date();
+      const newDate = timezone ? utcToZonedTime(new Date(), timezone) : new Date();
       const scrollPosition = getPositionX(
         startOfToday(),
         newDate,

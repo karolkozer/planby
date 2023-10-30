@@ -1,12 +1,12 @@
 import * as React from "react";
 // Import interfaces
-import { ChannelWithPosition } from "../helpers/types";
+import { ChannelWithPosition } from "../../helpers/types";
 
 // Import styles
-import { ChannelsStyled } from "../styles";
+import { ChannelsStyled } from "../../styles";
+import { Channel } from "./Channel";
 
 // Import Components
-import { Channel } from "../components";
 
 interface ChannelsProps {
   isTimeline: boolean;

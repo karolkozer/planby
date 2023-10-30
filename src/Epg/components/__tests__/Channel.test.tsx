@@ -1,5 +1,5 @@
 import { render, screen } from "../../test/test-utils";
-import { Channel } from "../Channel";
+import { Channel } from "../Channels/Channel";
 import { buildChannelWithPosition } from "../../test";
 
 test("should render and show Channel component properly", () => {

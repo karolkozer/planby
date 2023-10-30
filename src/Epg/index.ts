@@ -19,7 +19,7 @@ export type ProgramItem = {
 };
 
 // Components
-export { Layout } from "./components";
+export { Layout } from "./components/LayoutComponent";
 export { Epg } from "./Epg";
 export { useEpg, useProgram, useTimeline } from "./hooks";
 

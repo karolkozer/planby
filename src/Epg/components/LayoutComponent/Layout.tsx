@@ -8,16 +8,17 @@ import {
   DateTime,
   Position,
   BaseTimeFormat,
-} from "../helpers/types";
+} from "../../helpers/types";
 
 // Import helpers
-import { getProgramOptions, isFutureTime } from "../helpers";
+import { getProgramOptions, isFutureTime } from "../../helpers";
 
 // Import styles
-import { EpgStyled } from "../styles";
+import { EpgStyled } from "../../styles";
 
 // Import components
-import { Timeline, Channels, Program, Line } from "../components";
+import { Timeline, Program, Line } from "..";
+import { Channels } from "../Channels";
 
 interface RenderTimeline {
   isBaseTimeFormat: BaseTimeFormat;

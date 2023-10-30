@@ -1,6 +1,6 @@
 import React from "react";
 import { useDebouncedCallback } from "use-debounce";
-import { startOfToday, isToday as isTodayFns } from "date-fns";
+import { isToday as isTodayFns } from "date-fns";
 
 // Import types
 import { DateTime } from "../helpers/types";
@@ -46,6 +46,8 @@ export function useLayout({
   );
   const isToday = timezone ? isTodayFns(utcToZonedTime(new Date(startDate), timezone)) : isTodayFns(new Date(startDate));
 
+  console.log('useLayout: ', timezone)
+
   // -------- Handlers --------
   const handleScrollDebounced = useDebouncedCallback(
     (value) => {
@@ -68,9 +70,13 @@ export function useLayout({
       const clientWidth = (width ??
         containerRef.current?.clientWidth) as number;
 
+      console.log('handleOnScrollToNow: ')
       const newDate = timezone ? utcToZonedTime(new Date(), timezone) : new Date();
+      const startOfToday = timezone ? utcToZonedTime(new Date(), timezone) : new Date();
+      startOfToday.setHours(0, 0, 0, 0);
+
       const scrollPosition = getPositionX(
-        startOfToday(),
+        startOfToday,
         newDate,
         startDate,
         endDate,

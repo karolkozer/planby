@@ -85,12 +85,19 @@ export function useEpg({
     timezone
   );
 
+  console.log('Get converted start and end dates')
+  console.log({ startDate, endDate })
+
+
   // Get day and hour width of the day
   const { hourWidth, dayWidth, ...dayWidthResourcesProps } = React.useMemo(
     () =>
       getDayWidthResources({ dayWidth: customDayWidth, startDate, endDate, timezone }),
     [customDayWidth, startDate, endDate]
   );
+
+  console.log('Get day and hour width of the day')
+  console.log({ hourWidth, dayWidth, dayWidthResourcesProps })
 
   // -------- Effects --------
   const { containerRef, scrollBoxRef, ...layoutProps } = useLayout({
@@ -100,6 +107,7 @@ export function useEpg({
     width,
     height,
     hourWidth,
+    timezone,
   });
 
   const { scrollX, scrollY, layoutWidth, layoutHeight } = layoutProps;

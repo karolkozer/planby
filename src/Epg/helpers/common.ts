@@ -37,10 +37,8 @@ export const getHourWidth = (dayWidth: number) => dayWidth / HOURS_IN_DAY;
 export const getDate = (date: DateTime, timezone?: string) => timezone ? utcToZonedTime(new Date(date), timezone) : new Date(date);
 
 const differenceInHoursWithTimezone = (dateLeft: DateTime, dateRight: DateTime, timezone: string) => {
-  return trunc(utcToZonedTime(dateLeft, timezone).getTime() - utcToZonedTime(dateRight, timezone).getTime());
+  return Math.trunc(utcToZonedTime(dateLeft, timezone).getTime() - utcToZonedTime(dateRight, timezone).getTime());
 }
-
-const trunc = (value: number) => (value < 0 ? Math.ceil(value) : Math.floor(value)); // Math.trunc is not supported by IE
 
 const abs = (num: number) => Math.abs(num);
 interface DayWidth {
@@ -67,11 +65,10 @@ export const getDayWidthResources = ({
   const startOfDay = timezone ? utcToZonedTime(new Date(startDateTime), timezone) : new Date(startDateTime);
   startOfDay.setHours(0, 0, 0, 0);
 
-  const offsetStartHoursRange = differenceInHours(
+  const offsetStartHoursRange = timezone ? differenceInHoursWithTimezone(startDateTime, startOfDay, timezone) : differenceInHours(
     startDateTime,
     startOfDay
   );
-
 
   const numberOfHoursInDay = timezone ? differenceInHoursWithTimezone(endDateTime, startDateTime, timezone) : differenceInHours(endDateTime, startDateTime);
   const hourWidth = Math.floor(dayWidth / numberOfHoursInDay);

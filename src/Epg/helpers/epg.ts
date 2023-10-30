@@ -1,4 +1,3 @@
-import { differenceInMinutes, getTime } from "date-fns";
 
 // Import interfaces
 import { Channel, Program } from "./interfaces";
@@ -15,7 +14,8 @@ import {
   roundToMinutes,
   isYesterday as isYesterdayTime,
 } from "./time";
-import { getDate } from "./common";
+import { getDate, differenceInMinutesWithTimezone } from "./common";
+import { differenceInMinutes } from "date-fns";
 
 // -------- Program width --------
 const getItemDiffWidth = (diff: number, hourWidth: number) =>
@@ -26,22 +26,35 @@ export const getPositionX = (
   till: DateTime,
   startDate: DateTime,
   endDate: DateTime,
-  hourWidth: number
+  hourWidth: number,
+  timezone?: string
 ) => {
-  const isTomorrow = getTime(getDate(till)) > getTime(getDate(endDate));
-  const isYesterday = getTime(getDate(since)) < getTime(getDate(startDate));
+  const isTomorrow = getDate(till, timezone).getTime() > getDate(endDate, timezone).getTime();
+  const isYesterday = getDate(since, timezone).getTime() < getDate(startDate, timezone).getTime();
+
+  console.log('getPositionX')
 
   // When time range is set to 1 hour and program time is greater than 1 hour
   if (isYesterday && isTomorrow) {
-    const diffTime = differenceInMinutes(
+    const diffTime =
+     timezone ? differenceInMinutesWithTimezone(
+      roundToMinutes(getDate(endDate, timezone), timezone),
+      getDate(startDate, timezone), 
+      timezone
+     ) : 
+     differenceInMinutes(
       roundToMinutes(getDate(endDate)),
-      getDate(startDate)
+      getDate(startDate), 
     );
     return getItemDiffWidth(diffTime, hourWidth);
   }
 
   if (isYesterday) {
-    const diffTime = differenceInMinutes(
+    const diffTime = timezone ? differenceInMinutesWithTimezone(
+      roundToMinutes(getDate(till, timezone), timezone),
+      getDate(startDate, timezone),
+      timezone,
+    ) : differenceInMinutes(
       roundToMinutes(getDate(till)),
       getDate(startDate)
     );
@@ -49,18 +62,26 @@ export const getPositionX = (
   }
 
   if (isTomorrow) {
-    const diffTime = differenceInMinutes(
+    const diffTime = timezone ? differenceInMinutesWithTimezone(
+      getDate(endDate, timezone),
+      roundToMinutes(getDate(since, timezone), timezone),
+      timezone
+    ): differenceInMinutes(
       getDate(endDate),
-      roundToMinutes(getDate(since))
+      roundToMinutes(getDate(since)),
     );
 
     if (diffTime < 0) return 0;
     return getItemDiffWidth(diffTime, hourWidth);
   }
 
-  const diffTime = differenceInMinutes(
+  const diffTime = timezone ? differenceInMinutesWithTimezone(
+    roundToMinutes(getDate(till, timezone), timezone),
+    roundToMinutes(getDate(since, timezone), timezone),
+    timezone,
+  ): differenceInMinutes(
     roundToMinutes(getDate(till)),
-    roundToMinutes(getDate(since))
+    roundToMinutes(getDate(since)),
   );
 
   return getItemDiffWidth(diffTime, hourWidth);

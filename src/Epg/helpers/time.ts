@@ -1,4 +1,4 @@
-import { roundToNearestMinutes, startOfDay, addDays } from "date-fns";
+import { startOfDay, addDays } from "date-fns";
 import { utcToZonedTime, format  } from "date-fns-tz";
 // Import types
 import { DateTime as DateRangeTime } from "./types";
@@ -21,7 +21,16 @@ export const formatTime = (date: DateTime, timezone?: string) =>
   format(new Date(date), TIME_FORMAT.DEFAULT, {timeZone: timezone}).replace(/\s/g, "T");
 
 export const roundToMinutes = (date: DateTime, timezone?: string) => 
-   timezone ? roundToNearestMinutes(utcToZonedTime(new Date(date), timezone)) : roundToNearestMinutes(new Date(date));
+   timezone ? roundToNearestMinutes(utcToZonedTime(new Date(date), timezone), timezone) : roundToNearestMinutes(new Date(date), timezone);
+
+export const roundToNearestMinutes = (date: Date, timeZone?: string) => {
+  const _date = timeZone ? utcToZonedTime(new Date(date), timeZone) : new Date(date);
+  const seconds = _date.getSeconds();
+  const minutes = _date.getMinutes() + seconds / 60;
+  const roundedMinutes = Math.trunc(minutes)
+  _date.setMinutes(roundedMinutes, 0, 0);
+  return _date;
+}
 
 export const isYesterday = (since: DateTime, startDate: DateTime, timezone?: string) => {
   const sinceTime = timezone ? utcToZonedTime(new Date(since), timezone).getTime() : new Date(since).getTime();

@@ -66,11 +66,11 @@ export function useLayout({
   );
 
   const handleOnScrollToNow = React.useCallback(() => {
+    console.log('handleOnScrollToNow')
     if (scrollBoxRef?.current && isToday) {
       const clientWidth = (width ??
         containerRef.current?.clientWidth) as number;
 
-      console.log('handleOnScrollToNow: ')
       const newDate = timezone ? utcToZonedTime(new Date(), timezone) : new Date();
       const startOfToday = timezone ? utcToZonedTime(new Date(), timezone) : new Date();
       startOfToday.setHours(0, 0, 0, 0);
@@ -80,7 +80,8 @@ export function useLayout({
         newDate,
         startDate,
         endDate,
-        hourWidth
+        hourWidth,
+        timezone
       );
       const scrollNow = scrollPosition - clientWidth / 2 + sidebarWidth;
       scrollBoxRef.current.scrollLeft = scrollNow;
@@ -89,6 +90,7 @@ export function useLayout({
 
   const handleOnScrollTop = React.useCallback(
     (value: number = hourWidth) => {
+      console.log('handleOnScrollTop')
       if (scrollBoxRef?.current) {
         const top = scrollBoxRef.current.scrollTop + value;
         scrollBoxRef.current.scrollTop = top;
@@ -99,6 +101,7 @@ export function useLayout({
 
   const handleOnScrollRight = React.useCallback(
     (value: number = hourWidth) => {
+      console.log('handleOnScrollRight')
       if (scrollBoxRef?.current) {
         const right = scrollBoxRef.current.scrollLeft + value;
         scrollBoxRef.current.scrollLeft = right;
@@ -109,6 +112,7 @@ export function useLayout({
 
   const handleOnScrollLeft = React.useCallback(
     (value: number = hourWidth) => {
+      console.log('handleOnScrollLeft')
       if (scrollBoxRef?.current) {
         const left = scrollBoxRef.current.scrollLeft - value;
         scrollBoxRef.current.scrollLeft = left;
@@ -119,6 +123,7 @@ export function useLayout({
 
   const handleResizeDebounced = useDebouncedCallback(
     () => {
+      console.log('handleResizeDebounced')
       if (containerRef?.current && !width) {
         const container = containerRef.current;
         const { clientWidth } = container;
@@ -131,6 +136,7 @@ export function useLayout({
 
   // -------- Efffects --------
   useIsomorphicEffect(() => {
+    console.log('useIsomorphicEffect 1')
     if (containerRef?.current) {
       const container = containerRef.current;
       if (!width) {
@@ -149,6 +155,7 @@ export function useLayout({
   }, [height, width, startDate, isToday, handleOnScrollToNow]);
 
   useIsomorphicEffect(() => {
+    console.log('useIsomorphicEffect 2')
     window.addEventListener("resize", handleResizeDebounced);
 
     return () => {

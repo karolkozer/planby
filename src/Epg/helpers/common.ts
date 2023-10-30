@@ -37,7 +37,11 @@ export const getHourWidth = (dayWidth: number) => dayWidth / HOURS_IN_DAY;
 export const getDate = (date: DateTime, timezone?: string) => timezone ? utcToZonedTime(new Date(date), timezone) : new Date(date);
 
 const differenceInHoursWithTimezone = (dateLeft: DateTime, dateRight: DateTime, timezone: string) => {
-  return Math.trunc(utcToZonedTime(dateLeft, timezone).getTime() - utcToZonedTime(dateRight, timezone).getTime());
+  return Math.trunc((utcToZonedTime(dateLeft, timezone).getTime() - utcToZonedTime(dateRight, timezone).getTime())/ 3600000);
+}
+
+export const differenceInMinutesWithTimezone = (dateLeft: DateTime, dateRight: DateTime, timezone: string) => {
+  return Math.trunc((utcToZonedTime(dateLeft, timezone).getTime() - utcToZonedTime(dateRight, timezone).getTime())/ 60000);
 }
 
 const abs = (num: number) => Math.abs(num);

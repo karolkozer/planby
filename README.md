@@ -861,7 +861,7 @@ import {
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Custom License - All Rights Reserved. [See `LICENSE` for more information](https://planby.app/docs/planby-pro-license.pdf).
 
 ## Contact
 

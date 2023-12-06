@@ -259,7 +259,7 @@ Inject own custom font and other global styles.
 const globalStyles = `
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
-/* Available in sponsors plan */
+/* Available in PRO plan */
  .planby {
   font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
@@ -861,7 +861,7 @@ import {
 
 ## License
 
-Custom License - All Rights Reserved. [See `LICENSE` for more information](https://planby.app/docs/planby-pro-license.pdf).
+Custom License - All Rights Reserved. [See `LICENSE` for more information](https://planby.app/docs/planby-license.pdf).
 
 ## Contact
 

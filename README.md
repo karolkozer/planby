@@ -17,7 +17,7 @@
  <a href="https://opencollective.com/planby#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
 </div>
 
-# Something big is coming — Planby with React Native support is launching soon! 🔥
+# 🔥 An exclusive new experience — React Native support is on its way to Planby! 🔥
 
 ## Description
 

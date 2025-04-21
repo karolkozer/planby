@@ -14,6 +14,7 @@ import { globalStyles, EpgStyled } from "./styles";
 import { Loader } from "./components";
 
 interface EpgProps {
+  ref: React.RefObject<HTMLDivElement>;
   width?: number;
   height?: number;
   isRTL?: boolean;
@@ -29,52 +30,48 @@ interface EpgProps {
 
 const { Container, Wrapper, Box } = EpgStyled;
 
-export const Epg = React.forwardRef<HTMLDivElement, EpgProps>(
-  (
-    {
-      children,
-      width,
-      height,
-      sidebarWidth,
-      theme,
-      globalStyles: customGlobalStyles,
-      isRTL = false,
-      isSidebar = true,
-      isTimeline = true,
-      isLoading = false,
-      loader: LoaderComponent,
-      ...rest
-    },
-    containerRef
-  ) => {
-    const renderLoader = () => LoaderComponent ?? <Loader />;
-    const epgGlobalStyles = customGlobalStyles ?? globalStyles;
-    return (
-      <ThemeProvider theme={theme}>
-        <Global styles={epgGlobalStyles} />
-        <Container
-          className="planby"
-          data-testid="container"
-          width={width}
-          height={height}
-          ref={containerRef}
-          {...rest}
-        >
-          <Wrapper>
-            {isSidebar && isTimeline && (
-              <Box
-                isRTL={isRTL}
-                width={sidebarWidth}
-                height={TIMELINE_HEIGHT}
-                left={0}
-                top={0}
-              />
-            )}
-            {isLoading && renderLoader()}
-            {children}
-          </Wrapper>
-        </Container>
-      </ThemeProvider>
-    );
-  }
-);
+export const Epg = ({
+  children,
+  width,
+  height,
+  sidebarWidth,
+  theme,
+  globalStyles: customGlobalStyles,
+  isRTL = false,
+  isSidebar = true,
+  isTimeline = true,
+  isLoading = false,
+  loader: LoaderComponent,
+  ref: containerRef,
+  ...rest
+}: EpgProps) => {
+  const renderLoader = () => LoaderComponent ?? <Loader />;
+  const epgGlobalStyles = customGlobalStyles ?? globalStyles;
+  return (
+    <ThemeProvider theme={theme}>
+      <Global styles={epgGlobalStyles} />
+      <Container
+        className="planby"
+        data-testid="container"
+        width={width}
+        height={height}
+        ref={containerRef}
+        {...rest}
+      >
+        <Wrapper>
+          {isSidebar && isTimeline && (
+            <Box
+              isRTL={isRTL}
+              width={sidebarWidth}
+              height={TIMELINE_HEIGHT}
+              left={0}
+              top={0}
+            />
+          )}
+          {isLoading && renderLoader()}
+          {children}
+        </Wrapper>
+      </Container>
+    </ThemeProvider>
+  );
+}

@@ -1,7 +1,7 @@
 {
   "name": "planby",
   "author": "Karol Kozer",
-  "version": "1.1.6",
+  "version": "2.0.0",
   "license": "Custom License",
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
     "test:watch": "jest --watchAll"
   },
   "peerDependencies": {
-    "react": ">=16"
+    "react": ">=19"
   },
   "husky": {
     "hooks": {

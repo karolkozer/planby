@@ -42,6 +42,7 @@ interface LayoutProps {
   offsetStartHoursRange: number;
   sidebarWidth: number;
   itemHeight: number;
+  ref: React.RefObject<HTMLDivElement>;
   onScroll: (
     e: React.UIEvent<HTMLDivElement, UIEvent> & { target: Element }
   ) => void;
@@ -63,8 +64,8 @@ interface LayoutProps {
 
 const { ScrollBox, Content } = EpgStyled;
 
-export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
-  (props, scrollBoxRef) => {
+export const Layout =
+  ({ ref: scrollBoxRef, ...props }: LayoutProps) => {
     const { channels, programs, startDate, endDate, scrollY } = props;
     const { dayWidth, hourWidth, sidebarWidth, itemHeight } = props;
     const { numberOfHoursInDay, offsetStartHoursRange } = props;
@@ -174,4 +175,3 @@ export const Layout = React.forwardRef<HTMLDivElement, LayoutProps>(
       </ScrollBox>
     );
   }
-);

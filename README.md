@@ -19,6 +19,8 @@
 
 # 🔥 An exclusive new experience — React Native support is on its way to Planby! 🔥
 
+## React Native: To request beta access, email us at contact@planby.app with your position and company name.
+
 ## Description
 
 Planby is a React based component for a quick implementation of Epg, schedules, live streaming, music events, timelines and many more ideas. It uses a custom virtual view which allows you to operate on a really big number of data. The component has a simple API that you can easily integrate with other third party UI libraries. The component theme is customised to the needs of the application design.

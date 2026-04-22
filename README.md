@@ -94,7 +94,7 @@ import { useEpg, Epg, Layout } from 'planby';
 const channels = React.useMemo(
   () => [
     {
-      logo: 'https://via.placeholder.com',
+      logo: 'https://placehold.co/80x80',
       uuid: '10339a4b-7c48-40ab-abad-f3bcaf95d9fa',
       ...
     },
@@ -109,7 +109,7 @@ const epg = React.useMemo(
       description:
         'Ut anim nisi consequat minim deserunt...',
       id: 'b67ccaa3-3dd2-4121-8256-33dbddc7f0e6',
-      image: 'https://via.placeholder.com',
+      image: 'https://placehold.co/300x150',
       since: "2022-02-02T23:50:00",
       till: "2022-02-02T00:55:00",
       title: 'Title',

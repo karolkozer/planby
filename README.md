@@ -126,7 +126,7 @@ Using ChatGPT or another tool without a rules file? Paste
 
 ### Example: ask for a schedule
 
-> **"Build me a conference schedule with two stages, 9:00–13:00."**
+> **"Build me a conference schedule with five stages from 9:00 to 17:00."**
 
 ```tsx
 import React from 'react';
@@ -173,7 +173,7 @@ export function Schedule() {
 
 ### Example: ask for your branding
 
-> **"Now restyle it to our light theme and show each session's duration."**
+> **"Now restyle it to match our light theme, add shadows, and show each session’s duration."**
 
 The assistant layers customization on top without rebuilding the data wiring — a
 full `theme`, a font through `globalStyles`, and a custom `renderProgram` built on

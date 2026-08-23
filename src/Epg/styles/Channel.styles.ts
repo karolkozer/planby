@@ -1,4 +1,4 @@
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { Theme } from "../helpers";
 
 export const ChannelBox = styled.div<{

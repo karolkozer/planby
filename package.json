@@ -1,7 +1,7 @@
 {
   "name": "planby",
   "author": "Karol Kozer",
-  "version": "2.0.0",
+  "version": "2.1.0-beta.0",
   "license": "Custom License",
   "repository": {
     "type": "git",
@@ -15,19 +15,32 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "skills",
+    "bin"
   ],
+  "bin": "bin/init-ai.js",
   "engines": {
     "node": ">=10"
   },
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
+    "test": "jest --passWithNoTests",
     "lint": "tsdx lint",
-    "prepare": "tsdx build && bundlewatch",
+    "prepack": "tsdx build && bundlewatch",
     "size": "bundlewatch",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "verify:skill-examples": "tsc -p skills/planby/examples/tsconfig.check.json",
+    "preversion": "yarn build && yarn verify:skill-examples",
+    "postversion": "node -e \"var v=require('./package.json').version;console.log('\\nTagged v'+v+' \\u2014 nothing published yet.\\n\\n  git push --follow-tags\\n  yarn npm publish'+(v.indexOf('-')>-1?' --tag beta':'')+'\\n')\"",
+    "release:beta": "npm version prerelease --preid=beta -m \"chore(release): %s\"",
+    "release:beta:minor": "npm version preminor --preid=beta -m \"chore(release): %s\"",
+    "release:patch": "npm version patch -m \"chore(release): %s\"",
+    "release:minor": "npm version minor -m \"chore(release): %s\""
+  },
+  "resolutions": {
+    "@babel/core": "^7.28.0"
   },
   "peerDependencies": {
     "react": ">=19"
@@ -75,17 +88,31 @@
     "events"
   ],
   "devDependencies": {
+    "@babel/core": "^7.28",
+    "@babel/preset-env": "^8.0.2",
+    "@babel/preset-react": "^8.0.1",
+    "@babel/preset-typescript": "^8.0.1",
+    "@emotion/babel-plugin": "^11.13.5",
     "@faker-js/faker": "^6.1.2",
     "@size-limit/preset-small-lib": "^7.0.8",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^5.17",
+    "@testing-library/react": "^16",
+    "@testing-library/user-event": "^14",
     "@types/jest": "^27.4.0",
-    "@types/react": "^17.0.38",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "babel-jest": "^30.4.1",
     "bundlewatch": "^0.3.3",
     "husky": "^7.0.4",
     "jest": "^27.5.1",
+    "react": "^19",
+    "react-dom": "^19",
     "size-limit": "^7.0.8",
     "ts-jest": "^27.1.3",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.1",
     "typescript": "^4.6.3"
-  }
+  },
+  "packageManager": "yarn@4.12.0+sha512.f45ab632439a67f8bc759bf32ead036a1f413287b9042726b7cc4818b7b49e14e9423ba49b18f9e06ea4941c1ad062385b1d8760a8d5091a1a31e5f6219afca8"
 }

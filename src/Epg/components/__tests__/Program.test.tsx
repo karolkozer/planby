@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen, userEvent } from "../../test/test-utils";
 import { Program } from "../Program";
 import { buildProgramWithPosition } from "../../test";
@@ -31,7 +32,9 @@ test("should highlight live program", () => {
   );
 });
 
-test("should handle onClick prop", () => {
+// user-event v14 made its APIs async and introduced setup().
+test("should handle onClick prop", async () => {
+  const user = userEvent.setup();
   const onClick = jest.fn();
   const program = buildProgramWithPosition();
 
@@ -39,7 +42,7 @@ test("should handle onClick prop", () => {
     <Program isBaseTimeFormat={false} program={program} onClick={onClick} />
   );
 
-  userEvent.click(screen.getByTestId(/program-content/i));
+  await user.click(screen.getByTestId(/program-content/i));
 
   expect(onClick).toHaveBeenCalled();
   expect(onClick).toHaveBeenCalledTimes(1);

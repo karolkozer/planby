@@ -17,8 +17,7 @@
  <a href="https://opencollective.com/planby#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
 </div>
 
-# 🔥 React Native: Planby Native Beta is now available for free testing 🔥 👉[Click here to sign up](https://planby.app/planby-native-beta) 👈
-
+# 🤖 New: build Planby with AI one command wires the official Planby skill into your coding assistant 🤖 👉[See how](#using-planby-with-ai-assistants) 👈
 
 ## Description
 
@@ -44,6 +43,19 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
     <img src="https://i.postimg.cc/50qZ05ST/planby-music-festival-event.png" alt="Planby preview" />
   </a>
 </div>
+<div align="center" style="margin-bottom: 10px">
+  <img
+    src="https://github.com/karolkozer/planby-demo-resources/blob/master/planby-ai-schedule-conference.png?raw=true"
+    alt="A Planby conference schedule: five stage rows from 9:00 to 17:00, light theme, session cards with speaker names and durations"
+  />
+</div>
+
+## 🔥 Planby Native — React Native beta
+
+Planby is coming to React Native, and the beta is open for free testing. It is a
+separate package from this one; the web component documented here is unaffected.
+
+👉 **[Sign up for the Planby Native beta](https://planby.app/planby-native-beta)**
 
 ## Codesandbox example
 
@@ -85,6 +97,207 @@ yarn add planby
 ```sh
 npm install planby
 ```
+
+## Using Planby with AI assistants
+
+AI assistants know React, but they don't know Planby. Left to guess, they invent
+`useEpg` options that don't exist, forget that `channels` and `epg` have to be
+memoized, and reach for features that are only in Planby PRO.
+
+Planby ships an **agent skill** — a compact description of the API, verified
+against the source — that your assistant reads before it writes any code.
+
+### Setup
+
+```sh
+npm install planby
+npx planby init-ai
+```
+
+One command wires the skill into every agent you use:
+
+| Agent                             | What it writes              |
+| --------------------------------- | --------------------------- |
+| Claude Code / Agent SDK           | `.claude/skills/planby`     |
+| Cursor                            | `.cursor/rules/planby.mdc`  |
+| Windsurf                          | `.windsurf/rules/planby.md` |
+| Codex, Gemini CLI, Antigravity, … | a section in `AGENTS.md`    |
+
+Each file is a thin pointer to the skill bundled inside `node_modules/planby`, so
+the guidance always matches the version you actually installed. Re-run it after
+upgrading — it is safe to run repeatedly.
+
+Using ChatGPT or another tool without a rules file? Paste
+`node_modules/planby/skills/planby/SKILL.md` into the conversation.
+
+### Example: ask for a schedule
+
+> **"Build me a conference schedule with five stages from 9:00 to 17:00."**
+
+```tsx
+import React from 'react';
+import { useEpg, Epg, Layout } from 'planby';
+
+const channels = [
+  { uuid: 'stage-a', logo: '/stage-a.png' },
+  { uuid: 'stage-b', logo: '/stage-b.png' },
+  { uuid: 'stage-c', logo: '/stage-c.png' },
+  { uuid: 'stage-d', logo: '/stage-d.png' },
+  { uuid: 'stage-e', logo: '/stage-e.png' },
+];
+
+const epg = [
+  {
+    id: 'p-1',
+    channelUuid: 'stage-a', // must match a channels[].uuid
+    title: 'Opening Keynote',
+    description: 'Welcome & vision', // required by the Program type
+    image: '/keynote.png',
+    since: '2022-02-02T09:00:00',
+    till: '2022-02-02T10:00:00',
+  },
+  {
+    id: 'p-2',
+    channelUuid: 'stage-b',
+    title: 'Workshop: Data',
+    description: 'Hands-on session',
+    image: '/workshop.png',
+    since: '2022-02-02T10:30:00',
+    till: '2022-02-02T12:00:00',
+  },
+  {
+    id: 'p-3',
+    channelUuid: 'stage-e',
+    title: 'Closing Panel',
+    description: 'Q&A with the speakers',
+    image: '/panel.png',
+    since: '2022-02-02T16:00:00',
+    till: '2022-02-02T17:00:00',
+  },
+];
+
+export function Schedule() {
+  const channelsData = React.useMemo(() => channels, []);
+  const epgData = React.useMemo(() => epg, []);
+
+  const { getEpgProps, getLayoutProps } = useEpg({
+    channels: channelsData,
+    epg: epgData,
+    startDate: '2022-02-02T09:00:00',
+    endDate: '2022-02-02T17:00:00',
+    dayWidth: 2400, // 8h range × 300px per hour
+  });
+
+  return (
+    <div style={{ height: '600px', width: '1200px' }}>
+      <Epg {...getEpgProps()}>
+        <Layout {...getLayoutProps()} />
+      </Epg>
+    </div>
+  );
+}
+```
+
+### Example: ask for your branding
+
+> **"Now restyle it to match our light theme, add shadows, and show each session’s duration."**
+
+The assistant layers customization on top without rebuilding the data wiring — a
+full `theme`, and `globalStyles` for the font and the shadow around the whole
+guide, plus a custom `renderProgram` built on the `useProgram` hook:
+
+```tsx
+// `.planby` is the container of the whole schedule — that is where a shadow
+// around the guide belongs. It is the one class hook the library exposes.
+const globalStyles = `
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+  .planby {
+    font-family: "Inter", system-ui, sans-serif;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgb(15 23 42 / 15%);
+    overflow: hidden;
+  }
+`;
+
+const formatDuration = (since, till) => {
+  const minutes = Math.round((new Date(till) - new Date(since)) / 60000);
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return h ? (m ? `${h}h ${m}m` : `${h}h`) : `${m}m`;
+};
+
+const Program = ({ program, ...rest }) => {
+  const { styles, formatTime, isLive } = useProgram({ program, ...rest });
+  const { title, since, till } = program.data;
+
+  return (
+    <ProgramBox width={styles.width} style={styles.position}>
+      <ProgramContent width={styles.width} isLive={isLive}>
+        <ProgramStack>
+          <ProgramTitle>{title}</ProgramTitle>
+          <ProgramText>
+            {formatTime(since)} - {formatTime(till)} ·{' '}
+            {formatDuration(since, till)}
+          </ProgramText>
+        </ProgramStack>
+      </ProgramContent>
+    </ProgramBox>
+  );
+};
+
+// globalStyles goes on useEpg, alongside your theme:
+useEpg({ channels, epg, startDate, endDate, theme, globalStyles });
+
+<Layout
+  {...getLayoutProps()}
+  renderProgram={({ program, ...rest }) => (
+    <Program key={program.data.id} program={program} {...rest} />
+  )}
+/>;
+```
+
+<div align="center" style="margin-bottom: 10px">
+  <img
+    src="https://github.com/karolkozer/planby-demo-resources/blob/master/planby-ai-schedule-conference.png?raw=true"
+    alt="A Planby conference schedule: five stage rows from 9:00 to 17:00, light theme, session cards with speaker names and durations"
+  />
+</div>
+
+Both prompts above, run end to end — five stages across a 9:00–17:00 range,
+re-skinned to a light theme with a shadow around the guide and a duration on
+every session card.
+
+### Other things worth asking for
+
+- _"Switch the guide to 12-hour time and right-to-left."_
+- _"Make the program cards match this Figma — rounded corners, our brand hover."_
+- _"Load the programs from our API and show the spinner while it fetches."_
+- _"Why is my guide zoomed in so far?"_ — a classic: `dayWidth` is spread across the
+  whole `startDate`…`endDate` range, not per day.
+- _"Nothing renders."_ — usually an un-memoized array, a `channelUuid` that matches
+  no channel, or a container with no explicit height.
+
+### What the skill covers
+
+| Topic                                         | Reference                        |
+| --------------------------------------------- | -------------------------------- |
+| Starter, sizing, async data                   | `references/quick-start.md`      |
+| Channel & Program schemas                     | `references/data-schemas.md`     |
+| Every `useEpg` option and return value        | `references/useEpg-api.md`       |
+| Theme — and what each color controls          | `references/theme.md`            |
+| Custom program / channel / timeline rendering | `references/render-functions.md` |
+| Branding, fonts, `styled()` overrides         | `references/customization.md`    |
+
+Two runnable, type-checked examples ship alongside them in
+`skills/planby/examples/`.
+
+### What it will not do
+
+The skill knows which features belong to [Planby PRO](https://planby.app) and will
+tell you instead of generating code that cannot work: vertical / single-track mode,
+drag-and-drop, resizing, week and month calendar views, timezone conversion, grid
+cells, highlighted areas, mobile controllers, and scroll-based lazy loading.
 
 ## Usage
 

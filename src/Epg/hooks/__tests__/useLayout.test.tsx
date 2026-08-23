@@ -1,4 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react";
 import { useLayout } from "../useLayout";
 
 const defaultState = (overrides: { [key: string]: any } = {}) => {
@@ -22,7 +22,9 @@ test("should return initial useLayout props", () => {
   const { result } = renderHook(() =>
     useLayout({
       sidebarWidth: 100,
+      hourWidth: 300,
       startDate: "2022-03-24T00:00:00",
+      endDate: "2022-03-24T23:59:00",
     })
   );
 
@@ -37,7 +39,9 @@ test("should set initial width and height useLayout props", () => {
       width,
       height,
       sidebarWidth: 100,
+      hourWidth: 300,
       startDate: "2022-03-24T00:00:00",
+      endDate: "2022-03-24T23:59:00",
     })
   );
 

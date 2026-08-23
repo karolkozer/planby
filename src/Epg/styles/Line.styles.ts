@@ -1,4 +1,4 @@
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { Layers, Theme } from "../helpers";
 
 export const Box = styled.div<{ height: number; left: number; theme?: Theme }>`

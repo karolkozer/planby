@@ -1,10 +1,16 @@
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { Layers, Theme } from "../helpers";
 
 // Import helpers
 import { ITEM_HEIGHT } from "../helpers";
 
-export const TimelineTime = styled.span<{
+// An explicit `target` gives this component a stable class name, which is what
+// makes the `${TimelineTime}` component selector in TimelineBox below resolve.
+// Without it that selector only works when @emotion/babel-plugin is in the
+// pipeline, which is not the case under ts-jest.
+export const TimelineTime = styled("span", {
+  target: "planby-timeline-time",
+})<{
   theme?: Theme;
   isBaseTimeFormat?: boolean;
   isRTL?: boolean;

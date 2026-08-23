@@ -1,3 +1,4 @@
+import React from "react";
 import { render, screen } from "../../test/test-utils";
 import { Channel } from "../Channel";
 import { buildChannelWithPosition } from "../../test";

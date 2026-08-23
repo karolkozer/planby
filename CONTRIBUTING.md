@@ -129,11 +129,12 @@ yarn install
 `yarn verify:skill-examples` needs `yarn build` to have run first — it checks the
 examples in `skills/planby/` against the real `dist/index.d.ts`.
 
-> **Known issue — the test suite does not currently run.** `react` and
-> `@testing-library/react-hooks` are not declared in `devDependencies`, so 8 of 9
-> suites fail on a fresh clone with `Cannot find module 'react'`. This is a
-> pre-existing gap in the dev setup, not something you broke. Until it is fixed,
-> rely on `yarn build`, `yarn lint` and `yarn verify:skill-examples`.
+Tests run on Jest + ts-jest in a `jsdom` environment, with React Testing Library.
+
+> **Known issue — `yarn lint` does not run.** `tsdx lint` extends the
+> `react-app` ESLint config, which is not installed, so it exits with
+> `Failed to load config "react-app" to extend from`. This is a pre-existing gap
+> in the dev setup, not something you broke.
 
 #### If you change the public API
 

@@ -1,3 +1,5 @@
+import React from "react";
+
 import { buildChannelWithPosition, buildEpgWithPosition } from "./db";
 
 type Overrides = { [key: string]: any };
@@ -27,6 +29,10 @@ export function getLayoutProps(
     isProgramVisible: () => true,
     isChannelVisible: () => true,
     onScroll: () => {},
+    // React 19 types made createRef/useRef return RefObject<T | null>,
+    // while Layout/Epg declare ref as RefObject<T>. Cast so the test props
+    // match the component contract.
+    ref: React.createRef<HTMLDivElement>() as React.RefObject<HTMLDivElement>,
     ...overrides,
   };
 }

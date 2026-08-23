@@ -43,6 +43,12 @@ Planby is a React based component for a quick implementation of Epg, schedules, 
     <img src="https://i.postimg.cc/50qZ05ST/planby-music-festival-event.png" alt="Planby preview" />
   </a>
 </div>
+<div align="center" style="margin-bottom: 10px">
+  <img
+    src="https://github.com/karolkozer/planby-demo-resources/blob/master/planby-ai-schedule-conference.png?raw=true"
+    alt="A Planby conference schedule: five stage rows from 9:00 to 17:00, light theme, session cards with speaker names and durations"
+  />
+</div>
 
 ## 🔥 Planby Native — React Native beta
 
@@ -135,6 +141,9 @@ import { useEpg, Epg, Layout } from 'planby';
 const channels = [
   { uuid: 'stage-a', logo: '/stage-a.png' },
   { uuid: 'stage-b', logo: '/stage-b.png' },
+  { uuid: 'stage-c', logo: '/stage-c.png' },
+  { uuid: 'stage-d', logo: '/stage-d.png' },
+  { uuid: 'stage-e', logo: '/stage-e.png' },
 ];
 
 const epg = [
@@ -147,6 +156,24 @@ const epg = [
     since: '2022-02-02T09:00:00',
     till: '2022-02-02T10:00:00',
   },
+  {
+    id: 'p-2',
+    channelUuid: 'stage-b',
+    title: 'Workshop: Data',
+    description: 'Hands-on session',
+    image: '/workshop.png',
+    since: '2022-02-02T10:30:00',
+    till: '2022-02-02T12:00:00',
+  },
+  {
+    id: 'p-3',
+    channelUuid: 'stage-e',
+    title: 'Closing Panel',
+    description: 'Q&A with the speakers',
+    image: '/panel.png',
+    since: '2022-02-02T16:00:00',
+    till: '2022-02-02T17:00:00',
+  },
 ];
 
 export function Schedule() {
@@ -157,8 +184,8 @@ export function Schedule() {
     channels: channelsData,
     epg: epgData,
     startDate: '2022-02-02T09:00:00',
-    endDate: '2022-02-02T13:00:00',
-    dayWidth: 1200, // 4h range × 300px per hour
+    endDate: '2022-02-02T17:00:00',
+    dayWidth: 2400, // 8h range × 300px per hour
   });
 
   return (
@@ -176,10 +203,30 @@ export function Schedule() {
 > **"Now restyle it to match our light theme, add shadows, and show each session’s duration."**
 
 The assistant layers customization on top without rebuilding the data wiring — a
-full `theme`, a font through `globalStyles`, and a custom `renderProgram` built on
-the `useProgram` hook:
+full `theme`, and `globalStyles` for the font and the shadow around the whole
+guide, plus a custom `renderProgram` built on the `useProgram` hook:
 
 ```tsx
+// `.planby` is the container of the whole schedule — that is where a shadow
+// around the guide belongs. It is the one class hook the library exposes.
+const globalStyles = `
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+  .planby {
+    font-family: "Inter", system-ui, sans-serif;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgb(15 23 42 / 15%);
+    overflow: hidden;
+  }
+`;
+
+const formatDuration = (since, till) => {
+  const minutes = Math.round((new Date(till) - new Date(since)) / 60000);
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return h ? (m ? `${h}h ${m}m` : `${h}h`) : `${m}m`;
+};
+
 const Program = ({ program, ...rest }) => {
   const { styles, formatTime, isLive } = useProgram({ program, ...rest });
   const { title, since, till } = program.data;
@@ -190,13 +237,17 @@ const Program = ({ program, ...rest }) => {
         <ProgramStack>
           <ProgramTitle>{title}</ProgramTitle>
           <ProgramText>
-            {formatTime(since)} - {formatTime(till)}
+            {formatTime(since)} - {formatTime(till)} ·{' '}
+            {formatDuration(since, till)}
           </ProgramText>
         </ProgramStack>
       </ProgramContent>
     </ProgramBox>
   );
 };
+
+// globalStyles goes on useEpg, alongside your theme:
+useEpg({ channels, epg, startDate, endDate, theme, globalStyles });
 
 <Layout
   {...getLayoutProps()}
@@ -205,6 +256,17 @@ const Program = ({ program, ...rest }) => {
   )}
 />;
 ```
+
+<div align="center" style="margin-bottom: 10px">
+  <img
+    src="https://github.com/karolkozer/planby-demo-resources/blob/master/planby-ai-schedule-conference.png?raw=true"
+    alt="A Planby conference schedule: five stage rows from 9:00 to 17:00, light theme, session cards with speaker names and durations"
+  />
+</div>
+
+Both prompts above, run end to end — five stages across a 9:00–17:00 range,
+re-skinned to a light theme with a shadow around the guide and a duration on
+every session card.
 
 ### Other things worth asking for
 

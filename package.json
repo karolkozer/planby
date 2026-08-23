@@ -31,7 +31,13 @@
     "prepack": "tsdx build && bundlewatch",
     "size": "bundlewatch",
     "test:watch": "jest --watchAll",
-    "verify:skill-examples": "tsc -p skills/planby/examples/tsconfig.check.json"
+    "verify:skill-examples": "tsc -p skills/planby/examples/tsconfig.check.json",
+    "preversion": "yarn build && yarn verify:skill-examples",
+    "postversion": "node -e \"var v=require('./package.json').version;console.log('\\nTagged v'+v+' \\u2014 nothing published yet.\\n\\n  git push --follow-tags\\n  yarn npm publish'+(v.indexOf('-')>-1?' --tag beta':'')+'\\n')\"",
+    "release:beta": "npm version prerelease --preid=beta -m \"chore(release): %s\"",
+    "release:beta:minor": "npm version preminor --preid=beta -m \"chore(release): %s\"",
+    "release:patch": "npm version patch -m \"chore(release): %s\"",
+    "release:minor": "npm version minor -m \"chore(release): %s\""
   },
   "peerDependencies": {
     "react": ">=19"

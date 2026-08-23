@@ -28,7 +28,7 @@
     "build": "tsdx build",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
-    "prepare": "tsdx build && bundlewatch",
+    "prepack": "tsdx build && bundlewatch",
     "size": "bundlewatch",
     "test:watch": "jest --watchAll",
     "verify:skill-examples": "tsc -p skills/planby/examples/tsconfig.check.json"

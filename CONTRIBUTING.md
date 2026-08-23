@@ -101,10 +101,48 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/karolk
 
 ### Your First Code Contribution
 
-<!-- TODO
-include Setup of env, IDE and typical getting started instructions?
+#### Development setup
 
--->
+This project pins its package manager with the `packageManager` field in
+`package.json`. [Corepack](https://nodejs.org/api/corepack.html) ships with Node
+and will fetch the exact Yarn version for you:
+
+```sh
+corepack enable      # once per machine
+yarn install
+```
+
+> **Do not run `npm install`.** The lockfile is in Yarn Berry format
+> (`__metadata: version: 8`), which npm cannot read — it would generate a
+> conflicting `package-lock.json` and a lockfile diff that cannot be merged.
+
+#### Everyday commands
+
+| Command | What it does |
+| ------- | ------------ |
+| `yarn start` | Rebuild on change (tsdx watch) |
+| `yarn build` | Build `dist/` |
+| `yarn lint` | Lint |
+| `yarn test` | Run the test suite — see the note below |
+| `yarn verify:skill-examples` | Type-check the AI skill's examples against the built types |
+
+`yarn verify:skill-examples` needs `yarn build` to have run first — it checks the
+examples in `skills/planby/` against the real `dist/index.d.ts`.
+
+> **Known issue — the test suite does not currently run.** `react` and
+> `@testing-library/react-hooks` are not declared in `devDependencies`, so 8 of 9
+> suites fail on a fresh clone with `Cannot find module 'react'`. This is a
+> pre-existing gap in the dev setup, not something you broke. Until it is fixed,
+> rely on `yarn build`, `yarn lint` and `yarn verify:skill-examples`.
+
+#### If you change the public API
+
+The [agent skill](skills/planby/SKILL.md) documents the public API for AI coding
+assistants, and its examples are type-checked against the build. If you add,
+rename, or remove anything exported from `src/Epg/index.ts`, or change a `useEpg`
+option, update `skills/planby/` in the same pull request and make sure
+`yarn verify:skill-examples` still passes.
+
 
 ### Improving The Documentation
 

@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "typeRoots": ["../../../node_modules/@types"],
+    "paths": {
+      "planby": ["../../../dist/index.d.ts"],
+      "@emotion/styled": ["../../../node_modules/@emotion/styled"],
+      "@emotion/react": ["../../../node_modules/@emotion/react"],
+      "react": ["../../../node_modules/@types/react"]
+    }
+  },
+  "include": ["*.tsx", "*.d.ts"]
+}

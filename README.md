@@ -86,6 +86,24 @@ yarn add planby
 npm install planby
 ```
 
+## Using Planby with AI assistants
+
+Planby ships an [agent skill](skills/planby/SKILL.md) that teaches AI coding
+assistants the Planby API — the `useEpg` options, the data schemas, the theme,
+and the render functions — so they generate working code instead of guessing.
+
+After installing, wire it into your project:
+
+```sh
+npx planby init-ai
+```
+
+That points Claude Code (`.claude/skills/planby`), Cursor
+(`.cursor/rules/planby.mdc`), Windsurf (`.windsurf/rules/planby.md`) and any
+`AGENTS.md`-based agent (Codex, Gemini CLI, …) at the skill bundled inside the
+installed package, so the docs always match your installed version. Re-run it
+after upgrading; it is safe to run repeatedly.
+
 ## Usage
 
 ```tsx
